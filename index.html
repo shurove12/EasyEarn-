@@ -66,7 +66,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .reg-icon.gradient{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff}
 .reg-icon.warn{background:linear-gradient(135deg,#fef3c7,#fcd34d)}
 .reg-icon.danger{background:linear-gradient(135deg,#fee2e2,#fca5a5)}
-.reg-icon.success{background:linear-gradient(135deg,#dcfce7,#86efac)}
 .reg-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px;color:#172033;line-height:1.3}
 .reg-sub{text-align:center;color:#64748b;font-size:13.5px;line-height:1.7;margin:0 0 24px}
 .reg-box{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(23,32,51,.06);margin-bottom:16px}
@@ -84,10 +83,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .alert-strip.danger{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
 .alert-strip.success{background:#dcfce7;border-color:#16a34a;color:#166534}
 .alert-strip.info{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
-.ref-preview{background:#dcfce7;border:1.5px solid #16a34a;border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.ref-preview .ico{font-size:22px}
-.ref-preview .txt{flex:1;min-width:0;font-size:12px;font-weight:700;color:#166534}
-.ref-preview .code{font-family:monospace;font-size:14px;color:#15803d;letter-spacing:1px;margin-top:2px}
 
 /* Level Cards */
 .level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);display:flex;align-items:center;gap:12px;position:relative;transition:all .2s}
@@ -173,18 +168,11 @@ firebase.initializeApp(firebaseConfig);
 try { firebase.analytics(); } catch(e) {}
 const DB = firebase.database();
 
-/* ═══════════════════════════════════════════════════════════
-   CONFIG
-   ═══════════════════════════════════════════════════════════ */
+/* CONFIG */
 const BOT_USERNAME = "easyearn120_bot";
 const BOT_LINK = "https://t.me/" + BOT_USERNAME;
 
-/* ═══════════════════════════════════════════════════════════
-   📊 LEVEL SYSTEM — Lock → Unlock → Lock pattern
-   প্রতিটি level আলাদা milestone:
-   - required: মোট কত referral লাগবে
-   - extraNeeded: এই level-এ পৌঁছাতে আগের থেকে কত বেশি লাগবে
-   ═══════════════════════════════════════════════════════════ */
+/* LEVELS */
 const LEVELS = [
   { lv: 1,  required: 5,   extraNeeded: 5,   bonus: 0.50,  name: "Beginner",     cut: 3 },
   { lv: 2,  required: 15,  extraNeeded: 10,  bonus: 1.00,  name: "Starter",      cut: 2 },
@@ -198,9 +186,7 @@ const LEVELS = [
   { lv: 10, required: 400, extraNeeded: 100, bonus: 50.00, name: "🏆 Legendary", cut: 1 },
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   AD CONFIG
-   ═══════════════════════════════════════════════════════════ */
+/* AD CONFIG */
 const AD_CONFIG = {
   home_top: { key: "ad_home_top_e", name: "Home Top", type: "iframe",
     script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>` },
@@ -228,24 +214,18 @@ const AD_CONFIG = {
     script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e" },
 };
 
-/* ═══════════════════════════════════════════════════════════
-   STATE
-   ═══════════════════════════════════════════════════════════ */
+/* STATE */
 let ME = null, MY_ID = null;
 let TASKS = [], SETTINGS = {}, COMPLETIONS = [], WITHDRAWALS = [];
 let ADMIN_ADS = {}, RENDERED_ADS = {};
 let CURRENT_SECTION = "home";
 let LISTENERS_ATTACHED = false;
-let PENDING_REFERRAL = null;   // from URL/start_param (auto-fill)
-let PENDING_SUBPARAM = null;
 
 const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
-/* ═══════════════════════════════════════════════════════════
-   UTILS
-   ═══════════════════════════════════════════════════════════ */
+/* UTILS */
 function todayKey(){
   const d = new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -259,34 +239,17 @@ function toast(msg, type=""){
 }
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function genUserCode(){
-  // random unique 8-char uppercase code
   return Math.random().toString(36).substring(2,10).toUpperCase();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LEVEL HELPERS — Cumulative (Lock/Unlock)
-   ═══════════════════════════════════════════════════════════ */
-function getCurrentLevel(n){
-  let lv = 0;
-  for (const L of LEVELS) {
-    if (n >= L.required) lv = L.lv;
-    else break;
-  }
-  return lv;
-}
-function getNextLevel(n){
-  for (const L of LEVELS) {
-    if (n < L.required) return L;
-  }
-  return null;
-}
+/* LEVEL HELPERS */
+function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
+function getNextLevel(n){ for(const L of LEVELS){ if(n<L.required) return L; } return null; }
 function getLevelData(lv){ return LEVELS.find(L=>L.lv===lv)||null; }
 function canWithdraw(n){ return n >= LEVELS[0].required; }
 function getWithdrawCut(n){ const lv=getCurrentLevel(n); return lv>=1 ? getLevelData(lv).cut : 3; }
 
-/* ═══════════════════════════════════════════════════════════
-   AD RENDERING
-   ═══════════════════════════════════════════════════════════ */
+/* AD RENDERING */
 async function renderAd(slotName, containerId){
   const c = document.getElementById(containerId);
   if (!c) return;
@@ -331,164 +294,24 @@ function loadAdsForSection(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PARSE REFERRAL FROM URL / START_PARAM
-   ═══════════════════════════════════════════════════════════ */
-function parseReferral(){
-  const hasTelegram = !!(tg && tg.initDataUnsafe && tg.initDataUnsafe.user);
-  const startParam = (hasTelegram && tg.initDataUnsafe.start_param) || "";
-
-  if (startParam && startParam.startsWith("ref_")) {
-    const parts = startParam.substring(4).split("_");
-    PENDING_REFERRAL = parts[0] || null;
-    if (parts.length > 1) PENDING_SUBPARAM = parts.slice(1).join("_");
-    return;
-  }
-
-  // URL fallbacks
-  const params = new URLSearchParams(window.location.search);
-  const ref = params.get("ref");
-  if (ref) {
-    const parts = ref.split("_");
-    PENDING_REFERRAL = parts[0] || null;
-    if (parts.length > 1) PENDING_SUBPARAM = parts.slice(1).join("_");
-    return;
-  }
-  const start = params.get("start") || "";
-  if (start.startsWith("ref_")) {
-    const parts = start.substring(4).split("_");
-    PENDING_REFERRAL = parts[0] || null;
-    if (parts.length > 1) PENDING_SUBPARAM = parts.slice(1).join("_");
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   AUTO-REGISTER FROM REFERRAL LINK
-   ═══════════════════════════════════════════════════════════ */
-async function tryAutoRegister(){
-  if (!PENDING_REFERRAL) return false;
-
-  const hasTelegram = !!(tg && tg.initDataUnsafe && tg.initDataUnsafe.user);
-  if (!hasTelegram) return false;
-
-  const tgUser = tg.initDataUnsafe.user;
-  MY_ID = "tg_" + tgUser.id;
-
-  // Already exists? → login
-  const snap = await DB.ref("users/" + MY_ID).get();
-  if (snap.exists()) {
-    if (snap.val().is_blocked) { renderBlocked(); return true; }
-    boot();
-    return true;
-  }
-
-  // Look up the referrer
-  const refSnap = await DB.ref("referral_codes/" + PENDING_REFERRAL).get();
-  if (!refSnap.exists()) return false;
-
-  const referrerId = refSnap.val();
-  if (!referrerId || referrerId === MY_ID) return false;
-
-  // Auto-register
-  const myCode = genUserCode();
-
-  await DB.ref("users/" + MY_ID).set({
-    id: MY_ID,
-    telegram_id: tgUser.id,
-    username: tgUser.username || null,
-    first_name: tgUser.first_name || "User",
-    last_name: tgUser.last_name || "",
-    language: tgUser.language_code || "bn",
-    balance_usd: 0,
-    total_earned_usd: 0,
-    total_withdrawn_usd: 0,
-    referral_code: myCode,
-    referred_by: referrerId,
-    referred_by_code: PENDING_REFERRAL,
-    sub_param: PENDING_SUBPARAM,
-    referral_count: 0,
-    level: 0,
-    streak: 0,
-    last_active_date: null,
-    is_blocked: false,
-    created_at: Date.now(),
-    source: "telegram_referral"
-  });
-
-  // Register my code
-  await DB.ref("referral_codes/" + myCode).set(MY_ID);
-
-  // Update referrer: count + level bonus + $0.10 base
-  await DB.ref("users/" + referrerId).transaction(cur => {
-    if (!cur) return cur;
-    cur.referral_count = Number(cur.referral_count || 0) + 1;
-    const newRef = cur.referral_count;
-    const prevLevel = getCurrentLevel(newRef - 1);
-    const newLevel = getCurrentLevel(newRef);
-    if (newLevel > prevLevel) {
-      const L = getLevelData(newLevel);
-      cur.level = newLevel;
-      cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
-      cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
-      DB.ref("ledger").push({
-        uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
-        ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
-      });
-    }
-    return cur;
-  });
-
-  const baseBonus = 0.10;
-  await DB.ref("users/" + referrerId).transaction(cur => {
-    if (!cur) return cur;
-    cur.balance_usd = Number(cur.balance_usd || 0) + baseBonus;
-    cur.total_earned_usd = Number(cur.total_earned_usd || 0) + baseBonus;
-    return cur;
-  });
-  DB.ref("ledger").push({
-    uid: referrerId, kind: "referral_bonus", amount_usd: baseBonus,
-    ref_id: "ref:" + MY_ID, meta: "New referral", created_at: Date.now()
-  });
-
-  toast("✅ Welcome to EasyEarn!", "success");
-  boot();
-  return true;
-}
-
-/* ═══════════════════════════════════════════════════════════
    START APP
    ═══════════════════════════════════════════════════════════ */
 async function startApp(){
-  parseReferral();
-
   const hasTelegram = !!(tg && tg.initDataUnsafe && tg.initDataUnsafe.user);
 
-  if (!hasTelegram) {
-    return renderNoTelegram();
-  }
+  if (!hasTelegram) return renderNoTelegram();
 
   const tgUser = tg.initDataUnsafe.user;
-  if (!tgUser || !tgUser.id) {
-    return renderNoTelegram();
-  }
+  if (!tgUser || !tgUser.id) return renderNoTelegram();
 
   MY_ID = "tg_" + tgUser.id;
 
-  // Existing user?
   const snap = await DB.ref("users/" + MY_ID).get();
   if (snap.exists()) {
     if (snap.val().is_blocked) return renderBlocked();
     return boot();
   }
 
-  // New user + referral in URL → auto-register
-  if (PENDING_REFERRAL) {
-    const done = await tryAutoRegister();
-    if (done) return;
-    // referral invalid → fall to register with error
-    return renderRegister("❌ Referral link সঠিক নয় বা মেয়াদ শেষ। অনুগ্রহ করে সঠিক link দিয়ে আসুন।");
-  }
-
-  // New user without referral → show register prompt
   return renderRegister();
 }
 
@@ -521,9 +344,16 @@ function renderNoTelegram(){
 }
 
 /* ─── Register Screen ─── */
-function renderRegister(errorMsg){
+async function renderRegister(errorMsg){
   const tgUser = tg.initDataUnsafe.user;
   const fullName = [tgUser.first_name, tgUser.last_name].filter(Boolean).join(" ");
+
+  // Fetch admin's active code to show as hint
+  let activeCode = "—";
+  try {
+    const snap = await DB.ref("settings/active_referral_code").get();
+    if (snap.exists()) activeCode = String(snap.val()).toUpperCase();
+  } catch(e) {}
 
   document.getElementById('root').innerHTML = `
     <div class="reg-screen">
@@ -539,7 +369,7 @@ function renderRegister(errorMsg){
           Registration সম্পন্ন করতে <b>Referral Code</b> প্রয়োজন।
         </p>
         <label class="small" style="color:#667085;font-weight:600">Referral Code</label>
-        <input id="regRefCode" placeholder="যেমন: UMWTJC50" value="${PENDING_REFERRAL ? esc(PENDING_REFERRAL) : ''}" style="text-transform:uppercase;font-family:monospace;letter-spacing:1px;text-align:center;font-size:16px;font-weight:700">
+        <input id="regRefCode" placeholder="যেমন: EASYADMIN2024" style="text-transform:uppercase;font-family:monospace;letter-spacing:2px;text-align:center;font-size:16px;font-weight:700">
         <div id="regError" style="color:#b91c1c;font-size:12px;margin-top:6px;display:none"></div>
         <button class="reg-cta" style="margin-top:12px" onclick="attemptRegister()">📝 Register করুন</button>
       </div>
@@ -555,7 +385,7 @@ function renderRegister(errorMsg){
     </div>`;
 }
 
-/* ─── Attempt Register (from register screen) ─── */
+/* ─── Attempt Register (Firebase = only data store) ─── */
 async function attemptRegister(){
   const errBox = document.getElementById('regError');
   errBox.style.display = 'none';
@@ -568,6 +398,7 @@ async function attemptRegister(){
   }
   MY_ID = "tg_" + tgUser.id;
 
+  // Already exists?
   const existSnap = await DB.ref("users/" + MY_ID).get();
   if (existSnap.exists()) {
     if (existSnap.val().is_blocked) return renderBlocked();
@@ -584,23 +415,25 @@ async function attemptRegister(){
     return;
   }
 
-  // Referrer must exist
-  const refSnap = await DB.ref("referral_codes/" + code).get();
-  if (!refSnap.exists()) {
+  // ═══ Fetch ADMIN's active code from Firebase settings ═══
+  const activeCodeSnap = await DB.ref("settings/active_referral_code").get();
+  if (!activeCodeSnap.exists()) {
     errBox.style.display = 'block';
-    errBox.textContent = '❌ এই Referral Code সঠিক নয় বা মেয়াদ শেষ।';
+    errBox.textContent = '⚠️ Admin এখনো কোনো referral code সেট করেনি।';
     return;
   }
+  const activeCode = String(activeCodeSnap.val()).toUpperCase();
 
-  const referrerId = refSnap.val();
-  if (!referrerId || referrerId === MY_ID) {
+  // ═══ Validate code against admin's code ═══
+  if (code !== activeCode) {
     errBox.style.display = 'block';
-    errBox.textContent = '❌ আপনি নিজের code দিয়ে register করতে পারবেন না।';
+    errBox.textContent = '❌ এই Referral Code সঠিক নয়। Admin-এর কাছ থেকে সঠিক code নিন।';
     return;
   }
 
   errBox.style.display = 'none';
 
+  // ═══ Create user in Firebase (data only) ═══
   const myCode = genUserCode();
 
   await DB.ref("users/" + MY_ID).set({
@@ -614,9 +447,8 @@ async function attemptRegister(){
     total_earned_usd: 0,
     total_withdrawn_usd: 0,
     referral_code: myCode,
-    referred_by: referrerId,
-    referred_by_code: code,
-    sub_param: PENDING_SUBPARAM,
+    referred_by: "admin",
+    referred_by_code: activeCode,
     referral_count: 0,
     level: 0,
     streak: 0,
@@ -624,40 +456,6 @@ async function attemptRegister(){
     is_blocked: false,
     created_at: Date.now(),
     source: "telegram"
-  });
-
-  await DB.ref("referral_codes/" + myCode).set(MY_ID);
-
-  // Referrer update
-  await DB.ref("users/" + referrerId).transaction(cur => {
-    if (!cur) return cur;
-    cur.referral_count = Number(cur.referral_count || 0) + 1;
-    const newRef = cur.referral_count;
-    const prevLevel = getCurrentLevel(newRef - 1);
-    const newLevel = getCurrentLevel(newRef);
-    if (newLevel > prevLevel) {
-      const L = getLevelData(newLevel);
-      cur.level = newLevel;
-      cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
-      cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
-      DB.ref("ledger").push({
-        uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
-        ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
-      });
-    }
-    return cur;
-  });
-
-  const baseBonus = 0.10;
-  await DB.ref("users/" + referrerId).transaction(cur => {
-    if (!cur) return cur;
-    cur.balance_usd = Number(cur.balance_usd || 0) + baseBonus;
-    cur.total_earned_usd = Number(cur.total_earned_usd || 0) + baseBonus;
-    return cur;
-  });
-  DB.ref("ledger").push({
-    uid: referrerId, kind: "referral_bonus", amount_usd: baseBonus,
-    ref_id: "ref:" + MY_ID, meta: "New referral", created_at: Date.now()
   });
 
   toast("✅ Registration successful!", "success");
@@ -682,8 +480,6 @@ function renderBlocked(){
    BOOT
    ═══════════════════════════════════════════════════════════ */
 async function boot(){
-  await ensureDefaults();
-
   if (LISTENERS_ATTACHED) { render(); return; }
   LISTENERS_ATTACHED = true;
 
@@ -718,20 +514,6 @@ async function boot(){
                   .sort((a,b) => (b.created_at||0) - (a.created_at||0));
     render();
   });
-}
-
-async function ensureDefaults(){
-  const s = await DB.ref("settings").get();
-  if (!s.exists()) {
-    await DB.ref("settings").set({
-      USD_TO_BDT: 123.00,
-      MAX_REWARD_RATIO: 0.60,
-      BOT_USERNAME: BOT_USERNAME,
-      ANNOUNCEMENT: "",
-      TASK_COUNTER_SECONDS: 30,
-      ads: {}
-    });
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -956,7 +738,7 @@ function render(){
       <div class="row"><span>Telegram ID</span><b>${esc(String(ME.telegram_id||""))}</b></div>
       <div class="row"><span>Username</span><b>${ME.username ? "@"+esc(ME.username) : "—"}</b></div>
       <div class="row"><span>Referral Code</span><b style="font-family:monospace">${esc(ME.referral_code)}</b></div>
-      <div class="row"><span>Referred By</span><b>${ME.referred_by ? '✅ ' + esc(String(ME.referred_by_code||"")) : '—'}</b></div>
+      <div class="row"><span>Referred By</span><b>${ME.referred_by ? '✅ Admin (' + esc(ME.referred_by_code||"") + ')' : '—'}</b></div>
       <div class="row"><span>Total Earned</span><b>$${Number(ME.total_earned_usd||0).toFixed(2)}</b></div>
       <div class="row"><span>Total Withdrawn</span><b>$${Number(ME.total_withdrawn_usd||0).toFixed(2)}</b></div>
       <div class="row"><span>Current Level</span><b>${curLevel > 0 ? 'Lv ' + curLevel + ' — ' + getLevelData(curLevel).name : 'Locked'}</b></div>
@@ -1012,9 +794,7 @@ function renderTasksSplit(midPoint, myToday){
   bottom.innerHTML = TASKS.slice(midPoint).map(renderOne).join("");
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ACTIONS
-   ═══════════════════════════════════════════════════════════ */
+/* ACTIONS */
 function nav(id, el){
   CURRENT_SECTION = id;
   document.querySelectorAll('.section').forEach(x => x.classList.remove('show'));
@@ -1235,9 +1015,7 @@ function copyRef(){
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   INIT
-   ═══════════════════════════════════════════════════════════ */
+/* INIT */
 (async () => {
   await startApp();
 })();
