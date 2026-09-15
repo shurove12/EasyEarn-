@@ -53,15 +53,39 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:10px;transition:width .4s}
 .loader{text-align:center;padding:40px;color:#94a3b8}
 
-/* ═══ AD SLOTS ═══ */
+/* AD SLOTS */
 .ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px;position:relative}
 .ad-slot .ad-label{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
 .ad-slot iframe{max-width:100%;border:0;display:block;margin:0 auto}
 .ad-slot.hidden{display:none}
 .ad-slot.compact{margin:8px 15px}
 
-/* ═══ Level Cards ═══ */
-.level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+/* ═══════════════════════════════════════════════════
+   PROFESSIONAL NOTICE SCREENS
+   ═══════════════════════════════════════════════════ */
+.notice-screen{max-width:420px;margin:0 auto;padding:40px 22px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#f4f7fb}
+.notice-icon{width:90px;height:90px;border-radius:26px;display:grid;place-items:center;font-size:44px;margin:0 auto 22px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.notice-icon.warn{background:linear-gradient(135deg,#fef3c7,#fcd34d)}
+.notice-icon.danger{background:linear-gradient(135deg,#fee2e2,#fca5a5)}
+.notice-icon.info{background:linear-gradient(135deg,#dbeafe,#60a5fa)}
+.notice-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px;color:#172033;line-height:1.3}
+.notice-sub{text-align:center;color:#64748b;font-size:13.5px;line-height:1.7;margin:0 0 24px}
+.notice-box{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(23,32,51,.06);margin-bottom:16px}
+.notice-box h4{margin:0 0 12px;font-size:14px;color:#172033;display:flex;align-items:center;gap:8px}
+.notice-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:13px;line-height:1.6;color:#475569}
+.notice-step:last-child{border-bottom:0}
+.notice-step b{color:#172033}
+.step-num{width:24px;height:24px;border-radius:50%;background:#e0e7ff;color:#4338ca;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
+.notice-cta{display:block;width:100%;text-align:center;padding:15px;border-radius:13px;font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.3)}
+.notice-cta:active{transform:scale(.97)}
+.notice-cta.secondary{background:#f1f5f9;color:#334155;box-shadow:none;margin-top:8px}
+.notice-footer{text-align:center;color:#94a3b8;font-size:11px;margin-top:22px;line-height:1.6}
+.bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600;margin-top:4px}
+.alert-strip{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 14px;border-radius:10px;font-size:12.5px;color:#92400e;line-height:1.6;margin-bottom:16px}
+.alert-strip.danger{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+
+/* Level Cards */
+.level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);display:flex;align-items:center;gap:12px;position:relative}
 .level-card.locked{opacity:.6}
 .level-card.unlocked{border:2px solid #16a34a}
 .level-badge{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#94a3b8,#64748b)}
@@ -85,7 +109,7 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .level-reward{background:#dcfce7;color:#15803d;padding:6px 10px;border-radius:10px;font-weight:800;font-size:13px;flex-shrink:0}
 .level-card.locked .level-reward{background:#f1f5f9;color:#94a3b8}
 
-/* ═══ Task Modal ═══ */
+/* Task Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.88);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
 .modal{background:#fff;border-radius:20px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;padding:20px;position:relative}
@@ -116,20 +140,8 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
 
-<!-- Global Ad Script (Background popunder) -->
+<!-- Global Background Ad Script -->
 <script src="https://pl31353282.profitableratecpmnetwork.com/38/51/6f/38516f740af3a4533e72320049202123.js"></script>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- 🆕 PASTE NEW AD CODES HERE (Adsterra থেকে নেবেন)        -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SOCIAL BAR Ad code -->
-
-
-<!-- IN-PAGE PUSH Ad code -->
-
-
-<!-- INTERSTITIAL Ad code -->
-
 
 <script>
 /* ============================================================
@@ -150,125 +162,63 @@ try { firebase.analytics(); } catch(e) {}
 const DB = firebase.database();
 
 /* ═══════════════════════════════════════════════════════════
-   📋 LEVEL CONFIGURATION — এখানে সব level তথ্য
+   CONFIG
    ═══════════════════════════════════════════════════════════ */
+const BOT_USERNAME = "easyearn120_bot";
+const BOT_LINK = "https://t.me/" + BOT_USERNAME;
+
 const LEVELS = [
-  { lv: 1,  required: 5,   bonus: 0.50,  name: "Beginner",      withdrawUnlock: true,  cut: 3 },
-  { lv: 2,  required: 15,  bonus: 1.00,  name: "Starter",       withdrawUnlock: true,  cut: 2 },
-  { lv: 3,  required: 30,  bonus: 2.00,  name: "Bronze",        withdrawUnlock: true,  cut: 2 },
-  { lv: 4,  required: 50,  bonus: 3.50,  name: "Silver",        withdrawUnlock: true,  cut: 2 },
-  { lv: 5,  required: 80,  bonus: 5.00,  name: "Gold",          withdrawUnlock: true,  cut: 2 },
-  { lv: 6,  required: 120, bonus: 8.00,  name: "Platinum",      withdrawUnlock: true,  cut: 2 },
-  { lv: 7,  required: 170, bonus: 12.00, name: "Diamond",       withdrawUnlock: true,  cut: 2 },
-  { lv: 8,  required: 230, bonus: 18.00, name: "Master",        withdrawUnlock: true,  cut: 2 },
-  { lv: 9,  required: 300, bonus: 25.00, name: "Grandmaster",   withdrawUnlock: true,  cut: 2 },
-  { lv: 10, required: 400, bonus: 50.00, name: "🏆 Legendary",  withdrawUnlock: true,  cut: 1 },
+  { lv: 1,  required: 5,   bonus: 0.50,  name: "Beginner",     cut: 3 },
+  { lv: 2,  required: 15,  bonus: 1.00,  name: "Starter",      cut: 2 },
+  { lv: 3,  required: 30,  bonus: 2.00,  name: "Bronze",       cut: 2 },
+  { lv: 4,  required: 50,  bonus: 3.50,  name: "Silver",       cut: 2 },
+  { lv: 5,  required: 80,  bonus: 5.00,  name: "Gold",         cut: 2 },
+  { lv: 6,  required: 120, bonus: 8.00,  name: "Platinum",     cut: 2 },
+  { lv: 7,  required: 170, bonus: 12.00, name: "Diamond",      cut: 2 },
+  { lv: 8,  required: 230, bonus: 18.00, name: "Master",       cut: 2 },
+  { lv: 9,  required: 300, bonus: 25.00, name: "Grandmaster",  cut: 2 },
+  { lv: 10, required: 400, bonus: 50.00, name: "🏆 Legendary", cut: 1 },
 ];
 
-const BOT_LINK = "https://t.me/easyearn014";
-const MIN_WITHDRAW_LEVEL = 1; // Level 1 unlock = 5 referrals needed
-
-/* ═══════════════════════════════════════════════════════════
-   AD CONFIGURATION
-   ═══════════════════════════════════════════════════════════ */
+/* AD CONFIG */
 const AD_CONFIG = {
-  home_top: { key: "ad_home_top_e", name: "Home Top Banner", size: "320×50", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'ac53fb88d35997c5408c1c8f68ed5280', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>
-    ` },
-  home_mid: { key: "ad_home_mid_f", name: "Home Mid Rectangle", size: "300×250", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : '8b70ac8221c2d5175f49c42c9248846d', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>
-    ` },
-  home_vertical: { key: "ad_home_vertical_c", name: "Home Vertical", size: "160×300", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'f6ebf092f870936aa8a8696bf83bf607', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>
-    ` },
-  home_native: { key: "ad_home_native_a", name: "Home Native", size: "Auto", type: "native",
-    script: `
-      <script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script>
-      <div id="container-aee8e250def4f9da28614f8be36fc70d"></div>
-    ` },
-  invite_mid: { key: "ad_invite_mid_f", name: "Invite Mid Rectangle", size: "300×250", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : '8b70ac8221c2d5175f49c42c9248846d', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>
-    ` },
-  invite_leaderboard: { key: "ad_invite_leaderboard_d", name: "Invite Leaderboard", size: "728×90", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'ad8f9258ea9ea5198df793cb3c1bab4b', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>
-    ` },
-  withdraw_footer: { key: "ad_withdraw_g", name: "Withdraw Footer", size: "468×60", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'f04a5de63c2080dcb68a5e43504f146c', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>
-    ` },
-  profile_native: { key: "ad_profile_native_a", name: "Profile Native", size: "Auto", type: "native",
+  home_top: { key: "ad_home_top_e", name: "Home Top", type: "iframe",
+    script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>` },
+  home_mid: { key: "ad_home_mid_f", name: "Home Mid", type: "iframe",
+    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
+  home_vertical: { key: "ad_home_vertical_c", name: "Home Vertical", type: "iframe",
+    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
+  home_native: { key: "ad_home_native_a", name: "Home Native", type: "native",
+    script: `<script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script><div id="container-aee8e250def4f9da28614f8be36fc70d"></div>` },
+  invite_mid: { key: "ad_invite_mid_f", name: "Invite Mid", type: "iframe",
+    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
+  invite_leaderboard: { key: "ad_invite_leaderboard_d", name: "Invite Leaderboard", type: "iframe",
+    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
+  withdraw_footer: { key: "ad_withdraw_g", name: "Withdraw Footer", type: "iframe",
+    script: `<script>atOptions={'key':'f04a5de63c2080dcb68a5e43504f146c','format':'iframe','height':60,'width':468,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>` },
+  profile_native: { key: "ad_profile_native_a", name: "Profile Native", type: "native",
     script: `<div id="container-aee8e250def4f9da28614f8be36fc70d_profile"></div>` },
-  profile_vertical: { key: "ad_profile_vertical_c", name: "Profile Vertical", size: "160×300", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'f6ebf092f870936aa8a8696bf83bf607', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>
-    ` },
-  task_modal_top: { key: "ad_task_modal_d", name: "Task Modal Leaderboard", size: "728×90", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'ad8f9258ea9ea5198df793cb3c1bab4b', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>
-    ` },
-  task_modal_mid: { key: "ad_task_modal_b", name: "Task Modal Skyscraper", size: "160×600", type: "iframe",
-    script: `
-      <script>
-        atOptions = { 'key' : 'be41579cd4387c843cd4cb262bc89ccb', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
-      <\/script>
-      <script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>
-    ` },
-  task_direct: { key: "ad_task_direct_h", name: "Task Direct Link", type: "direct",
+  profile_vertical: { key: "ad_profile_vertical_c", name: "Profile Vertical", type: "iframe",
+    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
+  task_modal_top: { key: "ad_task_modal_d", name: "Task Modal Top", type: "iframe",
+    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
+  task_modal_mid: { key: "ad_task_modal_b", name: "Task Modal Mid", type: "iframe",
+    script: `<script>atOptions={'key':'be41579cd4387c843cd4cb262bc89ccb','format':'iframe','height':600,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>` },
+  task_direct: { key: "ad_task_direct_h", name: "Task Direct", type: "direct",
     script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e" },
-  social_bar: { key: "ad_social_bar_new", name: "Social Bar", type: "placeholder", script: "" },
-  in_page_push: { key: "ad_in_page_push_new", name: "In-Page Push", type: "placeholder", script: "" },
-  interstitial: { key: "ad_interstitial_new", name: "Interstitial", type: "placeholder", script: "" },
 };
 
-/* ═══════════════════════════════════════════════════════════
-   STATE
-   ═══════════════════════════════════════════════════════════ */
-let ME = null;
-let MY_ID = null;
-let TASKS = [];
-let SETTINGS = {};
-let COMPLETIONS = [];
-let WITHDRAWALS = [];
-let ADMIN_ADS = {};
-let RENDERED_ADS = {};
+/* STATE */
+let ME = null, MY_ID = null;
+let TASKS = [], SETTINGS = {}, COMPLETIONS = [], WITHDRAWALS = [];
+let ADMIN_ADS = {}, RENDERED_ADS = {};
 let CURRENT_SECTION = "home";
 
 const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
-/* ═══════════════════════════════════════════════════════════
-   UTILS
-   ═══════════════════════════════════════════════════════════ */
+/* UTILS */
 function todayKey(){
   const d = new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -282,68 +232,39 @@ function toast(msg, type=""){
 }
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-/* ═══════════════════════════════════════════════════════════
-   LEVEL HELPERS
-   ═══════════════════════════════════════════════════════════ */
-function getCurrentLevel(refCount){
-  let lv = 0;
-  for (const L of LEVELS) {
-    if (refCount >= L.required) lv = L.lv;
-    else break;
-  }
-  return lv;
-}
-function getNextLevel(refCount){
-  for (const L of LEVELS) {
-    if (refCount < L.required) return L;
-  }
-  return null;
-}
-function getLevelData(lv){
-  return LEVELS.find(L => L.lv === lv) || null;
-}
-function canWithdraw(refCount){
-  return refCount >= LEVELS[0].required; // 5 referrals
-}
-function getWithdrawCut(refCount){
-  const lv = getCurrentLevel(refCount);
-  if (lv >= 1) return getLevelData(lv).cut;
-  return 3;
-}
+/* LEVEL HELPERS */
+function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
+function getNextLevel(n){ for(const L of LEVELS){ if(n<L.required) return L; } return null; }
+function getLevelData(lv){ return LEVELS.find(L=>L.lv===lv)||null; }
+function canWithdraw(n){ return n >= LEVELS[0].required; }
+function getWithdrawCut(n){ const lv=getCurrentLevel(n); return lv>=1 ? getLevelData(lv).cut : 3; }
 
-/* ═══════════════════════════════════════════════════════════
-   AD RENDERING
-   ═══════════════════════════════════════════════════════════ */
+/* AD RENDERING */
 async function renderAd(slotName, containerId){
-  const container = document.getElementById(containerId);
-  if (!container) return;
+  const c = document.getElementById(containerId);
+  if (!c) return;
   const cfg = AD_CONFIG[slotName];
-  if (!cfg) { container.innerHTML = ''; return; }
-  const adminConfig = ADMIN_ADS[cfg.key] || {};
-  if (adminConfig.enabled === false) { container.classList.add('hidden'); return; }
-  if (cfg.type === 'placeholder' || !cfg.script) {
-    container.innerHTML = `<div class="ad-label" style="color:#94a3b8">Sponsored</div>`;
-    return;
-  }
-  container.classList.remove('hidden');
+  if (!cfg) { c.innerHTML=''; return; }
+  const adminCfg = ADMIN_ADS[cfg.key] || {};
+  if (adminCfg.enabled === false) { c.classList.add('hidden'); return; }
+  c.classList.remove('hidden');
   if (cfg.type === 'direct') {
-    container.innerHTML = `<div class="ad-label">Sponsored</div>
-      <a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 ${esc(cfg.name)}</a>`;
+    c.innerHTML = `<div class="ad-label">Sponsored</div><a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 ${esc(cfg.name)}</a>`;
     return;
   }
   if (cfg.type === 'native') {
-    container.innerHTML = `<div class="ad-label">Sponsored</div>${cfg.script}`;
+    c.innerHTML = `<div class="ad-label">Sponsored</div>${cfg.script}`;
     return;
   }
-  container.innerHTML = `<div class="ad-label">Sponsored</div>`;
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = cfg.script.replace(/<\\\//g, '</');
-  container.appendChild(wrapper);
-  wrapper.querySelectorAll('script').forEach(oldScript => {
-    const newScript = document.createElement('script');
-    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-    if (oldScript.textContent) newScript.textContent = oldScript.textContent;
-    oldScript.parentNode.replaceChild(newScript, oldScript);
+  c.innerHTML = `<div class="ad-label">Sponsored</div>`;
+  const w = document.createElement('div');
+  w.innerHTML = cfg.script.replace(/<\\\//g, '</');
+  c.appendChild(w);
+  w.querySelectorAll('script').forEach(os => {
+    const ns = document.createElement('script');
+    Array.from(os.attributes).forEach(a => ns.setAttribute(a.name, a.value));
+    if (os.textContent) ns.textContent = os.textContent;
+    os.parentNode.replaceChild(ns, os);
   });
 }
 
@@ -355,7 +276,7 @@ function loadAdsForSection(){
     profile: [['profile_native','ad_profile_native'],['profile_vertical','ad_profile_vertical']]
   };
   setTimeout(() => {
-    (map[CURRENT_SECTION] || []).forEach(([slot, id]) => {
+    (map[CURRENT_SECTION]||[]).forEach(([slot,id]) => {
       const el = document.getElementById(id);
       if (el) { delete RENDERED_ADS[id]; renderAd(slot, id); }
     });
@@ -363,71 +284,60 @@ function loadAdsForSection(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   🔐 TELEGRAM-ONLY REGISTRATION (NO FAKE ACCOUNTS)
+   LOGIN — Telegram-only + Referral code required
    ═══════════════════════════════════════════════════════════ */
 async function login(){
-  // Step 1: Ensure we are inside Telegram
-  if (!tg || !tg.initData || !tg.initDataUnsafe || !tg.initDataUnsafe.user) {
-    renderNotInTelegram();
-    return false;
+  // ═══ CHECK 1: Is this opened inside Telegram? ═══
+  const hasTelegram = !!(tg && tg.initDataUnsafe && tg.initDataUnsafe.user);
+
+  if (!hasTelegram) {
+    return renderNoTelegramId();
   }
 
-  // Step 2: Verify Telegram user (cryptographic)
   const tgUser = tg.initDataUnsafe.user;
   if (!tgUser || !tgUser.id) {
-    renderNotInTelegram();
-    return false;
+    return renderNoTelegramId();
   }
 
-  // Step 3: Check for referral code in start_param
+  // Parse start_param: "ref_CODE" or "ref_CODE_SUBPARAM"
   const startParam = tg.initDataUnsafe.start_param || "";
-  let referralCode = null;
-  if (startParam && startParam.startsWith("ref_")) {
-    referralCode = startParam.substring(4);
+  let referralCode = null, subParam = null;
+
+  if (startParam.startsWith("ref_")) {
+    const parts = startParam.substring(4).split("_");
+    referralCode = parts[0] || null;
+    if (parts.length > 1) subParam = parts.slice(1).join("_");
+  }
+  if (!referralCode) {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+    if (ref) {
+      const parts = ref.split("_");
+      referralCode = parts[0] || null;
+      if (parts.length > 1) subParam = parts.slice(1).join("_");
+    }
   }
 
-  // Store referral code from URL if not in Telegram (via query string)
-  const urlParams = new URLSearchParams(window.location.search);
-  if (!referralCode && urlParams.get("ref")) {
-    referralCode = urlParams.get("ref");
-  }
-
-  // Step 4: Build user ID from Telegram ID (SINGLE ACCOUNT PER TELEGRAM ID)
+  // Build Telegram-based user ID (ONE ACCOUNT PER TELEGRAM ID)
   MY_ID = "tg_" + tgUser.id;
 
-  // Step 5: Check if user already exists
+  // ═══ CHECK 2: Does user already exist? ═══
   const snap = await DB.ref("users/" + MY_ID).get();
-
   if (snap.exists()) {
-    // Existing user — check if blocked
-    const u = snap.val();
-    if (u.is_blocked) {
-      renderBlocked();
-      return false;
-    }
+    if (snap.val().is_blocked) return renderBlocked();
     return true;
   }
 
-  // Step 6: NEW USER — MUST have referral code
-  if (!referralCode) {
-    renderNoReferral();
-    return false;
-  }
+  // ═══ CHECK 3: New user — must have referral code ═══
+  if (!referralCode) return renderNoReferral();
 
-  // Step 7: Validate referral code exists
   const refSnap = await DB.ref("referral_codes/" + referralCode).get();
-  if (!refSnap.exists()) {
-    renderInvalidReferral();
-    return false;
-  }
+  if (!refSnap.exists()) return renderInvalidReferral();
 
   const referrerId = refSnap.val();
-  if (!referrerId || referrerId === MY_ID) {
-    renderInvalidReferral();
-    return false;
-  }
+  if (!referrerId || referrerId === MY_ID) return renderInvalidReferral();
 
-  // Step 8: Create new user (server-enforced: only through this flow)
+  // Create new user
   const myCode = "U" + Math.random().toString(36).substring(2,9).toUpperCase();
 
   await DB.ref("users/" + MY_ID).set({
@@ -442,6 +352,8 @@ async function login(){
     total_withdrawn_usd: 0,
     referral_code: myCode,
     referred_by: referrerId,
+    referred_by_code: referralCode,
+    sub_param: subParam,
     referral_count: 0,
     level: 0,
     streak: 0,
@@ -451,15 +363,12 @@ async function login(){
     source: "telegram"
   });
 
-  // Register referral code → user id mapping
   await DB.ref("referral_codes/" + myCode).set(MY_ID);
 
-  // Increment referrer's count
+  // Increment referrer
   await DB.ref("users/" + referrerId).transaction(cur => {
     if (!cur) return cur;
     cur.referral_count = Number(cur.referral_count || 0) + 1;
-
-    // Check for level unlock
     const newRef = cur.referral_count;
     const prevLevel = getCurrentLevel(newRef - 1);
     const newLevel = getCurrentLevel(newRef);
@@ -468,8 +377,6 @@ async function login(){
       cur.level = newLevel;
       cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
       cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
-
-      // Log level bonus
       DB.ref("ledger").push({
         uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
         ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
@@ -478,7 +385,6 @@ async function login(){
     return cur;
   });
 
-  // Referral bonus to referrer (base $0.10)
   const baseBonus = 0.10;
   await DB.ref("users/" + referrerId).transaction(cur => {
     if (!cur) return cur;
@@ -496,73 +402,197 @@ async function login(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BLOCKERS (registration prevention screens)
+   PROFESSIONAL NOTICE SCREENS
    ═══════════════════════════════════════════════════════════ */
-function renderNotInTelegram(){
+
+/* ── 1. Telegram ID Not Found (main requested screen) ── */
+function renderNoTelegramId(){
   document.getElementById('root').innerHTML = `
-    <div style="padding:60px 24px;max-width:400px;margin:auto;text-align:center">
-      <div style="font-size:70px">📱</div>
-      <h1 style="margin:16px 0 8px;font-size:22px">Telegram Required</h1>
-      <p style="color:#667085;font-size:14px;line-height:1.6">
-        EasyEarn-এ register করতে হলে অবশ্যই <b>Telegram</b> দিয়ে খুলতে হবে।
-        Browser-এ সরাসরি খোলা যাবে না।
+    <div class="notice-screen">
+      <div class="notice-icon warn">📱</div>
+      <h1 class="notice-title">টেলিগ্রাম আইডি পাওয়া যায়নি</h1>
+      <p class="notice-sub">
+        EasyEarn-এ account তৈরি করতে হলে আপনার <b>Telegram ID</b> দিয়ে রেজিস্ট্রেশন করতে হবে।
+        বর্তমানে কোনো Telegram ID detect করা যাচ্ছে না।
       </p>
-      <a href="${BOT_LINK}" target="_blank" style="display:inline-block;margin-top:20px;background:#2563eb;color:#fff;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:700">
-        🚀 Open in Telegram
+
+      <div class="alert-strip">
+        ⚠️ <b>নোটিশ:</b> অনুগ্রহ করে নিচের নিয়মগুলো মেনে EasyEarn-এ প্রবেশ করুন — তবেই রেজিস্ট্রেশন সম্পন্ন হবে।
+      </div>
+
+      <div class="notice-box">
+        <h4>📋 কীভাবে প্রবেশ করবেন</h4>
+        <div class="notice-step">
+          <div class="step-num">১</div>
+          <div>আপনার <b>Telegram App</b> খুলুন (মোবাইল বা Desktop)</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">২</div>
+          <div>নিচের লিংকে ক্লিক করুন অথবা সার্চ বক্সে <b>@${BOT_USERNAME}</b> লিখুন</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">৩</div>
+          <div><b>/start</b> কমান্ড দিন অথবা <b>Open App</b> বাটনে চাপ দিন</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">৪</div>
+          <div>এরপর EasyEarn পুনরায় খুললে আপনার Telegram ID <b>automatically verify</b> হবে</div>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        <h4>🔗 অফিসিয়াল Bot লিংক</h4>
+        <div class="notice-step" style="border:0;padding:6px 0">
+          <div>অনুগ্রহ করে এই লিংক ব্যবহার করুন:</div>
+        </div>
+        <div style="text-align:center;margin-top:8px">
+          <span class="bot-link">@${BOT_USERNAME}</span>
+        </div>
+      </div>
+
+      <a href="${BOT_LINK}" target="_blank" class="notice-cta">
+        🚀 টেলিগ্রামে খুলুন
       </a>
-      <p style="margin-top:20px;font-size:12px;color:#94a3b8">${BOT_LINK}</p>
+      <button class="notice-cta secondary" onclick="location.reload()">
+        🔄 আবার চেষ্টা করুন
+      </button>
+
+      <div class="notice-footer">
+        ⚠️ সরাসরি Browser-এ EasyEarn খোলা যাবে না।<br>
+        শুধুমাত্র Telegram-এর মাধ্যমে রেজিস্ট্রেশন সম্পন্ন হবে।
+      </div>
     </div>`;
 }
 
+/* ── 2. No Referral Code ── */
 function renderNoReferral(){
   document.getElementById('root').innerHTML = `
-    <div style="padding:60px 24px;max-width:400px;margin:auto;text-align:center">
-      <div style="font-size:70px">🔒</div>
-      <h1 style="margin:16px 0 8px;font-size:22px">Referral Required</h1>
-      <p style="color:#667085;font-size:14px;line-height:1.6">
-        EasyEarn-এ <b>রেজিস্ট্রেশন করতে হলে অবশ্যই একটি referral link</b> দিয়ে আসতে হবে।
-        সরাসরি কেউ register করতে পারবে না।
+    <div class="notice-screen">
+      <div class="notice-icon danger">🔒</div>
+      <h1 class="notice-title">রেফারেল কোড প্রয়োজন</h1>
+      <p class="notice-sub">
+        EasyEarn-এ রেজিস্ট্রেশন করতে হলে অবশ্যই <b>একটি বৈধ Referral Link</b> ব্যবহার করতে হবে।
       </p>
-      <div style="background:#fff7e6;padding:14px;border-radius:12px;margin-top:20px;font-size:12px;color:#92400e;text-align:left;line-height:1.7">
-        <b>কীভাবে register করবেন:</b><br>
-        1️⃣ কোনো existing user-এর কাছ থেকে referral link নিন<br>
-        2️⃣ সেই link-এ click করে Telegram-এ আসুন<br>
-        3️⃣ Bot automatically আপনাকে register করবে
+
+      <div class="alert-strip danger">
+        ⚠️ <b>নোটিশ:</b> কোনো বৈধ referral link ছাড়া EasyEarn-এ account তৈরি করা সম্ভব নয়।
       </div>
-      <a href="${BOT_LINK}" target="_blank" style="display:inline-block;margin-top:20px;background:#2563eb;color:#fff;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:700">
-        📞 Contact Bot
+
+      <div class="notice-box">
+        <h4>📋 রেজিস্ট্রেশনের সঠিক নিয়ম</h4>
+        <div class="notice-step">
+          <div class="step-num">১</div>
+          <div>EasyEarn-এর যেকোনো <b>existing member</b>-এর কাছ থেকে referral link সংগ্রহ করুন</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">২</div>
+          <div>সেই লিংকে ক্লিক করে <b>Telegram-এ প্রবেশ করুন</b></div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">৩</div>
+          <div>Bot আপনাকে <b>automatically register</b> করবে</div>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        <h4>💡 রেফারেল কোড কোথায় পাবেন?</h4>
+        <div class="notice-step" style="border:0">
+          <div>আপনার পরিচিত কোনো EasyEarn member আপনার সাথে তার ব্যক্তিগত Referral Link শেয়ার করবেন — সেই লিংক দিয়েই কেবল রেজিস্ট্রেশন সম্ভব।</div>
+        </div>
+      </div>
+
+      <a href="${BOT_LINK}" target="_blank" class="notice-cta">
+        📞 অফিসিয়াল Bot-এ যোগাযোগ করুন
       </a>
+
+      <div class="notice-footer">
+        ⚠️ এই নিয়ম শুধুমাত্র নতুন সদস্যদের জন্য প্রযোজ্য।<br>
+        Bot: <span class="bot-link">@${BOT_USERNAME}</span>
+      </div>
     </div>`;
 }
 
+/* ── 3. Invalid Referral Code ── */
 function renderInvalidReferral(){
   document.getElementById('root').innerHTML = `
-    <div style="padding:60px 24px;max-width:400px;margin:auto;text-align:center">
-      <div style="font-size:70px">❌</div>
-      <h1 style="margin:16px 0 8px;font-size:22px">Invalid Referral Code</h1>
-      <p style="color:#667085;font-size:14px;line-height:1.6">
-        আপনি যে referral link দিয়ে এসেছেন সেটি <b>সঠিক নয়</b> বা মেয়াদ শেষ।
+    <div class="notice-screen">
+      <div class="notice-icon danger">❌</div>
+      <h1 class="notice-title">অবৈধ রেফারেল কোড</h1>
+      <p class="notice-sub">
+        আপনি যে referral link দিয়ে এসেছেন সেটি সঠিক নয়, মেয়াদ শেষ, অথবা অকার্যকর।
       </p>
-      <a href="${BOT_LINK}" target="_blank" style="display:inline-block;margin-top:20px;background:#2563eb;color:#fff;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:700">
-        🔄 Try Again
+
+      <div class="alert-strip danger">
+        ⚠️ <b>নোটিশ:</b> অনুগ্রহ করে একজন সঠিক EasyEarn member-এর কাছ থেকে বৈধ Referral Link সংগ্রহ করে পুনরায় চেষ্টা করুন।
+      </div>
+
+      <div class="notice-box">
+        <h4>🔍 কী কী কারণ থাকতে পারে</h4>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>Referral link এর কোড <b>ভুল বা পুরোনো</b> হয়ে গেছে</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>আপনি <b>নিজের referral link</b> দিয়ে নিজে register করার চেষ্টা করছেন</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>Link মাঝখানে কেটে গেছে বা কপি করতে ভুল হয়েছে</div>
+        </div>
+      </div>
+
+      <a href="${BOT_LINK}" target="_blank" class="notice-cta">
+        🔄 আবার চেষ্টা করুন
       </a>
+
+      <div class="notice-footer">
+        সাহায্যের জন্য: <span class="bot-link">@${BOT_USERNAME}</span>
+      </div>
     </div>`;
 }
 
+/* ── 4. Blocked Account ── */
 function renderBlocked(){
   document.getElementById('root').innerHTML = `
-    <div style="padding:60px 24px;max-width:400px;margin:auto;text-align:center">
-      <div style="font-size:70px">⛔</div>
-      <h1 style="margin:16px 0 8px;font-size:22px">Account Blocked</h1>
-      <p style="color:#667085;font-size:14px;line-height:1.6">
-        আপনার account block করা হয়েছে। Admin এর সাথে যোগাযোগ করুন।
+    <div class="notice-screen">
+      <div class="notice-icon danger">⛔</div>
+      <h1 class="notice-title">আপনার অ্যাকাউন্টটি ব্লকড</h1>
+      <p class="notice-sub">
+        আপনার EasyEarn account admin কর্তৃক ব্লক করা হয়েছে। আপনি এই account দিয়ে আর প্রবেশ করতে পারবেন না।
       </p>
+
+      <div class="alert-strip danger">
+        ⚠️ <b>নোটিশ:</b> যদি মনে করেন এটি ভুল হয়েছে, তাহলে অনুগ্রহ করে অফিসিয়াল Bot-এর মাধ্যমে যোগাযোগ করুন।
+      </div>
+
+      <div class="notice-box">
+        <h4>📌 সম্ভাব্য কারণ</h4>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>একাধিক account তৈরি করার চেষ্টা</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>অস্বাভাবিক বা সন্দেহজনক activity</div>
+        </div>
+        <div class="notice-step">
+          <div class="step-num">•</div>
+          <div>নিয়ম ভঙ্গ করা</div>
+        </div>
+      </div>
+
+      <a href="${BOT_LINK}" target="_blank" class="notice-cta">
+        📞 Admin-এর সাথে যোগাযোগ করুন
+      </a>
+
+      <div class="notice-footer">
+        Bot: <span class="bot-link">@${BOT_USERNAME}</span>
+      </div>
     </div>`;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT
-   ═══════════════════════════════════════════════════════════ */
+/* BOOT */
 async function boot(){
   await ensureDefaults();
 
@@ -575,8 +605,7 @@ async function boot(){
 
   DB.ref("tasks").on("value", snap => {
     const v = snap.val() || {};
-    TASKS = Object.entries(v).map(([k, val]) => ({ ...val, _id: k }))
-             .filter(t => t.is_active !== false);
+    TASKS = Object.entries(v).map(([k,val]) => ({...val,_id:k})).filter(t => t.is_active !== false);
     render();
   });
 
@@ -588,13 +617,13 @@ async function boot(){
 
   DB.ref("completions").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
-    COMPLETIONS = Object.entries(v).map(([k, val]) => ({ ...val, _id: k }));
+    COMPLETIONS = Object.entries(v).map(([k,val]) => ({...val,_id:k}));
     render();
   });
 
   DB.ref("withdrawals").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
-    WITHDRAWALS = Object.entries(v).map(([k, val]) => ({ ...val, _id: k }))
+    WITHDRAWALS = Object.entries(v).map(([k,val]) => ({...val,_id:k}))
                   .sort((a,b) => (b.created_at||0) - (a.created_at||0));
     render();
   });
@@ -605,9 +634,8 @@ async function ensureDefaults(){
   if (!s.exists()) {
     await DB.ref("settings").set({
       USD_TO_BDT: 123.00,
-      REFERRAL_BONUS_USD: 0.10,
       MAX_REWARD_RATIO: 0.60,
-      BOT_USERNAME: "easyearn014",
+      BOT_USERNAME: BOT_USERNAME,
       ANNOUNCEMENT: "",
       TASK_COUNTER_SECONDS: 30,
       ads: {}
@@ -615,9 +643,7 @@ async function ensureDefaults(){
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   RENDER MAIN
-   ═══════════════════════════════════════════════════════════ */
+/* RENDER */
 function render(){
   if (!ME) return;
   const day = todayKey();
@@ -632,7 +658,7 @@ function render(){
   const completedIds = new Set(myToday.map(c => c.task_id));
   const totalTasks = TASKS.length;
   const doneToday = TASKS.filter(t => completedIds.has(t.id)).length;
-  const progressPct = totalTasks ? Math.round(doneToday / totalTasks * 100) : 0;
+  const progressPct = totalTasks ? Math.round(doneToday/totalTasks*100) : 0;
   const midPoint = Math.ceil(TASKS.length / 2);
 
   document.getElementById('root').innerHTML = `
@@ -658,10 +684,8 @@ function render(){
     ${SETTINGS.ANNOUNCEMENT ? `<div style="margin-top:10px;background:rgba(255,255,255,.15);padding:10px;border-radius:12px;font-size:12px">📢 ${esc(SETTINGS.ANNOUNCEMENT)}</div>` : ""}
   </header>
 
-  <!-- ═══════ HOME ═══════ -->
   <div id="home" class="section ${CURRENT_SECTION==='home'?'show':''}">
     <div class="ad-slot" id="ad_home_top"><div class="ad-label">Advertisement</div></div>
-
     <div class="grid">
       <div class="card"><div class="icon">📈</div><div class="small">Total Earned</div><div class="value">$${Number(ME.total_earned_usd||0).toFixed(2)}</div></div>
       <div class="card"><div class="icon">👥</div><div class="small">Referrals</div><div class="value">${refCount}</div></div>
@@ -684,7 +708,6 @@ function render(){
     <div class="hero" style="background:linear-gradient(135deg,#fef3c7,#fde68a);text-align:center">
       <div style="font-size:40px">🏆</div>
       <b style="font-size:16px;color:#92400e">Max Level Reached!</b>
-      <p class="small" style="color:#92400e;margin:6px 0 0">আপনি Level 10 Legendary</p>
     </div>`}
 
     <h2>🎯 Today's Progress</h2>
@@ -700,15 +723,11 @@ function render(){
 
     <h2>⚡ Available Tasks</h2>
     <div id="taskListTop"></div>
-
     <div class="ad-slot compact" id="ad_home_vertical"><div class="ad-label">Advertisement</div></div>
-
     <div id="taskListBottom"></div>
-
     <div class="ad-slot" id="ad_home_native"><div class="ad-label">Sponsored</div></div>
   </div>
 
-  <!-- ═══════ LEVELS ═══════ -->
   <div id="levels" class="section ${CURRENT_SECTION==='levels'?'show':''}">
     <div class="hero" style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff">
       <h2 style="margin:0 0 6px;color:#fff">🏆 Level Progression</h2>
@@ -729,7 +748,7 @@ function render(){
           <div class="level-badge">${L.lv}</div>
           <div class="level-info">
             <b>${esc(L.name)}</b>
-            <div class="req">${L.required} referrals • Withdraw cut ${L.cut}%</div>
+            <div class="req">${L.required} referrals • Cut ${L.cut}%</div>
             ${!unlocked ? `<div class="progress-mini"><i style="width:${progress}%"></i></div>` : ''}
           </div>
           <div class="level-reward">${unlocked ? '✅' : '$' + L.bonus.toFixed(2)}</div>
@@ -737,13 +756,10 @@ function render(){
     }).join("")}
 
     <div class="notice">
-      💡 প্রতিটি level unlock করলে bonus আপনার balance-এ auto add হবে। Level 1 unlock করতে ${LEVELS[0].required} referrals লাগবে।
+      💡 প্রতিটি level unlock করলে bonus auto balance-এ add হবে। Level 1 unlock করতে ${LEVELS[0].required} referrals লাগবে।
     </div>
-
-    <div class="ad-slot" id="ad_levels_bottom" style="display:none"></div>
   </div>
 
-  <!-- ═══════ INVITE ═══════ -->
   <div id="invite" class="section ${CURRENT_SECTION==='invite'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
@@ -769,28 +785,19 @@ function render(){
       <div class="row"><span>Next Level</span><b>${nextLevel ? 'Lv ' + nextLevel.lv + ' (' + (nextLevel.required - refCount) + ' more)' : 'Max'}</b></div>
       <div class="row"><span>Withdraw Cut</span><b>${cutPct}%</b></div>
       <div class="row"><span>Withdraw Status</span><b style="color:${withdrawOk ? '#15803d' : '#b45309'}">${withdrawOk ? '✅ Unlocked' : '🔒 Locked (need ' + LEVELS[0].required + ')'}</b></div>
-    </div>
-
-    <div class="notice">
-      ⚠️ আপনি যে referral link-এ click করেছেন সেটি আপনার referrer-এর। আপনি নিজে register করেছেন, এখন আপনি অন্যদের invite করতে পারবেন।
+      ${ME.sub_param ? `<div class="row"><span>Your Sub-Code</span><b style="font-family:monospace">${esc(ME.sub_param)}</b></div>` : ""}
     </div>
 
     <div class="hero">
       <h2 style="margin:0 0 6px">🔗 Bot Link</h2>
-      <p class="small" style="color:#667085">Telegram bot-এর সরাসরি link</p>
-      <div style="background:#eff6ff;padding:12px;border-radius:10px;font-size:12px;font-family:monospace;word-break:break-all">
-        ${BOT_LINK}
-      </div>
+      <div style="background:#eff6ff;padding:12px;border-radius:10px;font-size:12px;font-family:monospace;word-break:break-all">${BOT_LINK}</div>
       <br>
-      <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">
-        📱 Open Bot in Telegram
-      </a>
+      <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">📱 Open Bot in Telegram</a>
     </div>
 
     <div class="ad-slot" id="ad_invite_leaderboard"><div class="ad-label">Advertisement</div></div>
   </div>
 
-  <!-- ═══════ WITHDRAW ═══════ -->
   <div id="withdraw" class="section ${CURRENT_SECTION==='withdraw'?'show':''}">
     ${!withdrawOk ? `
       <div class="hero" style="background:#fef3c7">
@@ -798,15 +805,14 @@ function render(){
           <div style="font-size:50px">🔒</div>
           <h2 style="margin:8px 0 6px;color:#92400e">Withdraw Locked</h2>
           <p class="small" style="color:#92400e;margin:0">
-            Withdraw unlock করতে কমপক্ষে <b>${LEVELS[0].required} referrals</b> দরকার।
-            আপনার এখন <b>${refCount}</b> জন।
+            Withdraw unlock করতে কমপক্ষে <b>${LEVELS[0].required} referrals</b> দরকার। আপনার এখন <b>${refCount}</b> জন।
           </p>
           <div class="progress" style="margin-top:12px"><i style="width:${(refCount/LEVELS[0].required)*100}%"></i></div>
           <p class="small" style="color:#92400e;margin-top:10px">আর ${LEVELS[0].required - refCount} জন referral দরকার</p>
         </div>
       </div>
       <div class="hero" style="text-align:center">
-        <button class="primary" onclick="nav('invite', document.querySelector('nav button:nth-child(2)'))">👥 Invite Friends</button>
+        <button class="primary" onclick="nav('invite', document.querySelectorAll('nav button')[2])">👥 Invite Friends</button>
       </div>
     ` : `
       <div class="hero">
@@ -816,7 +822,6 @@ function render(){
         <div class="row"><span>Referral Requirement</span><b style="color:#15803d">✅ ${refCount}/${LEVELS[0].required}</b></div>
         <div class="row"><span>Commission Cut</span><b style="color:#b45309">${cutPct}% (Level ${curLevel})</b></div>
         <div class="row"><span>Conversion Rate</span><b>1$ = ${rate}৳</b></div>
-
         <div style="margin-top:14px">
           <label class="small" style="color:#667085">Payment Method</label>
           <select id="wdMethod">
@@ -848,13 +853,13 @@ function render(){
     </div>
   </div>
 
-  <!-- ═══════ PROFILE ═══════ -->
   <div id="profile" class="section ${CURRENT_SECTION==='profile'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 6px">👤 Profile</h2>
       <div class="row"><span>Telegram ID</span><b>${esc(String(ME.telegram_id||""))}</b></div>
       <div class="row"><span>Username</span><b>${ME.username ? "@"+esc(ME.username) : "—"}</b></div>
       <div class="row"><span>Referral Code</span><b style="font-family:monospace">${esc(ME.referral_code)}</b></div>
+      ${ME.sub_param ? `<div class="row"><span>Sub-Code</span><b style="font-family:monospace">${esc(ME.sub_param)}</b></div>` : ""}
       <div class="row"><span>Referred By</span><b>${ME.referred_by ? '✅ Yes' : '—'}</b></div>
       <div class="row"><span>Total Earned</span><b>$${Number(ME.total_earned_usd||0).toFixed(2)}</b></div>
       <div class="row"><span>Total Withdrawn</span><b>$${Number(ME.total_withdrawn_usd||0).toFixed(2)}</b></div>
@@ -866,7 +871,6 @@ function render(){
     </div>
 
     <div class="ad-slot" id="ad_profile_native"><div class="ad-label">Sponsored</div></div>
-
     <div class="ad-slot" id="ad_profile_vertical"><div class="ad-label">Advertisement</div></div>
 
     <div class="notice">
@@ -912,9 +916,7 @@ function renderTasksSplit(midPoint, myToday){
   bottom.innerHTML = TASKS.slice(midPoint).map(renderOne).join("");
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ACTIONS
-   ═══════════════════════════════════════════════════════════ */
+/* ACTIONS */
 function nav(id, el){
   CURRENT_SECTION = id;
   document.querySelectorAll('.section').forEach(x => x.classList.remove('show'));
@@ -929,23 +931,19 @@ async function startTask(taskId){
   const day = todayKey();
   const task = TASKS.find(t => t._id === taskId);
   if (!task) { toast("Task পাওয়া যায়নি", "error"); return; }
-
   const uSnap = await DB.ref("users/" + MY_ID).get();
   const u = uSnap.val();
   if (!u || u.is_blocked) { toast("Account blocked", "error"); return; }
-
   const todaySnap = await DB.ref("completions").orderByChild("uid").equalTo(MY_ID).get();
   const todayAll = todaySnap.val() || {};
   const doneCount = Object.values(todayAll).filter(c => c.task_id === taskId && c.day_key === day).length;
   if (doneCount >= (task.daily_limit || 1)) { toast("Daily limit reached", "error"); return; }
-
   const adSnap = await DB.ref("ad_revenue/" + day).get();
   const ad = adSnap.val() || { revenue_usd: 0, reward_paid_usd: 0 };
   const cap = parseFloat(SETTINGS.MAX_REWARD_RATIO || 0.60);
   if (ad.revenue_usd > 0 && (ad.reward_paid_usd + task.reward_usd) > ad.revenue_usd * cap) {
     toast("আজকের reward budget শেষ", "error"); return;
   }
-
   openTaskModal(task);
 }
 
@@ -968,7 +966,7 @@ function openTaskModal(task){
     <button class="close-btn" id="modalClose" disabled>✕</button>
     <h3>🎬 ${esc(task.title)}</h3>
     <p class="small" style="color:#667085;margin:0 0 10px">
-      Reward: <b style="color:#16a34a">$${Number(task.reward_usd).toFixed(2)}</b> — ${counter} seconds অপেক্ষা করুন
+      Reward: <b style="color:#16a34a">$${Number(task.reward_usd).toFixed(2)}</b> — ${counter}s অপেক্ষা করুন
     </p>
     <div class="counter-wrap">
       <div class="counter-circle" id="counterCircle" style="--pct:0%">
@@ -1011,7 +1009,6 @@ function openTaskModal(task){
     counterNum.textContent = Math.max(0, remaining);
     verifyCount.textContent = Math.max(0, remaining);
     counterCircle.style.setProperty('--pct', pct + '%');
-
     if (remaining <= 0) {
       clearInterval(interval);
       verifyBtn.disabled = false;
@@ -1071,8 +1068,7 @@ function previewWdCut(){
   preview.innerHTML = `
     <div style="display:flex;justify-content:space-between"><span>Requested:</span><b>$${amt.toFixed(2)}</b></div>
     <div style="display:flex;justify-content:space-between;color:#b45309"><span>Commission (${cutPct}%):</span><b>-$${cutAmount.toFixed(2)}</b></div>
-    <div style="display:flex;justify-content:space-between;color:#15803d"><span>You receive:</span><b>$${finalAmount.toFixed(2)} (৳${(finalAmount*rate).toFixed(2)})</b></div>
-  `;
+    <div style="display:flex;justify-content:space-between;color:#15803d"><span>You receive:</span><b>$${finalAmount.toFixed(2)} (৳${(finalAmount*rate).toFixed(2)})</b></div>`;
 }
 
 async function requestWd(){
@@ -1118,8 +1114,7 @@ async function requestWd(){
 
   DB.ref("ledger").push({
     uid: MY_ID, kind: "withdraw_hold", amount_usd: -amt,
-    ref_id: "wd:" + wdRef.key,
-    meta: "Cut " + cutPct + "%", created_at: Date.now()
+    ref_id: "wd:" + wdRef.key, meta: "Cut " + cutPct + "%", created_at: Date.now()
   });
 
   msg.textContent = "✅ Request submitted! ($" + finalUsd.toFixed(2) + " → ৳" + finalBdt.toFixed(2) + ")";
@@ -1142,9 +1137,7 @@ function copyRef(){
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   INIT
-   ═══════════════════════════════════════════════════════════ */
+/* INIT */
 (async () => {
   if (await login()) await boot();
 })();
