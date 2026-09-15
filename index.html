@@ -25,8 +25,7 @@ h2{font-size:17px;margin:16px 15px 8px}
 .task{margin:10px 15px;display:flex;align-items:center;gap:12px}
 .task .info{flex:1;min-width:0}
 .task .info b{display:block;font-size:14px;margin-bottom:2px}
-button.primary{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
-button.primary:active{transform:scale(.95)}
+button.primary{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer}
 button.primary:disabled{background:#cbd5e1;cursor:not-allowed}
 .badge{display:inline-block;background:#eef2ff;color:#4f46e5;padding:4px 8px;border-radius:8px;font-size:10px;margin-top:4px;font-weight:600}
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:#fff;border-top:1px solid #e8ebf2;display:flex;justify-content:space-around;padding:10px 4px;z-index:100;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
@@ -39,8 +38,7 @@ nav button.active{color:#2563eb!important;font-weight:700;background:#eff6ff}
 .notice{margin:15px;padding:13px;background:#fff7e6;border-radius:14px;font-size:12px;color:#92400e;border-left:3px solid #f59e0b}
 .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eef2f7;font-size:13px}
 .row:last-child{border-bottom:0}
-input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8;margin:5px 0;font-size:14px;font-family:inherit;background:#fff}
-input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-color:transparent}
+input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8;margin:5px 0;font-size:14px;background:#fff}
 .status-pending{color:#b45309;font-weight:600}
 .status-approved{color:#15803d;font-weight:600}
 .status-rejected{color:#b91c1c;font-weight:600}
@@ -50,78 +48,48 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .toast.success{background:#15803d}
 .toast.error{background:#b91c1c}
 .progress{height:9px;background:#e9edf5;border-radius:10px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:10px;transition:width .4s}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:10px}
 .loader{text-align:center;padding:40px;color:#94a3b8}
-
-/* AD SLOTS */
-.ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px;position:relative}
+.ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px}
 .ad-slot .ad-label{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
 .ad-slot iframe{max-width:100%;border:0;display:block;margin:0 auto}
 .ad-slot.hidden{display:none}
 .ad-slot.compact{margin:8px 15px}
-
-/* REGISTER SCREENS */
 .reg-screen{max-width:420px;margin:0 auto;padding:40px 22px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#f4f7fb}
-.reg-icon{width:90px;height:90px;border-radius:26px;display:grid;place-items:center;font-size:44px;margin:0 auto 22px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.reg-icon{width:90px;height:90px;border-radius:26px;display:grid;place-items:center;font-size:44px;margin:0 auto 22px}
 .reg-icon.gradient{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff}
 .reg-icon.warn{background:linear-gradient(135deg,#fef3c7,#fcd34d)}
 .reg-icon.danger{background:linear-gradient(135deg,#fee2e2,#fca5a5)}
-.reg-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px;color:#172033;line-height:1.3}
+.reg-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px;color:#172033}
 .reg-sub{text-align:center;color:#64748b;font-size:13.5px;line-height:1.7;margin:0 0 24px}
 .reg-box{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(23,32,51,.06);margin-bottom:16px}
-.reg-box h4{margin:0 0 12px;font-size:14px;color:#172033;display:flex;align-items:center;gap:8px}
-.reg-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:13px;line-height:1.6;color:#475569}
-.reg-step:last-child{border-bottom:0}
-.reg-step b{color:#172033}
-.step-num{width:24px;height:24px;border-radius:50%;background:#e0e7ff;color:#4338ca;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
-.reg-cta{display:block;width:100%;text-align:center;padding:15px;border-radius:13px;font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.3);margin-top:8px}
-.reg-cta:active{transform:scale(.97)}
-.reg-cta.secondary{background:#f1f5f9;color:#334155;box-shadow:none;margin-top:8px}
-.reg-footer{text-align:center;color:#94a3b8;font-size:11px;margin-top:22px;line-height:1.6}
-.bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600;margin-top:4px}
+.reg-cta{display:block;width:100%;text-align:center;padding:15px;border-radius:13px;font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;margin-top:8px}
 .alert-strip{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 14px;border-radius:10px;font-size:12.5px;color:#92400e;line-height:1.6;margin-bottom:16px}
 .alert-strip.danger{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
-.alert-strip.success{background:#dcfce7;border-color:#16a34a;color:#166534}
 .alert-strip.info{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
-
-/* Level Cards */
-.level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);display:flex;align-items:center;gap:12px;position:relative;transition:all .2s}
+.bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600}
+.level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);display:flex;align-items:center;gap:12px;position:relative}
 .level-card.locked{opacity:.65}
-.level-card.unlocked{border:2px solid #16a34a;box-shadow:0 6px 20px rgba(22,163,74,.15)}
-.level-card.current{border:2px solid #2563eb;box-shadow:0 6px 20px rgba(37,99,235,.15);opacity:1}
+.level-card.unlocked{border:2px solid #16a34a}
+.level-card.current{border:2px solid #2563eb;opacity:1}
 .level-badge{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#94a3b8,#64748b)}
 .level-card.unlocked .level-badge{background:linear-gradient(135deg,#16a34a,#22c55e)}
-.level-card.current .level-badge{background:linear-gradient(135deg,#2563eb,#7c3aed);animation:pulseBlue 1.6s infinite}
-@keyframes pulseBlue{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.5)}50%{box-shadow:0 0 0 10px rgba(37,99,235,0)}}
-.level-card.lv1 .level-badge{background:linear-gradient(135deg,#3b82f6,#2563eb)}
-.level-card.lv2 .level-badge{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
-.level-card.lv3 .level-badge{background:linear-gradient(135deg,#ec4899,#db2777)}
-.level-card.lv4 .level-badge{background:linear-gradient(135deg,#f59e0b,#d97706)}
-.level-card.lv5 .level-badge{background:linear-gradient(135deg,#f97316,#ea580c)}
-.level-card.lv6 .level-badge{background:linear-gradient(135deg,#14b8a6,#0d9488)}
-.level-card.lv7 .level-badge{background:linear-gradient(135deg,#06b6d4,#0891b2)}
-.level-card.lv8 .level-badge{background:linear-gradient(135deg,#84cc16,#65a30d)}
-.level-card.lv9 .level-badge{background:linear-gradient(135deg,#eab308,#ca8a04)}
-.level-card.lv10 .level-badge{background:linear-gradient(135deg,#ef4444,#dc2626);animation:glow 2s infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 20px 4px rgba(239,68,68,.6)}}
+.level-card.current .level-badge{background:linear-gradient(135deg,#2563eb,#7c3aed)}
 .level-info{flex:1;min-width:0}
 .level-info b{display:block;font-size:14px;margin-bottom:3px}
 .level-info .req{font-size:11px;color:#667085}
 .level-info .progress-mini{height:5px;background:#e9edf5;border-radius:5px;margin-top:6px;overflow:hidden}
-.level-info .progress-mini i{display:block;height:100%;background:#2563eb;border-radius:5px;transition:width .3s}
+.level-info .progress-mini i{display:block;height:100%;background:#2563eb;border-radius:5px}
 .level-reward{background:#dcfce7;color:#15803d;padding:6px 10px;border-radius:10px;font-weight:800;font-size:13px;flex-shrink:0}
 .level-card.locked .level-reward{background:#f1f5f9;color:#94a3b8}
 .level-status{position:absolute;top:8px;right:8px;font-size:10px;padding:3px 8px;border-radius:8px;font-weight:700}
 .level-status.locked{background:#f1f5f9;color:#64748b}
 .level-status.unlocked{background:#dcfce7;color:#15803d}
 .level-status.current{background:#dbeafe;color:#1e40af}
-
-/* Task Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.88);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
 .modal{background:#fff;border-radius:20px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;padding:20px;position:relative}
-.modal h3{margin:0 0 6px;font-size:18px}
-.modal .close-btn{position:absolute;top:12px;right:12px;background:#f1f5f9;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;color:#64748b;z-index:10}
+.modal .close-btn{position:absolute;top:12px;right:12px;background:#f1f5f9;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;color:#64748b}
 .modal .close-btn:disabled{opacity:.4;cursor:not-allowed}
 .counter-wrap{text-align:center;padding:12px 0}
 .counter-circle{width:110px;height:110px;border-radius:50%;background:conic-gradient(#2563eb var(--pct,0%),#e2e8f0 0);display:grid;place-items:center;margin:0 auto;position:relative}
@@ -132,8 +100,7 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .modal-ad-zone{margin:12px 0;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#f8fafc;border-radius:12px;padding:8px}
 .verify-btn{width:100%;background:#2563eb;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:8px}
 .verify-btn:disabled{background:#cbd5e1;cursor:not-allowed}
-.verify-btn.ready{background:#16a34a;animation:pulseGreen 1.5s infinite}
-@keyframes pulseGreen{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}50%{box-shadow:0 0 0 12px rgba(22,163,74,0)}}
+.verify-btn.ready{background:#16a34a}
 #container-aee8e250def4f9da28614f8be36fc70d{margin:0 auto;max-width:100%}
 </style>
 </head>
@@ -142,18 +109,14 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 <div class="toast" id="toast"></div>
 <div class="modal-overlay" id="taskModal"><div class="modal" id="taskModalBody"></div></div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
 
-<!-- Global Background Ad Script -->
+<!-- Global Background Ad -->
 <script src="https://pl31353282.profitableratecpmnetwork.com/38/51/6f/38516f740af3a4533e72320049202123.js"></script>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   FIREBASE INIT
-   ═══════════════════════════════════════════════════════════ */
 const firebaseConfig = {
   apiKey: "AIzaSyBZEXXe0Zwuggq8dj_BMv675CP4AlwewFY",
   authDomain: "easyearn-6684a.firebaseapp.com",
@@ -168,53 +131,51 @@ firebase.initializeApp(firebaseConfig);
 try { firebase.analytics(); } catch(e) {}
 const DB = firebase.database();
 
-/* CONFIG */
 const BOT_USERNAME = "easyearn120_bot";
 const BOT_LINK = "https://t.me/" + BOT_USERNAME;
 
 /* LEVELS */
 const LEVELS = [
-  { lv: 1,  required: 5,   extraNeeded: 5,   bonus: 0.50,  name: "Beginner",     cut: 3 },
-  { lv: 2,  required: 15,  extraNeeded: 10,  bonus: 1.00,  name: "Starter",      cut: 2 },
-  { lv: 3,  required: 30,  extraNeeded: 15,  bonus: 2.00,  name: "Bronze",       cut: 2 },
-  { lv: 4,  required: 50,  extraNeeded: 20,  bonus: 3.50,  name: "Silver",       cut: 2 },
-  { lv: 5,  required: 80,  extraNeeded: 30,  bonus: 5.00,  name: "Gold",         cut: 2 },
-  { lv: 6,  required: 120, extraNeeded: 40,  bonus: 8.00,  name: "Platinum",     cut: 2 },
-  { lv: 7,  required: 170, extraNeeded: 50,  bonus: 12.00, name: "Diamond",      cut: 2 },
-  { lv: 8,  required: 230, extraNeeded: 60,  bonus: 18.00, name: "Master",       cut: 2 },
-  { lv: 9,  required: 300, extraNeeded: 70,  bonus: 25.00, name: "Grandmaster",  cut: 2 },
-  { lv: 10, required: 400, extraNeeded: 100, bonus: 50.00, name: "🏆 Legendary", cut: 1 },
+  { lv: 1,  required: 5,   bonus: 0.50,  name: "Beginner",     cut: 3 },
+  { lv: 2,  required: 15,  bonus: 1.00,  name: "Starter",      cut: 2 },
+  { lv: 3,  required: 30,  bonus: 2.00,  name: "Bronze",       cut: 2 },
+  { lv: 4,  required: 50,  bonus: 3.50,  name: "Silver",       cut: 2 },
+  { lv: 5,  required: 80,  bonus: 5.00,  name: "Gold",         cut: 2 },
+  { lv: 6,  required: 120, bonus: 8.00,  name: "Platinum",     cut: 2 },
+  { lv: 7,  required: 170, bonus: 12.00, name: "Diamond",      cut: 2 },
+  { lv: 8,  required: 230, bonus: 18.00, name: "Master",       cut: 2 },
+  { lv: 9,  required: 300, bonus: 25.00, name: "Grandmaster",  cut: 2 },
+  { lv: 10, required: 400, bonus: 50.00, name: "🏆 Legendary", cut: 1 },
 ];
 
-/* AD CONFIG */
+/* AD CONFIG — সব এড এখানে */
 const AD_CONFIG = {
-  home_top: { key: "ad_home_top_e", name: "Home Top", type: "iframe",
+  home_top: { key: "ad_home_top_e", type: "iframe",
     script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>` },
-  home_mid: { key: "ad_home_mid_f", name: "Home Mid", type: "iframe",
+  home_mid: { key: "ad_home_mid_f", type: "iframe",
     script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
-  home_vertical: { key: "ad_home_vertical_c", name: "Home Vertical", type: "iframe",
+  home_vertical: { key: "ad_home_vertical_c", type: "iframe",
     script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
-  home_native: { key: "ad_home_native_a", name: "Home Native", type: "native",
+  home_native: { key: "ad_home_native_a", type: "native",
     script: `<script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script><div id="container-aee8e250def4f9da28614f8be36fc70d"></div>` },
-  invite_mid: { key: "ad_invite_mid_f", name: "Invite Mid", type: "iframe",
+  invite_mid: { key: "ad_invite_mid_f", type: "iframe",
     script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
-  invite_leaderboard: { key: "ad_invite_leaderboard_d", name: "Invite Leaderboard", type: "iframe",
+  invite_leaderboard: { key: "ad_invite_leaderboard_d", type: "iframe",
     script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
-  withdraw_footer: { key: "ad_withdraw_g", name: "Withdraw Footer", type: "iframe",
+  withdraw_footer: { key: "ad_withdraw_g", type: "iframe",
     script: `<script>atOptions={'key':'f04a5de63c2080dcb68a5e43504f146c','format':'iframe','height':60,'width':468,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>` },
-  profile_native: { key: "ad_profile_native_a", name: "Profile Native", type: "native",
+  profile_native: { key: "ad_profile_native_a", type: "native",
     script: `<div id="container-aee8e250def4f9da28614f8be36fc70d_profile"></div>` },
-  profile_vertical: { key: "ad_profile_vertical_c", name: "Profile Vertical", type: "iframe",
+  profile_vertical: { key: "ad_profile_vertical_c", type: "iframe",
     script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
-  task_modal_top: { key: "ad_task_modal_d", name: "Task Modal Top", type: "iframe",
+  task_modal_top: { key: "ad_task_modal_d", type: "iframe",
     script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
-  task_modal_mid: { key: "ad_task_modal_b", name: "Task Modal Mid", type: "iframe",
+  task_modal_mid: { key: "ad_task_modal_b", type: "iframe",
     script: `<script>atOptions={'key':'be41579cd4387c843cd4cb262bc89ccb','format':'iframe','height':600,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>` },
-  task_direct: { key: "ad_task_direct_h", name: "Task Direct", type: "direct",
+  task_direct: { key: "ad_task_direct_h", type: "direct",
     script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e" },
 };
 
-/* STATE */
 let ME = null, MY_ID = null;
 let TASKS = [], SETTINGS = {}, COMPLETIONS = [], WITHDRAWALS = [];
 let ADMIN_ADS = {}, RENDERED_ADS = {};
@@ -225,7 +186,6 @@ const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
-/* UTILS */
 function todayKey(){
   const d = new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -238,18 +198,14 @@ function toast(msg, type=""){
   el._t = setTimeout(()=>el.className = 'toast ' + type, 2600);
 }
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function genUserCode(){
-  return Math.random().toString(36).substring(2,10).toUpperCase();
-}
+function genUserCode(){ return Math.random().toString(36).substring(2,10).toUpperCase(); }
 
-/* LEVEL HELPERS */
 function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
 function getNextLevel(n){ for(const L of LEVELS){ if(n<L.required) return L; } return null; }
 function getLevelData(lv){ return LEVELS.find(L=>L.lv===lv)||null; }
 function canWithdraw(n){ return n >= LEVELS[0].required; }
 function getWithdrawCut(n){ const lv=getCurrentLevel(n); return lv>=1 ? getLevelData(lv).cut : 3; }
 
-/* AD RENDERING */
 async function renderAd(slotName, containerId){
   const c = document.getElementById(containerId);
   if (!c) return;
@@ -259,7 +215,7 @@ async function renderAd(slotName, containerId){
   if (adminCfg.enabled === false) { c.classList.add('hidden'); return; }
   c.classList.remove('hidden');
   if (cfg.type === 'direct') {
-    c.innerHTML = `<div class="ad-label">Sponsored</div><a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 ${esc(cfg.name)}</a>`;
+    c.innerHTML = `<div class="ad-label">Sponsored</div><a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 Sponsored</a>`;
     return;
   }
   if (cfg.type === 'native') {
@@ -293,112 +249,73 @@ function loadAdsForSection(){
   }, 100);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   START APP
-   ═══════════════════════════════════════════════════════════ */
+/* START */
 async function startApp(){
   const hasTelegram = !!(tg && tg.initDataUnsafe && tg.initDataUnsafe.user);
-
   if (!hasTelegram) return renderNoTelegram();
-
   const tgUser = tg.initDataUnsafe.user;
   if (!tgUser || !tgUser.id) return renderNoTelegram();
-
   MY_ID = "tg_" + tgUser.id;
-
   const snap = await DB.ref("users/" + MY_ID).get();
   if (snap.exists()) {
     if (snap.val().is_blocked) return renderBlocked();
     return boot();
   }
-
   return renderRegister();
 }
 
-/* ─── Not in Telegram ─── */
 function renderNoTelegram(){
   document.getElementById('root').innerHTML = `
     <div class="reg-screen">
       <div class="reg-icon warn">📱</div>
       <h1 class="reg-title">টেলিগ্রাম আইডি পাওয়া যায়নি</h1>
-      <p class="reg-sub">
-        EasyEarn-এ account তৈরি করতে হলে আপনার <b>Telegram ID</b> দিয়ে রেজিস্ট্রেশন করতে হবে।
-      </p>
-      <div class="alert-strip">
-        ⚠️ <b>নোটিশ:</b> অনুগ্রহ করে নিচের নিয়মগুলো মেনে EasyEarn-এ প্রবেশ করুন।
-      </div>
+      <p class="reg-sub">EasyEarn-এ account তৈরি করতে <b>Telegram ID</b> প্রয়োজন।</p>
+      <div class="alert-strip">⚠️ নিচের নিয়মগুলো অনুসরণ করুন।</div>
       <div class="reg-box">
         <h4>📋 কীভাবে প্রবেশ করবেন</h4>
-        <div class="reg-step"><div class="step-num">১</div><div>আপনার <b>Telegram App</b> খুলুন</div></div>
-        <div class="reg-step"><div class="step-num">২</div><div>সার্চ বক্সে <b>@${BOT_USERNAME}</b> লিখুন</div></div>
-        <div class="reg-step"><div class="step-num">৩</div><div><b>/start</b> কমান্ড দিন</div></div>
-        <div class="reg-step"><div class="step-num">৪</div><div>EasyEarn পুনরায় খুললে Telegram ID automatically verify হবে</div></div>
+        <p style="font-size:13px;line-height:1.8;color:#475569">
+          ১. Telegram App খুলুন<br>
+          ২. <b>@${BOT_USERNAME}</b> সার্চ করুন<br>
+          ৩. <b>/start</b> কমান্ড দিন<br>
+          ৪. EasyEarn পুনরায় খুললে auto verify হবে
+        </p>
       </div>
       <a href="${BOT_LINK}" target="_blank" class="reg-cta">🚀 টেলিগ্রামে খুলুন</a>
-      <button class="reg-cta secondary" onclick="location.reload()">🔄 আবার চেষ্টা করুন</button>
-      <div class="reg-footer">
-        ⚠️ সরাসরি Browser-এ EasyEarn খোলা যাবে না।<br>
-        শুধুমাত্র Telegram-এর মাধ্যমে রেজিস্ট্রেশন সম্পন্ন হবে।
-      </div>
     </div>`;
 }
 
-/* ─── Register Screen ─── */
-async function renderRegister(errorMsg){
+function renderRegister(errorMsg){
   const tgUser = tg.initDataUnsafe.user;
   const fullName = [tgUser.first_name, tgUser.last_name].filter(Boolean).join(" ");
-
-  // Fetch admin's active code to show as hint
-  let activeCode = "—";
-  try {
-    const snap = await DB.ref("settings/active_referral_code").get();
-    if (snap.exists()) activeCode = String(snap.val()).toUpperCase();
-  } catch(e) {}
-
   document.getElementById('root').innerHTML = `
     <div class="reg-screen">
       <div class="reg-icon gradient">💰</div>
       <h1 class="reg-title">EasyEarn-এ স্বাগতম</h1>
       <p class="reg-sub">Telegram Verified ✅<br>${esc(fullName)} ${tgUser.username ? '@'+esc(tgUser.username) : ''}</p>
-
       ${errorMsg ? `<div class="alert-strip danger">${esc(errorMsg)}</div>` : ''}
-
       <div class="reg-box">
         <h4>📝 নতুন Account তৈরি করুন</h4>
-        <p style="color:#64748b;font-size:13px;line-height:1.6;margin:0 0 12px">
-          Registration সম্পন্ন করতে <b>Referral Code</b> প্রয়োজন।
-        </p>
-        <label class="small" style="color:#667085;font-weight:600">Referral Code</label>
+        <p style="color:#64748b;font-size:13px;margin:0 0 12px">Referral Code দিলেই register হবে।</p>
+        <label class="small" style="font-weight:600">Referral Code</label>
         <input id="regRefCode" placeholder="যেমন: EASYADMIN2024" style="text-transform:uppercase;font-family:monospace;letter-spacing:2px;text-align:center;font-size:16px;font-weight:700">
         <div id="regError" style="color:#b91c1c;font-size:12px;margin-top:6px;display:none"></div>
         <button class="reg-cta" style="margin-top:12px" onclick="attemptRegister()">📝 Register করুন</button>
       </div>
-
-      <div class="alert-strip info">
-        ℹ️ Referral Code ছাড়া registration সম্পন্ন করা যাবে না।
-      </div>
-
-      <div class="reg-footer">
+      <div class="alert-strip info">ℹ️ Referral Code ছাড়া registration হবে না।</div>
+      <div style="text-align:center;color:#94a3b8;font-size:11px;margin-top:18px">
         Telegram ID: <b>${esc(String(tgUser.id))}</b><br>
         <span class="bot-link">@${BOT_USERNAME}</span>
       </div>
     </div>`;
 }
 
-/* ─── Attempt Register (Firebase = only data store) ─── */
 async function attemptRegister(){
   const errBox = document.getElementById('regError');
   errBox.style.display = 'none';
-
   const tgUser = tg.initDataUnsafe.user;
-  if (!tgUser || !tgUser.id) {
-    errBox.style.display = 'block';
-    errBox.textContent = '❌ Telegram ID detect করা যাচ্ছে না।';
-    return;
-  }
+  if (!tgUser || !tgUser.id) { errBox.style.display='block'; errBox.textContent='❌ Telegram ID নেই।'; return; }
   MY_ID = "tg_" + tgUser.id;
 
-  // Already exists?
   const existSnap = await DB.ref("users/" + MY_ID).get();
   if (existSnap.exists()) {
     if (existSnap.val().is_blocked) return renderBlocked();
@@ -408,77 +325,95 @@ async function attemptRegister(){
 
   const codeInput = document.getElementById('regRefCode');
   let code = (codeInput.value || "").trim().toUpperCase();
+  if (!code) { errBox.style.display='block'; errBox.textContent='❌ Referral Code ছাড়া register করা যাবে না।'; return; }
 
-  if (!code) {
-    errBox.style.display = 'block';
-    errBox.textContent = '❌ Referral Code ছাড়া registration করা যাবে না।';
-    return;
+  // ═══ Check against referral_codes (per-user codes) AND admin code ═══
+  let referrerId = null;
+  const refSnap = await DB.ref("referral_codes/" + code).get();
+  if (refSnap.exists()) {
+    referrerId = refSnap.val();
+  } else {
+    // Fallback: check admin code
+    const activeSnap = await DB.ref("settings/active_referral_code").get();
+    const activeCode = activeSnap.exists() ? String(activeSnap.val()).toUpperCase() : "";
+    if (code === activeCode) {
+      referrerId = "admin";
+    }
   }
 
-  // ═══ Fetch ADMIN's active code from Firebase settings ═══
-  const activeCodeSnap = await DB.ref("settings/active_referral_code").get();
-  if (!activeCodeSnap.exists()) {
-    errBox.style.display = 'block';
-    errBox.textContent = '⚠️ Admin এখনো কোনো referral code সেট করেনি।';
-    return;
-  }
-  const activeCode = String(activeCodeSnap.val()).toUpperCase();
-
-  // ═══ Validate code against admin's code ═══
-  if (code !== activeCode) {
-    errBox.style.display = 'block';
-    errBox.textContent = '❌ এই Referral Code সঠিক নয়। Admin-এর কাছ থেকে সঠিক code নিন।';
-    return;
-  }
+  if (!referrerId) { errBox.style.display='block'; errBox.textContent='❌ এই Referral Code সঠিক নয়।'; return; }
+  if (referrerId === MY_ID) { errBox.style.display='block'; errBox.textContent='❌ নিজের code দিয়ে register করা যাবে না।'; return; }
 
   errBox.style.display = 'none';
 
-  // ═══ Create user in Firebase (data only) ═══
   const myCode = genUserCode();
 
   await DB.ref("users/" + MY_ID).set({
-    id: MY_ID,
-    telegram_id: tgUser.id,
+    id: MY_ID, telegram_id: tgUser.id,
     username: tgUser.username || null,
     first_name: tgUser.first_name || "User",
     last_name: tgUser.last_name || "",
     language: tgUser.language_code || "bn",
-    balance_usd: 0,
-    total_earned_usd: 0,
-    total_withdrawn_usd: 0,
+    balance_usd: 0, total_earned_usd: 0, total_withdrawn_usd: 0,
     referral_code: myCode,
-    referred_by: "admin",
-    referred_by_code: activeCode,
-    referral_count: 0,
-    level: 0,
-    streak: 0,
+    referred_by: referrerId,
+    referred_by_code: code,
+    referral_count: 0, level: 0, streak: 0,
     last_active_date: null,
-    is_blocked: false,
-    created_at: Date.now(),
-    source: "telegram"
+    is_blocked: false, created_at: Date.now(), source: "telegram"
   });
+
+  // Register my code → my ID (unlimited users can register with this)
+  await DB.ref("referral_codes/" + myCode).set(MY_ID);
+
+  // Update referrer
+  if (referrerId !== "admin") {
+    await DB.ref("users/" + referrerId).transaction(cur => {
+      if (!cur) return cur;
+      cur.referral_count = Number(cur.referral_count || 0) + 1;
+      const newRef = cur.referral_count;
+      const prevLevel = getCurrentLevel(newRef - 1);
+      const newLevel = getCurrentLevel(newRef);
+      if (newLevel > prevLevel) {
+        const L = getLevelData(newLevel);
+        cur.level = newLevel;
+        cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
+        cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
+        DB.ref("ledger").push({
+          uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
+          ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
+        });
+      }
+      return cur;
+    });
+
+    const baseBonus = 0.10;
+    await DB.ref("users/" + referrerId).transaction(cur => {
+      if (!cur) return cur;
+      cur.balance_usd = Number(cur.balance_usd || 0) + baseBonus;
+      cur.total_earned_usd = Number(cur.total_earned_usd || 0) + baseBonus;
+      return cur;
+    });
+    DB.ref("ledger").push({
+      uid: referrerId, kind: "referral_bonus", amount_usd: baseBonus,
+      ref_id: "ref:" + MY_ID, meta: "New referral", created_at: Date.now()
+    });
+  }
 
   toast("✅ Registration successful!", "success");
   boot();
 }
 
-/* ─── Blocked ─── */
 function renderBlocked(){
   document.getElementById('root').innerHTML = `
     <div class="reg-screen">
       <div class="reg-icon danger">⛔</div>
-      <h1 class="reg-title">আপনার অ্যাকাউন্টটি ব্লকড</h1>
-      <p class="reg-sub">আপনার EasyEarn account admin কর্তৃক ব্লক করা হয়েছে।</p>
-      <div class="alert-strip danger">
-        ⚠️ যদি মনে করেন এটি ভুল হয়েছে, অফিসিয়াল Bot-এর মাধ্যমে যোগাযোগ করুন।
-      </div>
-      <a href="${BOT_LINK}" target="_blank" class="reg-cta">📞 Admin-এর সাথে যোগাযোগ করুন</a>
+      <h1 class="reg-title">অ্যাকাউন্ট ব্লকড</h1>
+      <p class="reg-sub">আপনার account block করা হয়েছে।</p>
+      <a href="${BOT_LINK}" target="_blank" class="reg-cta">📞 যোগাযোগ করুন</a>
     </div>`;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT
-   ═══════════════════════════════════════════════════════════ */
 async function boot(){
   if (LISTENERS_ATTACHED) { render(); return; }
   LISTENERS_ATTACHED = true;
@@ -489,36 +424,28 @@ async function boot(){
     if (ME.is_blocked) { renderBlocked(); return; }
     render();
   });
-
   DB.ref("tasks").on("value", snap => {
     const v = snap.val() || {};
     TASKS = Object.entries(v).map(([k,val]) => ({...val,_id:k})).filter(t => t.is_active !== false);
     render();
   });
-
   DB.ref("settings").on("value", snap => {
     SETTINGS = snap.val() || {};
     ADMIN_ADS = SETTINGS.ads || {};
     render();
   });
-
   DB.ref("completions").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
     COMPLETIONS = Object.entries(v).map(([k,val]) => ({...val,_id:k}));
     render();
   });
-
   DB.ref("withdrawals").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
-    WITHDRAWALS = Object.entries(v).map(([k,val]) => ({...val,_id:k}))
-                  .sort((a,b) => (b.created_at||0) - (a.created_at||0));
+    WITHDRAWALS = Object.entries(v).map(([k,val]) => ({...val,_id:k})).sort((a,b) => (b.created_at||0) - (a.created_at||0));
     render();
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   RENDER — Dashboard
-   ═══════════════════════════════════════════════════════════ */
 function render(){
   if (!ME) return;
   const day = todayKey();
@@ -528,7 +455,6 @@ function render(){
   const nextLevel = getNextLevel(refCount);
   const withdrawOk = canWithdraw(refCount);
   const cutPct = getWithdrawCut(refCount);
-
   const myToday = COMPLETIONS.filter(c => c.day_key === day);
   const completedIds = new Set(myToday.map(c => c.task_id));
   const totalTasks = TASKS.length;
@@ -539,10 +465,7 @@ function render(){
   document.getElementById('root').innerHTML = `
   <header>
     <div class="top">
-      <div>
-        <div class="welcome">স্বাগতম</div>
-        <div class="username">${esc(ME.first_name)} 👋</div>
-      </div>
+      <div><div class="welcome">স্বাগতম</div><div class="username">${esc(ME.first_name)} 👋</div></div>
       <div class="avatar">👤</div>
     </div>
     <div class="balance">
@@ -550,7 +473,7 @@ function render(){
       <b>$${Number(ME.balance_usd||0).toFixed(2)}</b>
       <div class="small">≈ ৳ ${(Number(ME.balance_usd||0) * rate).toFixed(2)} • 1$ = ${rate}৳</div>
     </div>
-    ${curLevel > 0 ? `<div style="margin-top:12px;background:rgba(255,255,255,.2);padding:10px;border-radius:12px;font-size:12px;display:flex;justify-content:space-between;align-items:center">
+    ${curLevel > 0 ? `<div style="margin-top:12px;background:rgba(255,255,255,.2);padding:10px;border-radius:12px;font-size:12px;display:flex;justify-content:space-between">
       <span>🎖 <b>Level ${curLevel}</b> — ${getLevelData(curLevel).name}</span>
       <span>👥 ${refCount} refs</span>
     </div>` : `<div style="margin-top:12px;background:rgba(255,255,255,.2);padding:10px;border-radius:12px;font-size:12px;text-align:center">
@@ -571,23 +494,23 @@ function render(){
     ${nextLevel ? `
     <h2>🎯 Next Level Progress</h2>
     <div class="hero">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
         <b>Level ${nextLevel.lv} — ${esc(nextLevel.name)}</b>
         <span style="color:#2563eb;font-weight:700">${refCount}/${nextLevel.required}</span>
       </div>
       <div class="progress"><i style="width:${Math.min(100, refCount/nextLevel.required*100)}%"></i></div>
       <div class="small" style="margin-top:8px;color:#667085">
-        আর ${nextLevel.required - refCount} জন referral → <b style="color:#15803d">+$${nextLevel.bonus.toFixed(2)} bonus</b>
+        আর ${nextLevel.required - refCount} জন → <b style="color:#15803d">+$${nextLevel.bonus.toFixed(2)} bonus</b>
       </div>
     </div>` : `
     <div class="hero" style="background:linear-gradient(135deg,#fef3c7,#fde68a);text-align:center">
       <div style="font-size:40px">🏆</div>
-      <b style="font-size:16px;color:#92400e">Max Level Reached!</b>
+      <b style="color:#92400e">Max Level Reached!</b>
     </div>`}
 
     <h2>🎯 Today's Progress</h2>
     <div class="hero">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
         <b>${doneToday} / ${totalTasks} tasks completed</b>
         <span style="color:#2563eb;font-weight:700">${progressPct}%</span>
       </div>
@@ -606,57 +529,50 @@ function render(){
   <div id="levels" class="section ${CURRENT_SECTION==='levels'?'show':''}">
     <div class="hero" style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff">
       <h2 style="margin:0 0 6px;color:#fff">🏆 Level Progression</h2>
-      <p class="small" style="margin:0;opacity:.9">প্রতিটি level আলাদা — unlock করে পরেরটায় যান</p>
+      <p class="small" style="margin:0;opacity:.9">10 level unlock করে বড় bonus</p>
       <div style="margin-top:12px;display:flex;justify-content:space-between">
         <div><div class="small">Current</div><b style="font-size:18px">Lv ${curLevel}</b></div>
         <div><div class="small">Referrals</div><b style="font-size:18px">${refCount}</b></div>
-        <div><div class="small">Total Bonus</div><b style="font-size:18px">$${LEVELS.filter(L => refCount >= L.required).reduce((s,L) => s + L.bonus, 0).toFixed(2)}</b></div>
+        <div><div class="small">Bonus</div><b style="font-size:18px">$${LEVELS.filter(L => refCount >= L.required).reduce((s,L) => s + L.bonus, 0).toFixed(2)}</b></div>
       </div>
     </div>
-
     <h2>📋 All Levels</h2>
     ${LEVELS.map(L => {
       const unlocked = refCount >= L.required;
       const isCurrent = nextLevel && nextLevel.lv === L.lv;
       const progress = Math.min(100, (refCount / L.required) * 100);
-      const statusClass = unlocked ? 'unlocked' : (isCurrent ? 'current' : 'locked');
-      const statusText = unlocked ? '✅ Unlocked' : (isCurrent ? '⏳ Current' : '🔒 Locked');
+      const sClass = unlocked ? 'unlocked' : (isCurrent ? 'current' : 'locked');
+      const sText = unlocked ? '✅ Unlocked' : (isCurrent ? '⏳ Current' : '🔒 Locked');
       return `
-        <div class="level-card lv${L.lv} ${statusClass}">
-          <span class="level-status ${statusClass}">${statusText}</span>
+        <div class="level-card lv${L.lv} ${sClass}">
+          <span class="level-status ${sClass}">${sText}</span>
           <div class="level-badge">${L.lv}</div>
           <div class="level-info">
             <b>${esc(L.name)}</b>
-            <div class="req">${L.required} referrals (+${L.extraNeeded} this level) • Cut ${L.cut}%</div>
+            <div class="req">${L.required} referrals • Cut ${L.cut}%</div>
             ${!unlocked ? `<div class="progress-mini"><i style="width:${progress}%"></i></div>` : ''}
           </div>
           <div class="level-reward">${unlocked ? '✅' : '$' + L.bonus.toFixed(2)}</div>
         </div>`;
     }).join("")}
-
-    <div class="notice">
-      💡 প্রতিটি level unlock করলে bonus auto balance-এ add হবে এবং পরের level লক হয়ে যাবে।
-    </div>
+    <div class="notice">💡 প্রতিটি level unlock করলে bonus auto balance-এ add হবে।</div>
   </div>
 
   <div id="invite" class="section ${CURRENT_SECTION==='invite'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
-      <p class="small" style="color:#667085">প্রতি verified referral এ <b style="color:#15803d">$0.10 bonus</b> + level bonus</p>
+      <p class="small" style="color:#667085">প্রতিটি verified referral এ $0.10 bonus + level bonus</p>
       <div style="background:#f1f5f9;padding:12px;border-radius:10px;word-break:break-all;font-size:11px;margin-top:10px;font-family:monospace" id="refLink">
         ${BOT_LINK}?start=ref_${esc(ME.referral_code)}
       </div>
       <br>
       <button class="primary" style="width:100%" onclick="copyRef()">📋 Copy Referral Link</button>
     </div>
-
     <div class="grid">
       <div class="card"><div class="small">Total Referrals</div><div class="value">${refCount}</div></div>
       <div class="card"><div class="small">Referral Earned</div><div class="value">$${(refCount * 0.10).toFixed(2)}</div></div>
     </div>
-
     <div class="ad-slot" id="ad_invite_mid"><div class="ad-label">Sponsored</div></div>
-
     <div class="hero">
       <h2 style="margin:0 0 6px">📊 Your Referral Stats</h2>
       <div class="row"><span>Your Code</span><b style="font-family:monospace">${esc(ME.referral_code)}</b></div>
@@ -664,16 +580,14 @@ function render(){
       <div class="row"><span>Current Level</span><b>${curLevel > 0 ? 'Lv ' + curLevel + ' — ' + getLevelData(curLevel).name : 'Not unlocked'}</b></div>
       <div class="row"><span>Next Level</span><b>${nextLevel ? 'Lv ' + nextLevel.lv + ' (' + (nextLevel.required - refCount) + ' more)' : 'Max'}</b></div>
       <div class="row"><span>Withdraw Cut</span><b>${cutPct}%</b></div>
-      <div class="row"><span>Withdraw Status</span><b style="color:${withdrawOk ? '#15803d' : '#b45309'}">${withdrawOk ? '✅ Unlocked' : '🔒 Locked (need ' + LEVELS[0].required + ')'}</b></div>
+      <div class="row"><span>Withdraw</span><b style="color:${withdrawOk ? '#15803d' : '#b45309'}">${withdrawOk ? '✅ Unlocked' : '🔒 Need ' + LEVELS[0].required + ' refs'}</b></div>
     </div>
-
     <div class="hero">
       <h2 style="margin:0 0 6px">🔗 Bot Link</h2>
       <div style="background:#eff6ff;padding:12px;border-radius:10px;font-size:12px;font-family:monospace;word-break:break-all">${BOT_LINK}</div>
       <br>
-      <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">📱 Open Bot in Telegram</a>
+      <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">📱 Open Bot</a>
     </div>
-
     <div class="ad-slot" id="ad_invite_leaderboard"><div class="ad-label">Advertisement</div></div>
   </div>
 
@@ -684,10 +598,10 @@ function render(){
           <div style="font-size:50px">🔒</div>
           <h2 style="margin:8px 0 6px;color:#92400e">Withdraw Locked</h2>
           <p class="small" style="color:#92400e;margin:0">
-            Withdraw unlock করতে কমপক্ষে <b>${LEVELS[0].required} referrals</b> দরকার। আপনার এখন <b>${refCount}</b> জন।
+            কমপক্ষে <b>${LEVELS[0].required} referrals</b> দরকার। আপনার এখন <b>${refCount}</b> জন।
           </p>
           <div class="progress" style="margin-top:12px"><i style="width:${(refCount/LEVELS[0].required)*100}%"></i></div>
-          <p class="small" style="color:#92400e;margin-top:10px">আর ${LEVELS[0].required - refCount} জন referral দরকার</p>
+          <p class="small" style="color:#92400e;margin-top:10px">আর ${LEVELS[0].required - refCount} জন দরকার</p>
         </div>
       </div>
       <div class="hero" style="text-align:center">
@@ -696,20 +610,17 @@ function render(){
     ` : `
       <div class="hero">
         <h2 style="margin:0 0 10px">💸 Withdraw</h2>
-        <div class="row"><span>Available Balance</span><b>$${Number(ME.balance_usd||0).toFixed(2)}</b></div>
-        <div class="row"><span>Minimum Withdraw</span><b>$1.00</b></div>
+        <div class="row"><span>Balance</span><b>$${Number(ME.balance_usd||0).toFixed(2)}</b></div>
+        <div class="row"><span>Minimum</span><b>$1.00</b></div>
         <div class="row"><span>Referral Requirement</span><b style="color:#15803d">✅ ${refCount}/${LEVELS[0].required}</b></div>
         <div class="row"><span>Commission Cut</span><b style="color:#b45309">${cutPct}% (Level ${curLevel})</b></div>
-        <div class="row"><span>Conversion Rate</span><b>1$ = ${rate}৳</b></div>
+        <div class="row"><span>Rate</span><b>1$ = ${rate}৳</b></div>
         <div style="margin-top:14px">
-          <label class="small" style="color:#667085">Payment Method</label>
-          <select id="wdMethod">
-            <option value="bkash">📱 bKash</option>
-            <option value="nagad">📱 Nagad</option>
-          </select>
-          <label class="small" style="color:#667085">Account Number</label>
+          <label class="small">Payment Method</label>
+          <select id="wdMethod"><option value="bkash">📱 bKash</option><option value="nagad">📱 Nagad</option></select>
+          <label class="small">Account Number</label>
           <input id="wdAcc" placeholder="01XXXXXXXXX" inputmode="numeric">
-          <label class="small" style="color:#667085">Amount (USD)</label>
+          <label class="small">Amount (USD)</label>
           <input id="wdAmt" type="number" step="0.01" min="1" placeholder="1.00" oninput="previewWdCut()">
           <div id="wdPreview" style="background:#f1f5f9;padding:10px;border-radius:10px;font-size:12px;margin-top:8px;display:none"></div>
           <button class="primary" style="width:100%;margin-top:8px" onclick="requestWd()">Request Withdrawal</button>
@@ -717,9 +628,7 @@ function render(){
         </div>
       </div>
     `}
-
     <div class="ad-slot" id="ad_withdraw_footer"><div class="ad-label">Advertisement</div></div>
-
     <div class="hero">
       <h2 style="margin:0 0 6px">📜 Withdrawal History</h2>
       ${WITHDRAWALS.length ? WITHDRAWALS.map(w => `
@@ -738,22 +647,18 @@ function render(){
       <div class="row"><span>Telegram ID</span><b>${esc(String(ME.telegram_id||""))}</b></div>
       <div class="row"><span>Username</span><b>${ME.username ? "@"+esc(ME.username) : "—"}</b></div>
       <div class="row"><span>Referral Code</span><b style="font-family:monospace">${esc(ME.referral_code)}</b></div>
-      <div class="row"><span>Referred By</span><b>${ME.referred_by ? '✅ Admin (' + esc(ME.referred_by_code||"") + ')' : '—'}</b></div>
+      <div class="row"><span>Referred By</span><b>${ME.referred_by ? '✅ ' + esc(ME.referred_by_code || 'Admin') : '—'}</b></div>
       <div class="row"><span>Total Earned</span><b>$${Number(ME.total_earned_usd||0).toFixed(2)}</b></div>
       <div class="row"><span>Total Withdrawn</span><b>$${Number(ME.total_withdrawn_usd||0).toFixed(2)}</b></div>
-      <div class="row"><span>Current Level</span><b>${curLevel > 0 ? 'Lv ' + curLevel + ' — ' + getLevelData(curLevel).name : 'Locked'}</b></div>
+      <div class="row"><span>Current Level</span><b>${curLevel > 0 ? 'Lv ' + curLevel : 'Locked'}</b></div>
       <div class="row"><span>Referrals</span><b>${refCount}</b></div>
       <div class="row"><span>Tasks Completed</span><b>${COMPLETIONS.length}</b></div>
       <div class="row"><span>Status</span><b style="color:#15803d">✅ Active</b></div>
       <div class="row"><span>Joined</span><b>${new Date(ME.created_at).toLocaleDateString()}</b></div>
     </div>
-
     <div class="ad-slot" id="ad_profile_native"><div class="ad-label">Sponsored</div></div>
     <div class="ad-slot" id="ad_profile_vertical"><div class="ad-label">Advertisement</div></div>
-
-    <div class="notice">
-      🔒 আপনি Telegram-verified user। একই Telegram account দিয়ে দ্বিতীয়বার register করা যাবে না।
-    </div>
+    <div class="notice">🔒 আপনি Telegram-verified user। একই Telegram ID দিয়ে দ্বিতীয়বার register হবে না।</div>
   </div>
 
   <nav>
@@ -782,7 +687,7 @@ function renderTasksSplit(midPoint, myToday){
         <span class="icon">${icon}</span>
         <div class="info">
           <b>${esc(t.title)}</b>
-          <div class="small" style="color:#667085">Reward $${Number(t.reward_usd).toFixed(2)} • Daily ${t.daily_limit||1}</div>
+          <div class="small" style="color:#667085">$${Number(t.reward_usd).toFixed(2)} • Daily ${t.daily_limit||1}</div>
           <div class="badge">${esc(t.verify_type||"manual")}</div>
         </div>
         <button class="primary" ${limitReached ? "disabled" : ""} onclick="startTask('${t._id}')">
@@ -794,7 +699,6 @@ function renderTasksSplit(midPoint, myToday){
   bottom.innerHTML = TASKS.slice(midPoint).map(renderOne).join("");
 }
 
-/* ACTIONS */
 function nav(id, el){
   CURRENT_SECTION = id;
   document.querySelectorAll('.section').forEach(x => x.classList.remove('show'));
@@ -843,9 +747,7 @@ function openTaskModal(task){
   body.innerHTML = `
     <button class="close-btn" id="modalClose" disabled>✕</button>
     <h3>🎬 ${esc(task.title)}</h3>
-    <p class="small" style="color:#667085;margin:0 0 10px">
-      Reward: <b style="color:#16a34a">$${Number(task.reward_usd).toFixed(2)}</b> — ${counter}s অপেক্ষা করুন
-    </p>
+    <p class="small" style="color:#667085;margin:0 0 10px">Reward: <b style="color:#16a34a">$${Number(task.reward_usd).toFixed(2)}</b> — ${counter}s অপেক্ষা করুন</p>
     <div class="counter-wrap">
       <div class="counter-circle" id="counterCircle" style="--pct:0%">
         <div style="position:relative;text-align:center">
@@ -857,9 +759,7 @@ function openTaskModal(task){
     </div>
     <div class="modal-ad-zone" id="ad_task_modal_top"></div>
     <div class="modal-ad-zone" id="ad_task_modal_mid"></div>
-    <button class="verify-btn" id="verifyBtn" disabled>
-      ⏳ অপেক্ষা করুন (<span id="verifyCount">${counter}</span>s)
-    </button>`;
+    <button class="verify-btn" id="verifyBtn" disabled>⏳ অপেক্ষা করুন (<span id="verifyCount">${counter}</span>s)</button>`;
 
   modal.classList.add('show');
 
@@ -893,7 +793,7 @@ function openTaskModal(task){
       verifyBtn.classList.add('ready');
       verifyBtn.innerHTML = '✅ Claim $' + Number(task.reward_usd).toFixed(2);
       closeBtn.disabled = false;
-      counterHint.textContent = '🎉 টাইমার শেষ! Reward claim করুন';
+      counterHint.textContent = '🎉 টাইমার শেষ!';
       verifyBtn.onclick = () => finalizeTask(task);
     }
   }, 1000);
@@ -1015,7 +915,6 @@ function copyRef(){
   }
 }
 
-/* INIT */
 (async () => {
   await startApp();
 })();
