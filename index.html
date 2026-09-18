@@ -60,6 +60,7 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 .alert-strip{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 14px;border-radius:10px;font-size:12.5px;color:#92400e;line-height:1.6;margin-bottom:16px}
 .alert-strip.danger{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
 .alert-strip.info{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
+.alert-strip.success{background:#dcfce7;border-color:#16a34a;color:#166534}
 .bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600}
 
 .cat-card{background:#fff;border-radius:18px;padding:16px;margin:10px 15px;box-shadow:0 5px 20px rgba(23,32,51,.06);display:flex;align-items:center;gap:14px;cursor:pointer;border-left:5px solid #2563eb}
@@ -119,6 +120,12 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 .level-details .val{font-size:13px;font-weight:800}
 .level-mini-progress{height:5px;background:#e9edf5;border-radius:5px;overflow:hidden;margin-top:10px}
 .level-mini-progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:5px}
+
+/* Referral code display box */
+.my-ref-box{background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:16px;padding:20px;margin:15px;color:#fff;text-align:center}
+.my-ref-box .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;opacity:.85;font-weight:700;margin-bottom:8px}
+.my-ref-box .code{font-family:monospace;font-size:32px;font-weight:900;letter-spacing:4px;margin:10px 0;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.my-ref-box .copy-btn{background:#fff;color:#2563eb;border:0;padding:10px 20px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;margin-top:8px}
 
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.88);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
@@ -223,6 +230,28 @@ function toast(msg, type=""){
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function money(n){ return "$" + Number(n||0).toFixed(2); }
 
+/* ═══════════════════════════════════════════════════════════
+   🎫 GENERATE UNIQUE REFERRAL CODE
+   ═══════════════════════════════════════════════════════════ */
+function generateUserCode(){
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 8; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+async function generateUniqueCode(){
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const code = generateUserCode();
+    const snap = await DB.ref("referral_codes/" + code).get();
+    if (!snap.exists()) return code;
+  }
+  // Fallback with timestamp
+  return "U" + Date.now().toString(36).toUpperCase().slice(-7);
+}
+
 function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
 function getNextLevel(n){ for(const L of LEVELS){ if(n<L.required) return L; } return null; }
 function getLevelData(lv){ return LEVELS.find(L=>L.lv===lv)||null; }
@@ -271,11 +300,11 @@ function renderRegister(errorMsg){
       <div class="reg-box">
         <h4>📝 নতুন Account</h4>
         <label class="small" style="font-weight:600">Referral Code</label>
-        <input id="regRefCode" placeholder="Admin-এর code" style="text-transform:uppercase;font-family:monospace;letter-spacing:2px;text-align:center;font-size:16px;font-weight:700">
+        <input id="regRefCode" placeholder="যেমন: UMWTJC50" style="text-transform:uppercase;font-family:monospace;letter-spacing:2px;text-align:center;font-size:16px;font-weight:700">
         <div id="regError" style="color:#b91c1c;font-size:12px;margin-top:6px;display:none"></div>
         <button class="reg-cta" style="margin-top:12px" onclick="attemptRegister()">📝 Register করুন</button>
       </div>
-      <div class="alert-strip info">ℹ️ Admin-এর code দিয়েই register হবে।</div>
+      <div class="alert-strip info">ℹ️ Referral Code ছাড়া register করা যাবে না।</div>
     </div>`;
 }
 
@@ -295,14 +324,44 @@ async function attemptRegister(){
   const code = (document.getElementById('regRefCode').value || "").trim().toUpperCase();
   if (!code) { errBox.style.display='block'; errBox.textContent='❌ Referral Code দিন।'; return; }
 
-  const adminCodeSnap = await DB.ref("settings/admin_referral_code").get();
-  const adminCode = adminCodeSnap.exists() ? String(adminCodeSnap.val()).toUpperCase() : null;
+  // ═══ Check: referral_codes OR admin code ═══
+  let referrerId = null;
+  let referrerType = "unknown";
 
-  if (!adminCode) { errBox.style.display='block'; errBox.textContent='⚠️ Admin code setup নেই।'; return; }
-  if (code !== adminCode) { errBox.style.display='block'; errBox.textContent='❌ ভুল Referral Code।'; return; }
+  // 1) Check in referral_codes (user codes)
+  const refSnap = await DB.ref("referral_codes/" + code).get();
+  if (refSnap.exists()) {
+    referrerId = refSnap.val();
+    referrerType = referrerId === "admin" ? "admin" : "user";
+  } else {
+    // 2) Check admin code
+    const adminCodeSnap = await DB.ref("settings/admin_referral_code").get();
+    const adminCode = adminCodeSnap.exists() ? String(adminCodeSnap.val()).toUpperCase() : null;
+    if (adminCode && code === adminCode) {
+      referrerId = "admin";
+      referrerType = "admin";
+    }
+  }
+
+  if (!referrerId) {
+    errBox.style.display='block';
+    errBox.textContent='❌ এই Referral Code সঠিক নয়। Admin বা কোনো member-এর কাছ থেকে নিন।';
+    return;
+  }
+
+  // ═══ Prevent self-referral ═══
+  if (referrerId === MY_ID) {
+    errBox.style.display='block';
+    errBox.textContent='❌ নিজের code দিয়ে register করা যাবে না।';
+    return;
+  }
 
   errBox.style.display = 'none';
 
+  // ═══ Generate my unique code ═══
+  const myCode = await generateUniqueCode();
+
+  // ═══ Create user ═══
   await DB.ref("users/" + MY_ID).set({
     id: MY_ID, telegram_id: tgUser.id,
     username: tgUser.username || null,
@@ -310,10 +369,52 @@ async function attemptRegister(){
     last_name: tgUser.last_name || "",
     language: tgUser.language_code || "bn",
     balance_usd: 0, total_earned_usd: 0, total_withdrawn_usd: 0,
-    referral_code: null, referred_by: "admin", referred_by_code: adminCode,
+    referral_code: myCode,                    // ← নিজের unique code
+    referred_by: referrerId,
+    referred_by_code: code,
     referral_count: 0, level: 0, streak: 0, last_active_date: null,
     is_blocked: false, created_at: Date.now(), source: "telegram"
   });
+
+  // ═══ Register my code → my ID ═══
+  await DB.ref("referral_codes/" + myCode).set(MY_ID);
+
+  // ═══ Update referrer (if not admin) ═══
+  if (referrerType === "user" && referrerId !== "admin") {
+    await DB.ref("users/" + referrerId).transaction(cur => {
+      if (!cur) return cur;
+      cur.referral_count = Number(cur.referral_count || 0) + 1;
+
+      // Level check
+      const newRef = cur.referral_count;
+      const prevLevel = getCurrentLevel(newRef - 1);
+      const newLevel = getCurrentLevel(newRef);
+      if (newLevel > prevLevel) {
+        const L = getLevelData(newLevel);
+        cur.level = newLevel;
+        cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
+        cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
+        DB.ref("ledger").push({
+          uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
+          ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
+        });
+      }
+      return cur;
+    });
+
+    // Base referral bonus
+    const baseBonus = 0.10;
+    await DB.ref("users/" + referrerId).transaction(cur => {
+      if (!cur) return cur;
+      cur.balance_usd = Number(cur.balance_usd || 0) + baseBonus;
+      cur.total_earned_usd = Number(cur.total_earned_usd || 0) + baseBonus;
+      return cur;
+    });
+    DB.ref("ledger").push({
+      uid: referrerId, kind: "referral_bonus", amount_usd: baseBonus,
+      ref_id: "ref:" + MY_ID, meta: "New referral", created_at: Date.now()
+    });
+  }
 
   toast("✅ Registration successful!", "success");
   boot();
@@ -391,7 +492,7 @@ function render(){
   if (!ME) return;
   const day = todayKey();
   const rate = parseFloat(SETTINGS.USD_TO_BDT || 123);
-  const adminCode = SETTINGS.admin_referral_code || "—";
+  const myCode = ME.referral_code || "—";
   const refCount = Number(ME.referral_count || 0);
   const curLevel = getCurrentLevel(refCount);
   const nextLevel = getNextLevel(refCount);
@@ -469,15 +570,43 @@ function render(){
   <div id="invite" class="section ${CURRENT_SECTION==='invite'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
+      <p class="small" style="color:#667085">আপনার নিজস্ব code শেয়ার করুন — যারা আসবে তারা আপনার referral হবে।</p>
+    </div>
+
+    <!-- MY UNIQUE CODE -->
+    <div class="my-ref-box">
+      <div class="lbl">🔑 YOUR REFERRAL CODE</div>
+      <div class="code" id="myRefCode">${esc(myCode)}</div>
+      <button class="copy-btn" onclick="copyMyCode()">📋 Copy My Code</button>
+    </div>
+
+    <div class="hero">
+      <h2 style="margin:0 0 6px">🔗 Your Referral Link</h2>
       <div style="background:#f1f5f9;padding:12px;border-radius:10px;word-break:break-all;font-size:11px;margin-top:10px;font-family:monospace" id="refLink">
-        ${BOT_LINK}?start=ref_${esc(adminCode)}
+        ${BOT_LINK}?start=ref_${esc(myCode)}
       </div>
       <br>
       <button class="primary" style="width:100%" onclick="copyRef()">📋 Copy Referral Link</button>
     </div>
+
     <div class="grid">
-      <div class="card"><div class="small">Your Referrals</div><div class="value">${refCount}</div></div>
+      <div class="card"><div class="small">Total Referrals</div><div class="value">${refCount}</div></div>
       <div class="card"><div class="small">Current Level</div><div class="value">${curLevel > 0 ? 'Lv ' + curLevel : 'Locked'}</div></div>
+    </div>
+
+    <div class="hero" style="background:#f0fdf4;border:2px solid #16a34a">
+      <h2 style="margin:0 0 6px;color:#15803d">💡 কিভাবে কাজ করে</h2>
+      <p style="font-size:12.5px;color:#166534;line-height:1.7;margin:0">
+        ১. আপনি আপনার code <b>${esc(myCode)}</b> শেয়ার করবেন<br>
+        ২. বন্ধু আপনার code দিয়ে register করবে<br>
+        ৩. তার নিজের code <b>আলাদা</b> হবে (auto-generate)<br>
+        ৪. সে তার code শেয়ার করবে → অসীম চেইন চলবে<br>
+        ৫. প্রতিটি referral-এ আপনি <b>$0.10 + level bonus</b> পাবেন
+      </p>
+    </div>
+
+    <div class="notice">
+      ℹ️ আপনার <b>${esc(myCode)}</b> code-টি আপনার নিজস্ব। এটি অন্য কারো সাথে মিলবে না।
     </div>
   </div>
 
@@ -527,6 +656,8 @@ function render(){
       <h2 style="margin:0 0 6px">👤 Profile</h2>
       <div class="row"><span>Telegram ID</span><b>${esc(String(ME.telegram_id||""))}</b></div>
       <div class="row"><span>Username</span><b>${ME.username ? "@"+esc(ME.username) : "—"}</b></div>
+      <div class="row"><span>Your Code</span><b style="font-family:monospace;color:#2563eb">${esc(myCode)}</b></div>
+      <div class="row"><span>Referred By Code</span><b style="font-family:monospace">${esc(ME.referred_by_code || "—")}</b></div>
       <div class="row"><span>Level</span><b>${curLevel > 0 ? 'Lv ' + curLevel + ' — ' + getLevelData(curLevel).name : 'Locked'}</b></div>
       <div class="row"><span>Referrals</span><b>${refCount}</b></div>
       <div class="row"><span>Total Earned</span><b>${money(ME.total_earned_usd)}</b></div>
@@ -637,9 +768,7 @@ function closeCategory(){
   render();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TASK FLOW — Start → Direct Link + Counter → Claim → Video → Reward
-   ═══════════════════════════════════════════════════════════ */
+/* TASK FLOW */
 async function startTask(taskId){
   const day = todayKey();
   const task = TASKS.find(t => t._id === taskId);
@@ -666,13 +795,11 @@ function openTaskModal(task){
   const body = document.getElementById('taskModalBody');
   const counter = parseInt(task.verify_seconds || SETTINGS.TASK_COUNTER_SECONDS || 30);
 
-  // Open Direct Link immediately
   try {
     if (tg && tg.openLink) tg.openLink(DIRECT_LINK);
     else window.open(DIRECT_LINK, "_blank", "noopener");
   } catch(e) { console.warn(e); }
 
-  // Show counter modal
   body.innerHTML = `
     <button class="close-btn" id="modalClose" disabled>✕</button>
     <h3>🎬 ${esc(task.title || "Task")}</h3>
@@ -905,11 +1032,18 @@ async function requestWd(){
   toast("✅ Withdrawal requested", "success");
 }
 
+function copyMyCode(){
+  const code = ME.referral_code;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(()=>toast("📋 Code Copied: " + code, "success"));
+  }
+}
+
 function copyRef(){
   const el = document.getElementById('refLink');
   if (!el) return;
   const text = el.textContent.trim();
-  if (navigator.clipboard) navigator.clipboard.writeText(text).then(()=>toast("📋 Copied!", "success"));
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(()=>toast("📋 Link Copied!", "success"));
 }
 
 (async () => { await startApp(); })();
