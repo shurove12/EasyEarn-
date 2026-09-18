@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>EasyEarn — সহজআয়</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MONETAG SDK — Video Ad System
+     Zone: 11832634
+     Function: show_11832634()
+     ═══════════════════════════════════════════════════════════ -->
+<script src='//libtl.com/sdk.js' data-zone='11832634' data-sdk='show_11832634'></script>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:#f4f7fb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#172033;overscroll-behavior:none}
@@ -50,7 +58,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .loader{text-align:center;padding:40px;color:#94a3b8}
 .ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px}
 .ad-slot .ad-label{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
-.ad-slot iframe{max-width:100%;border:0;display:block;margin:0 auto}
 .ad-slot.hidden{display:none}
 .ad-slot.compact{margin:8px 15px}
 .reg-screen{max-width:420px;margin:0 auto;padding:40px 22px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#f4f7fb}
@@ -68,7 +75,7 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .alert-strip.success{background:#dcfce7;border-color:#16a34a;color:#166534}
 .bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600}
 
-/* ═══ CATEGORY CARD ═══ */
+/* Category Card */
 .cat-card{background:#fff;border-radius:18px;padding:16px;margin:10px 15px;box-shadow:0 5px 20px rgba(23,32,51,.06);display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .15s;border-left:5px solid #2563eb}
 .cat-card:active{transform:scale(.98)}
 .cat-card.ad{border-left-color:#3b82f6}
@@ -87,7 +94,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .cat-info .status-line{font-size:10.5px;color:#94a3b8;margin-top:4px;display:flex;justify-content:space-between}
 .cat-arrow{font-size:20px;color:#94a3b8;flex-shrink:0}
 
-/* ═══ CATEGORY DETAIL ═══ */
 .cat-detail-header{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;padding:20px 18px;border-radius:0 0 25px 25px;margin-bottom:14px}
 .cat-detail-header .top-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .cat-detail-header .back-btn{background:rgba(255,255,255,.2);border:0;width:38px;height:38px;border-radius:12px;color:#fff;font-size:18px;cursor:pointer}
@@ -108,7 +114,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .t-row .start-btn{background:#2563eb;color:#fff;border:0;padding:9px 14px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;flex-shrink:0}
 .t-row .done-badge{background:#dcfce7;color:#15803d;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:800;flex-shrink:0}
 
-/* ═══ LEVEL CARD ═══ */
 .level-card{background:#fff;border-radius:16px;padding:14px;margin:10px 15px;box-shadow:0 4px 14px rgba(23,32,51,.06);position:relative;transition:all .2s}
 .level-card.locked{opacity:.7}
 .level-card.unlocked{border:2px solid #16a34a;box-shadow:0 6px 20px rgba(22,163,74,.15)}
@@ -117,16 +122,6 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .level-badge{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#94a3b8,#64748b)}
 .level-card.unlocked .level-badge{background:linear-gradient(135deg,#16a34a,#22c55e)}
 .level-card.current .level-badge{background:linear-gradient(135deg,#2563eb,#7c3aed)}
-.level-card.lv1 .level-badge{background:linear-gradient(135deg,#3b82f6,#2563eb)}
-.level-card.lv2 .level-badge{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
-.level-card.lv3 .level-badge{background:linear-gradient(135deg,#ec4899,#db2777)}
-.level-card.lv4 .level-badge{background:linear-gradient(135deg,#f59e0b,#d97706)}
-.level-card.lv5 .level-badge{background:linear-gradient(135deg,#f97316,#ea580c)}
-.level-card.lv6 .level-badge{background:linear-gradient(135deg,#14b8a6,#0d9488)}
-.level-card.lv7 .level-badge{background:linear-gradient(135deg,#06b6d4,#0891b2)}
-.level-card.lv8 .level-badge{background:linear-gradient(135deg,#84cc16,#65a30d)}
-.level-card.lv9 .level-badge{background:linear-gradient(135deg,#eab308,#ca8a04)}
-.level-card.lv10 .level-badge{background:linear-gradient(135deg,#ef4444,#dc2626)}
 .level-name{flex:1;min-width:0}
 .level-name b{display:block;font-size:14px;margin-bottom:3px}
 .level-name .sub{font-size:11px;color:#667085}
@@ -154,11 +149,12 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 .counter-num{position:relative;font-size:32px;font-weight:800;color:#2563eb}
 .counter-label{position:relative;font-size:10px;color:#94a3b8;text-transform:uppercase}
 .counter-hint{margin-top:12px;font-size:12px;color:#64748b}
-.modal-ad-zone{margin:12px 0;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#f8fafc;border-radius:12px;padding:8px}
 .verify-btn{width:100%;background:#2563eb;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:8px}
 .verify-btn:disabled{background:#cbd5e1;cursor:not-allowed}
 .verify-btn.ready{background:#16a34a}
-#container-aee8e250def4f9da28614f8be36fc70d{margin:0 auto;max-width:100%}
+.video-status{padding:12px;border-radius:12px;background:#f0fdf4;border:1px solid #16a34a;margin-top:10px;font-size:12.5px;color:#166534;text-align:center}
+.video-status.error{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.video-status.loading{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
 </style>
 </head>
 <body>
@@ -166,11 +162,10 @@ input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-co
 <div class="toast" id="toast"></div>
 <div class="modal-overlay" id="taskModal"><div class="modal" id="taskModalBody"></div></div>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
-
-<script src="https://pl31353282.profitableratecpmnetwork.com/38/51/6f/38516f740af3a4533e72320049202123.js"></script>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
@@ -194,7 +189,17 @@ const BOT_USERNAME = "easyearn120_bot";
 const BOT_LINK = "https://t.me/" + BOT_USERNAME;
 
 /* ═══════════════════════════════════════════════════════════
-   📊 LEVEL SYSTEM — 10 Levels with Withdraw Min/Max
+   🔗 DIRECT LINK — প্রতিটি task-এ এই link open হবে
+   ═══════════════════════════════════════════════════════════ */
+const DIRECT_LINK = "https://omg10.com/4/11567406";
+
+/* ═══════════════════════════════════════════════════════════
+   🎬 MONETAG SDK Function Name (from data-sdk attribute)
+   ═══════════════════════════════════════════════════════════ */
+const MONETAG_SDK_FUNCTION = "show_11832634";
+
+/* ═══════════════════════════════════════════════════════════
+   LEVELS
    ═══════════════════════════════════════════════════════════ */
 const LEVELS = [
   { lv: 1,  required: 5,   bonus: 0.50,  minWd: 0.50, maxWd: 1.00,  name: "Beginner",     cut: 3 },
@@ -209,9 +214,6 @@ const LEVELS = [
   { lv: 10, required: 400, bonus: 50.00, minWd: 5.00, maxWd: 50.00, name: "🏆 Legendary", cut: 1 },
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   DEFAULT CATEGORIES
-   ═══════════════════════════════════════════════════════════ */
 const DEFAULT_CATEGORIES = [
   { id: "ad",      name: "Ad Watch",      icon: "📺", type: "ad",      reward: 0.05, targetCount: 10, borderClass: "ad" },
   { id: "channel", name: "Channel Visit", icon: "📢", type: "channel", reward: 0.03, targetCount: 10, borderClass: "channel" },
@@ -220,44 +222,14 @@ const DEFAULT_CATEGORIES = [
   { id: "special", name: "Special",       icon: "✨", type: "special", reward: 0.05, targetCount: 0,  borderClass: "special" }
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   AD CONFIG
-   ═══════════════════════════════════════════════════════════ */
-const AD_CONFIG = {
-  home_top: { key: "ad_home_top_e", type: "iframe",
-    script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>` },
-  home_mid: { key: "ad_home_mid_f", type: "iframe",
-    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
-  home_vertical: { key: "ad_home_vertical_c", type: "iframe",
-    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
-  home_native: { key: "ad_home_native_a", type: "native",
-    script: `<script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script><div id="container-aee8e250def4f9da28614f8be36fc70d"></div>` },
-  invite_mid: { key: "ad_invite_mid_f", type: "iframe",
-    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
-  invite_leaderboard: { key: "ad_invite_leaderboard_d", type: "iframe",
-    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
-  withdraw_footer: { key: "ad_withdraw_g", type: "iframe",
-    script: `<script>atOptions={'key':'f04a5de63c2080dcb68a5e43504f146c','format':'iframe','height':60,'width':468,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>` },
-  profile_native: { key: "ad_profile_native_a", type: "native",
-    script: `<div id="container-aee8e250def4f9da28614f8be36fc70d_profile"></div>` },
-  profile_vertical: { key: "ad_profile_vertical_c", type: "iframe",
-    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
-  category_mid: { key: "ad_category_mid", type: "iframe",
-    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
-  task_modal_top: { key: "ad_task_modal_d", type: "iframe",
-    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
-  task_modal_mid: { key: "ad_task_modal_b", type: "iframe",
-    script: `<script>atOptions={'key':'be41579cd4387c843cd4cb262bc89ccb','format':'iframe','height':600,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>` },
-  task_direct: { key: "ad_task_direct_h", type: "direct",
-    script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e" },
-};
-
+/* STATE */
 let ME = null, MY_ID = null;
 let CATEGORIES = [], TASKS = [], SETTINGS = {}, COMPLETIONS = [], WITHDRAWALS = [];
-let ADMIN_ADS = {}, RENDERED_ADS = {};
+let ADMIN_ADS = {};
 let CURRENT_SECTION = "home";
 let CURRENT_CATEGORY = null;
 let LISTENERS_ATTACHED = false;
+let VIDEO_WATCHED = false;
 
 const tg = window.Telegram?.WebApp;
 tg?.ready();
@@ -278,9 +250,7 @@ function toast(msg, type=""){
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function money(n){ return "$" + Number(n||0).toFixed(2); }
 
-/* ═══════════════════════════════════════════════════════════
-   LEVEL HELPERS
-   ═══════════════════════════════════════════════════════════ */
+/* LEVEL HELPERS */
 function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
 function getNextLevel(n){ for(const L of LEVELS){ if(n<L.required) return L; } return null; }
 function getLevelData(lv){ return LEVELS.find(L=>L.lv===lv)||null; }
@@ -291,58 +261,37 @@ function getWithdrawRange(n){
   const L = getLevelData(lv);
   return { min: L.minWd, max: L.maxWd, cut: L.cut, level: lv };
 }
-function getWithdrawCut(n){
-  const lv = getCurrentLevel(n);
-  return lv >= 1 ? getLevelData(lv).cut : 3;
-}
 
 /* ═══════════════════════════════════════════════════════════
-   AD RENDERING
+   🎬 SHOW MONETAG VIDEO AD — Promise based
    ═══════════════════════════════════════════════════════════ */
-async function renderAd(slotName, containerId){
-  const c = document.getElementById(containerId);
-  if (!c) return;
-  const cfg = AD_CONFIG[slotName];
-  if (!cfg) return;
-  const adminCfg = ADMIN_ADS[cfg.key] || {};
-  if (adminCfg.enabled === false) { c.classList.add('hidden'); return; }
-  c.classList.remove('hidden');
-  c.innerHTML = '';
-  if (cfg.type === 'direct') {
-    c.innerHTML = `<div class="ad-label">Sponsored</div>
-      <a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 Sponsored</a>`;
-    return;
-  }
-  if (cfg.type === 'native') {
-    c.innerHTML = `<div class="ad-label">Sponsored</div>` + cfg.script;
-    return;
-  }
-  c.innerHTML = `<div class="ad-label">Sponsored</div>`;
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = cfg.script.replace(/<\\\//g, '</');
-  c.appendChild(wrapper);
-  wrapper.querySelectorAll('script').forEach(os => {
-    const ns = document.createElement('script');
-    Array.from(os.attributes).forEach(a => ns.setAttribute(a.name, a.value));
-    if (os.textContent) ns.textContent = os.textContent;
-    os.parentNode.replaceChild(ns, os);
-  });
-}
+function showMonetagVideo(){
+  return new Promise((resolve) => {
+    try {
+      const fn = window[MONETAG_SDK_FUNCTION];
+      if (typeof fn !== "function") {
+        console.warn("Monetag SDK not loaded:", MONETAG_SDK_FUNCTION);
+        resolve({ success: false, reason: "sdk_not_loaded" });
+        return;
+      }
 
-function loadAdsForSection(){
-  const map = {
-    home: [['home_top','ad_home_top'],['home_mid','ad_home_mid'],['home_vertical','ad_home_vertical'],['home_native','ad_home_native']],
-    invite: [['invite_mid','ad_invite_mid'],['invite_leaderboard','ad_invite_leaderboard']],
-    withdraw: [['withdraw_footer','ad_withdraw_footer']],
-    profile: [['profile_native','ad_profile_native'],['profile_vertical','ad_profile_vertical']],
-    category: [['category_mid','ad_category_mid']]
-  };
-  setTimeout(() => {
-    (map[CURRENT_SECTION]||[]).forEach(([slot,id]) => {
-      const el = document.getElementById(id);
-      if (el) { delete RENDERED_ADS[id]; renderAd(slot, id); }
-    });
-  }, 150);
+      // Call Monetag SDK
+      const result = fn();
+
+      // If it returns a promise
+      if (result && typeof result.then === "function") {
+        result.then(() => resolve({ success: true }))
+              .catch(() => resolve({ success: false, reason: "skipped" }));
+      } else {
+        // SDK doesn't return promise — assume ad shown
+        // wait a bit and resolve
+        setTimeout(() => resolve({ success: true }), 500);
+      }
+    } catch (e) {
+      console.error("Monetag error:", e);
+      resolve({ success: false, reason: "error" });
+    }
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -428,17 +377,8 @@ async function attemptRegister(){
   const adminCodeSnap = await DB.ref("settings/admin_referral_code").get();
   const adminCode = adminCodeSnap.exists() ? String(adminCodeSnap.val()).toUpperCase() : null;
 
-  if (!adminCode) {
-    errBox.style.display='block';
-    errBox.textContent='⚠️ Admin এখনো কোনো code setup করেনি।';
-    return;
-  }
-
-  if (code !== adminCode) {
-    errBox.style.display='block';
-    errBox.textContent='❌ এই Referral Code সঠিক নয়।';
-    return;
-  }
+  if (!adminCode) { errBox.style.display='block'; errBox.textContent='⚠️ Admin এখনো code setup করেনি।'; return; }
+  if (code !== adminCode) { errBox.style.display='block'; errBox.textContent='❌ এই Referral Code সঠিক নয়।'; return; }
 
   errBox.style.display = 'none';
 
@@ -481,32 +421,27 @@ async function boot(){
     if (ME.is_blocked) { renderBlocked(); return; }
     render();
   });
-
   DB.ref("categories").on("value", snap => {
     const v = snap.val() || {};
     const adminCats = Object.entries(v).map(([k,val]) => ({ ...val, _id: k }));
     CATEGORIES = adminCats.length ? adminCats : DEFAULT_CATEGORIES;
     render();
   });
-
   DB.ref("tasks").on("value", snap => {
     const v = snap.val() || {};
     TASKS = Object.entries(v).map(([k,val]) => ({...val,_id:k}));
     render();
   });
-
   DB.ref("settings").on("value", snap => {
     SETTINGS = snap.val() || {};
     ADMIN_ADS = SETTINGS.ads || {};
     render();
   });
-
   DB.ref("completions").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
     COMPLETIONS = Object.entries(v).map(([k,val]) => ({...val,_id:k}));
     render();
   });
-
   DB.ref("withdrawals").orderByChild("uid").equalTo(MY_ID).on("value", snap => {
     const v = snap.val() || {};
     WITHDRAWALS = Object.entries(v).map(([k,val]) => ({...val,_id:k})).sort((a,b) => (b.created_at||0) - (a.created_at||0));
@@ -514,9 +449,7 @@ async function boot(){
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CATEGORY HELPERS
-   ═══════════════════════════════════════════════════════════ */
+/* CATEGORY HELPERS */
 function tasksInCategory(catId){
   return TASKS.filter(t => t.category === catId && t.is_active !== false);
 }
@@ -575,10 +508,7 @@ function render(){
     ${SETTINGS.ANNOUNCEMENT ? `<div style="margin-top:10px;background:rgba(255,255,255,.15);padding:10px;border-radius:12px;font-size:12px">📢 ${esc(SETTINGS.ANNOUNCEMENT)}</div>` : ''}
   </header>
 
-  <!-- HOME -->
   <div id="home" class="section ${CURRENT_SECTION==='home'?'show':''}">
-    <div class="ad-slot" id="ad_home_top"><div class="ad-label">Advertisement</div></div>
-
     <div class="grid">
       <div class="card"><div class="icon">📈</div><div class="small">Total Earned</div><div class="value">${money(ME.total_earned_usd)}</div></div>
       <div class="card"><div class="icon">💰</div><div class="small">Balance</div><div class="value">${money(ME.balance_usd)}</div></div>
@@ -586,16 +516,10 @@ function render(){
       <div class="card"><div class="icon">🎯</div><div class="small">Tasks Done</div><div class="value">${COMPLETIONS.length}</div></div>
     </div>
 
-    <div class="ad-slot" id="ad_home_mid"><div class="ad-label">Sponsored</div></div>
-
     <h2>📂 Task Categories</h2>
     <div id="categoryList"></div>
-
-    <div class="ad-slot compact" id="ad_home_vertical"><div class="ad-label">Advertisement</div></div>
-    <div class="ad-slot" id="ad_home_native"><div class="ad-label">Sponsored</div></div>
   </div>
 
-  <!-- LEVELS -->
   <div id="levels" class="section ${CURRENT_SECTION==='levels'?'show':''}">
     <div class="hero" style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;margin-bottom:14px">
       <h2 style="margin:0 0 6px;color:#fff">🏆 Level Progression</h2>
@@ -613,7 +537,7 @@ function render(){
       const sClass = unlocked ? 'unlocked' : (isCurrent ? 'current' : 'locked');
       const sText = unlocked ? '✅ Unlocked' : (isCurrent ? '⏳ Current' : '🔒 Locked');
       return `
-        <div class="level-card lv${L.lv} ${sClass}">
+        <div class="level-card ${sClass}">
           <div class="level-head">
             <div class="level-badge">${L.lv}</div>
             <div class="level-name">
@@ -636,10 +560,8 @@ function render(){
           <div style="font-size:11px;color:#94a3b8;margin-top:5px;text-align:center">${refCount}/${L.required} referrals</div>` : ''}
         </div>`;
     }).join("")}
-    <div class="notice">💡 প্রতি level unlock করলে bonus auto balance-এ যোগ হবে। Level 1 unlock হলে withdraw করতে পারবেন।</div>
   </div>
 
-  <!-- INVITE -->
   <div id="invite" class="section ${CURRENT_SECTION==='invite'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
@@ -654,23 +576,14 @@ function render(){
       <div class="card"><div class="small">Your Referrals</div><div class="value">${refCount}</div></div>
       <div class="card"><div class="small">Current Level</div><div class="value">${curLevel > 0 ? 'Lv ' + curLevel : 'Locked'}</div></div>
     </div>
-    <div class="hero" style="background:#dcfce7;border:2px solid #16a34a">
-      <h2 style="margin:0 0 6px;color:#15803d">🎁 Invite Info</h2>
-      <div class="row"><span>Invite Code</span><b style="font-family:monospace;font-size:14px">${esc(adminCode)}</b></div>
-      <div class="row"><span>Referred By</span><b>✅ Admin</b></div>
-      <div class="row"><span>Next Level</span><b>${nextLevel ? 'Lv ' + nextLevel.lv + ' (need ' + (nextLevel.required - refCount) + ' more)' : 'Max'}</b></div>
-    </div>
-    <div class="ad-slot" id="ad_invite_mid"><div class="ad-label">Sponsored</div></div>
     <div class="hero">
       <h2 style="margin:0 0 6px">🔗 Bot Link</h2>
       <div style="background:#eff6ff;padding:12px;border-radius:10px;font-size:12px;font-family:monospace;word-break:break-all">${BOT_LINK}</div>
       <br>
       <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">📱 Open Bot</a>
     </div>
-    <div class="ad-slot" id="ad_invite_leaderboard"><div class="ad-label">Advertisement</div></div>
   </div>
 
-  <!-- WITHDRAW -->
   <div id="withdraw" class="section ${CURRENT_SECTION==='withdraw'?'show':''}">
     ${!canWithdraw(refCount) ? `
       <div class="hero" style="background:#fef3c7">
@@ -710,8 +623,6 @@ function render(){
       </div>
     `}
 
-    <div class="ad-slot" id="ad_withdraw_footer"><div class="ad-label">Advertisement</div></div>
-
     <div class="hero">
       <h2 style="margin:0 0 6px">📜 Withdrawal History</h2>
       ${WITHDRAWALS.length ? WITHDRAWALS.map(w => `
@@ -724,7 +635,6 @@ function render(){
     </div>
   </div>
 
-  <!-- PROFILE -->
   <div id="profile" class="section ${CURRENT_SECTION==='profile'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 6px">👤 Profile</h2>
@@ -739,9 +649,6 @@ function render(){
       <div class="row"><span>Status</span><b style="color:#15803d">✅ Active</b></div>
       <div class="row"><span>Joined</span><b>${new Date(ME.created_at).toLocaleDateString()}</b></div>
     </div>
-    <div class="ad-slot" id="ad_profile_native"><div class="ad-label">Sponsored</div></div>
-    <div class="ad-slot" id="ad_profile_vertical"><div class="ad-label">Advertisement</div></div>
-    <div class="notice">🔒 Telegram-verified user। একই Telegram ID দিয়ে দ্বিতীয়বার register হবে না।</div>
   </div>
 
   <nav>
@@ -753,10 +660,8 @@ function render(){
   </nav>`;
 
   renderCategoryCards(day);
-  loadAdsForSection();
 }
 
-/* ─── Home Category Cards ─── */
 function renderCategoryCards(day){
   const list = document.getElementById('categoryList');
   if (!list) return;
@@ -769,7 +674,6 @@ function renderCategoryCards(day){
     const percent = total ? Math.round(done / total * 100) : 0;
     const totalDollar = categoryTotalDollar(catId);
     const borderClass = cat.borderClass || cat.type || "ad";
-    const isSpecial = cat.type === "special" || borderClass === "special";
 
     return `
       <div class="cat-card ${borderClass}" onclick="openCategory('${catId}')">
@@ -786,7 +690,6 @@ function renderCategoryCards(day){
   }).join("");
 }
 
-/* ─── Category Detail ─── */
 function renderCategoryDetail(cat, day){
   const catId = cat.id || cat._id;
   const tasks = tasksInCategory(catId);
@@ -811,10 +714,8 @@ function renderCategoryDetail(cat, day){
 
   <div id="taskListContainer"></div>
 
-  <div class="ad-slot" id="ad_category_mid"><div class="ad-label">Sponsored</div></div>
-
   <div class="notice" style="margin-top:16px">
-    ℹ️ প্রতিটি task-এ click করলে Direct Link খুলবে, 30 সেকেন্ড counter, তারপর reward।
+    ℹ️ প্রতিটি task click করলে <b>video ad</b> দেখাতে হবে। Video শেষ হলে reward পাবেন।
   </div>
 
   <nav>
@@ -826,7 +727,6 @@ function renderCategoryDetail(cat, day){
   </nav>`;
 
   renderTaskList(tasks, day);
-  loadAdsForSection();
 }
 
 function renderTaskList(tasks, day){
@@ -839,14 +739,13 @@ function renderTaskList(tasks, day){
   container.innerHTML = tasks.map((t, i) => {
     const isDone = isTaskDoneToday(t._id, day);
     const label = t.title || ("Task " + (i+1));
-    const hasLink = !!(t.target_url || "").trim();
     return `
       <div class="t-row ${isDone ? 'done' : ''}">
         <div class="t-num">${i+1}</div>
         <div class="t-info">
           <b>${esc(label)}</b>
           <div class="reward">${money(t.reward_usd)}</div>
-          ${hasLink ? `<div class="link-icon">🔗 Direct link ready</div>` : `<div class="link-icon">⚠️ No link</div>`}
+          <div class="link-icon">🎬 Video Ad required</div>
         </div>
         ${isDone
           ? `<span class="done-badge">✅ Done</span>`
@@ -870,7 +769,7 @@ function closeCategory(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TASK START
+   🎬 TASK START — Video Ad + Direct Link + Counter + Reward
    ═══════════════════════════════════════════════════════════ */
 async function startTask(taskId){
   const day = todayKey();
@@ -888,6 +787,7 @@ async function startTask(taskId){
   if (ad.revenue_usd > 0 && (ad.reward_paid_usd + task.reward_usd) > ad.revenue_usd * cap) {
     toast("আজকের reward budget শেষ", "error"); return;
   }
+
   openTaskModal(task);
 }
 
@@ -895,47 +795,95 @@ function openTaskModal(task){
   const modal = document.getElementById('taskModal');
   const body = document.getElementById('taskModalBody');
   const counter = parseInt(task.verify_seconds || SETTINGS.TASK_COUNTER_SECONDS || 30);
-
-  if (task.target_url && task.target_url.trim()) {
-    try {
-      if (tg && tg.openLink) tg.openLink(task.target_url);
-      else window.open(task.target_url, "_blank", "noopener");
-    } catch(e) {}
-  }
-
-  const directCfg = AD_CONFIG.task_direct;
-  const adminDirect = ADMIN_ADS[directCfg.key] || {};
-  if (adminDirect.enabled !== false && directCfg.script) {
-    try { window.open(directCfg.script, "_blank", "noopener"); } catch(e){}
-  }
+  VIDEO_WATCHED = false;
 
   body.innerHTML = `
     <button class="close-btn" id="modalClose" disabled>✕</button>
     <h3>🎬 ${esc(task.title || "Task")}</h3>
     <p class="small" style="color:#667085;margin:0 0 10px">
-      Reward: <b style="color:#16a34a">${money(task.reward_usd)}</b> — ${counter}s
+      Reward: <b style="color:#16a34a">${money(task.reward_usd)}</b>
     </p>
-    <div class="counter-wrap">
-      <div class="counter-circle" id="counterCircle" style="--pct:0%">
-        <div style="position:relative;text-align:center">
-          <div class="counter-num" id="counterNum">${counter}</div>
-          <div class="counter-label">Seconds</div>
-        </div>
+
+    <!-- Step 1: Video Ad -->
+    <div id="videoStep">
+      <div class="video-status loading" id="videoStatus">
+        📺 ভিডিও অ্যাড লোড হচ্ছে...
       </div>
-      <div class="counter-hint" id="counterHint">⏳ এড লোড হচ্ছে…</div>
+      <button class="verify-btn" id="watchVideoBtn" onclick="triggerVideoAd()">🎬 Watch Video Ad</button>
     </div>
-    <div class="modal-ad-zone" id="ad_task_modal_top"></div>
-    <div class="modal-ad-zone" id="ad_task_modal_mid"></div>
-    <button class="verify-btn" id="verifyBtn" disabled>⏳ Wait (<span id="verifyCount">${counter}</span>s)</button>`;
+
+    <!-- Step 2: Counter (hidden initially) -->
+    <div id="counterStep" style="display:none">
+      <div class="counter-wrap">
+        <div class="counter-circle" id="counterCircle" style="--pct:0%">
+          <div style="position:relative;text-align:center">
+            <div class="counter-num" id="counterNum">${counter}</div>
+            <div class="counter-label">Seconds</div>
+          </div>
+        </div>
+        <div class="counter-hint" id="counterHint">⏳ অপেক্ষা করুন...</div>
+      </div>
+      <button class="verify-btn" id="verifyBtn" disabled>⏳ Wait (<span id="verifyCount">${counter}</span>s)</button>
+    </div>`;
 
   modal.classList.add('show');
 
-  setTimeout(() => {
-    renderAd('task_modal_top', 'ad_task_modal_top');
-    renderAd('task_modal_mid', 'ad_task_modal_mid');
-  }, 50);
+  const closeBtn = document.getElementById('modalClose');
+  closeBtn.onclick = () => { if (!closeBtn.disabled) modal.classList.remove('show'); };
+}
 
+/* ═══════════════════════════════════════════════════════════
+   🎬 Trigger Monetag Video Ad → then Direct Link → Counter
+   ═══════════════════════════════════════════════════════════ */
+async function triggerVideoAd(){
+  const statusEl = document.getElementById('videoStatus');
+  const watchBtn = document.getElementById('watchVideoBtn');
+
+  watchBtn.disabled = true;
+  statusEl.className = 'video-status loading';
+  statusEl.textContent = '📺 ভিডিও অ্যাড লোড হচ্ছে...';
+
+  // ═══ Show Monetag Video Ad ═══
+  const result = await showMonetagVideo();
+
+  if (result.success) {
+    statusEl.className = 'video-status';
+    statusEl.textContent = '✅ ভিডিও দেখা হয়েছে! এখন অপেক্ষা করুন...';
+    VIDEO_WATCHED = true;
+
+    // ═══ Open Direct Link in new tab ═══
+    try {
+      if (tg && tg.openLink) tg.openLink(DIRECT_LINK);
+      else window.open(DIRECT_LINK, "_blank", "noopener");
+    } catch(e) { console.log("Direct link error:", e); }
+
+    // ═══ Start counter ═══
+    setTimeout(() => startCounter(), 800);
+  } else {
+    statusEl.className = 'video-status error';
+    statusEl.textContent = '❌ ভিডিও দেখা হয়নি। আবার চেষ্টা করুন।';
+    watchBtn.disabled = false;
+    watchBtn.textContent = '🔄 Try Again';
+    watchBtn.onclick = () => triggerVideoAd();
+  }
+}
+
+function startCounter(){
+  const videoStep = document.getElementById('videoStep');
+  const counterStep = document.getElementById('counterStep');
+  if (videoStep) videoStep.style.display = 'none';
+  if (counterStep) counterStep.style.display = 'block';
+
+  const task = TASKS.find(t => isTaskDoneToday(t._id, todayKey()) === false);
+  const currentTaskId = document.getElementById('taskModalBody').dataset.taskId;
+
+  // Use whatever task opened the modal
+  const actualTask = window.__currentTask;
+  if (!actualTask) return;
+
+  const counter = parseInt(actualTask.verify_seconds || SETTINGS.TASK_COUNTER_SECONDS || 30);
   let remaining = counter;
+
   const verifyBtn = document.getElementById('verifyBtn');
   const verifyCount = document.getElementById('verifyCount');
   const counterNum = document.getElementById('counterNum');
@@ -943,10 +891,8 @@ function openTaskModal(task){
   const counterHint = document.getElementById('counterHint');
   const closeBtn = document.getElementById('modalClose');
 
-  setTimeout(() => {
-    counterHint.textContent = '✅ এড লোড হয়েছে!';
-    counterHint.style.color = '#16a34a';
-  }, 1500);
+  counterHint.textContent = '⏳ Direct link খুলেছে! অপেক্ষা করুন...';
+  counterHint.style.color = '#16a34a';
 
   const interval = setInterval(() => {
     remaining--;
@@ -954,18 +900,17 @@ function openTaskModal(task){
     counterNum.textContent = Math.max(0, remaining);
     verifyCount.textContent = Math.max(0, remaining);
     counterCircle.style.setProperty('--pct', pct + '%');
+
     if (remaining <= 0) {
       clearInterval(interval);
       verifyBtn.disabled = false;
       verifyBtn.classList.add('ready');
-      verifyBtn.innerHTML = '✅ Claim ' + money(task.reward_usd);
+      verifyBtn.innerHTML = '✅ Claim ' + money(actualTask.reward_usd);
       closeBtn.disabled = false;
       counterHint.textContent = '🎉 টাইমার শেষ! Reward claim করুন';
-      verifyBtn.onclick = () => finalizeTask(task);
+      verifyBtn.onclick = () => finalizeTask(actualTask);
     }
   }, 1000);
-
-  closeBtn.onclick = () => { if (!closeBtn.disabled) modal.classList.remove('show'); };
 }
 
 async function finalizeTask(task){
@@ -986,6 +931,7 @@ async function finalizeTask(task){
   await DB.ref("completions").push({
     uid: MY_ID, task_id: task._id, category: task.category || "",
     reward_usd: task.reward_usd, status: "verified",
+    video_watched: VIDEO_WATCHED,
     day_key: day, created_at: Date.now()
   });
   await DB.ref("ad_revenue/" + day).transaction(cur => {
@@ -995,7 +941,8 @@ async function finalizeTask(task){
   });
   DB.ref("ledger").push({
     uid: MY_ID, kind: "task_reward", amount_usd: task.reward_usd,
-    ref_id: "task:" + task._id, created_at: Date.now()
+    ref_id: "task:" + task._id, video_watched: VIDEO_WATCHED,
+    created_at: Date.now()
   });
   document.getElementById('taskModal').classList.remove('show');
   toast("✅ +" + money(task.reward_usd) + " earned!", "success");
@@ -1014,19 +961,15 @@ function nav(id, el){
   if (el) el.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   render();
-  setTimeout(loadAdsForSection, 200);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   WITHDRAW with Level Min/Max
-   ═══════════════════════════════════════════════════════════ */
+/* WITHDRAW */
 function previewWdCut(){
   const amt = parseFloat(document.getElementById('wdAmt').value);
   const preview = document.getElementById('wdPreview');
   const refCount = Number(ME.referral_count || 0);
   const range = getWithdrawRange(refCount);
-  if (!range) { preview.style.display = 'none'; return; }
-  if (isNaN(amt) || amt <= 0) { preview.style.display = 'none'; return; }
+  if (!range || isNaN(amt) || amt <= 0) { preview.style.display = 'none'; return; }
 
   const cutAmount = amt * range.cut / 100;
   const finalAmount = amt - cutAmount;
@@ -1059,8 +1002,7 @@ async function requestWd(){
   if (amt > range.max) { msg.textContent = "❌ Max $" + range.max.toFixed(2); msg.style.color = "#b91c1c"; return; }
   if (amt > Number(ME.balance_usd||0)) { msg.textContent = "❌ পর্যাপ্ত balance নেই"; msg.style.color = "#b91c1c"; return; }
 
-  const cutPct = range.cut;
-  const cutAmount = amt * cutPct / 100;
+  const cutAmount = amt * range.cut / 100;
   const finalUsd = amt - cutAmount;
   const finalBdt = finalUsd * rate;
 
@@ -1078,23 +1020,15 @@ async function requestWd(){
   const wdRef = DB.ref("withdrawals").push();
   await wdRef.set({
     uid: MY_ID, user_name: ME.first_name || "", username: ME.username || null,
-    amount_usd: amt, cut_pct: cutPct, cut_amount: cutAmount,
+    amount_usd: amt, cut_pct: range.cut, cut_amount: cutAmount,
     final_usd: finalUsd, amount_bdt: Math.round(finalBdt * 100) / 100,
     method, account_number: acc, status: "pending", admin_note: "",
     level_at_request: range.level,
     created_at: Date.now(), processed_at: null
   });
 
-  DB.ref("ledger").push({
-    uid: MY_ID, kind: "withdraw_hold", amount_usd: -amt,
-    ref_id: "wd:" + wdRef.key, meta: "Cut " + cutPct + "%", created_at: Date.now()
-  });
-
   msg.textContent = "✅ Submitted! ($" + finalUsd.toFixed(2) + " → ৳" + finalBdt.toFixed(2) + ")";
   msg.style.color = "#15803d";
-  document.getElementById('wdAcc').value = "";
-  document.getElementById('wdAmt').value = "";
-  document.getElementById('wdPreview').style.display = 'none';
   toast("✅ Withdrawal requested", "success");
 }
 
@@ -1104,11 +1038,6 @@ function copyRef(){
   const text = el.textContent.trim();
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(()=>toast("📋 Copied!", "success"));
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    toast("📋 Copied!", "success");
   }
 }
 
