@@ -13,7 +13,7 @@ header{background:linear-gradient(135deg,#2563eb 0%,#7c3aed 100%);color:#fff;pad
 .top{display:flex;justify-content:space-between;align-items:center}
 .avatar{width:45px;height:45px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:22px}
 .balance{margin-top:22px;background:rgba(255,255,255,.15);padding:18px;border-radius:18px}
-.balance b{font-size:30px}
+.balance b{font-size:30px;letter-spacing:-.5px}
 .small{font-size:12px;opacity:.9}
 .welcome{font-size:12px;opacity:.9}
 .username{margin:3px 0;color:#fff;font-size:20px;font-weight:700}
@@ -25,7 +25,8 @@ h2{font-size:17px;margin:16px 15px 8px}
 .task{margin:10px 15px;display:flex;align-items:center;gap:12px}
 .task .info{flex:1;min-width:0}
 .task .info b{display:block;font-size:14px;margin-bottom:2px}
-button.primary{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer}
+button.primary{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
+button.primary:active{transform:scale(.95)}
 button.primary:disabled{background:#cbd5e1;cursor:not-allowed}
 .badge{display:inline-block;background:#eef2ff;color:#4f46e5;padding:4px 8px;border-radius:8px;font-size:10px;margin-top:4px;font-weight:600}
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:#fff;border-top:1px solid #e8ebf2;display:flex;justify-content:space-around;padding:10px 4px;z-index:100;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
@@ -38,7 +39,8 @@ nav button.active{color:#2563eb!important;font-weight:700;background:#eff6ff}
 .notice{margin:15px;padding:13px;background:#fff7e6;border-radius:14px;font-size:12px;color:#92400e;border-left:3px solid #f59e0b}
 .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eef2f7;font-size:13px}
 .row:last-child{border-bottom:0}
-input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8;margin:5px 0;font-size:14px;background:#fff}
+input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8;margin:5px 0;font-size:14px;font-family:inherit;background:#fff}
+input:focus,select:focus{outline:2px solid #2563eb;outline-offset:-1px;border-color:transparent}
 .status-pending{color:#b45309;font-weight:600}
 .status-approved{color:#15803d;font-weight:600}
 .status-rejected{color:#b91c1c;font-weight:600}
@@ -48,31 +50,41 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 .toast.success{background:#15803d}
 .toast.error{background:#b91c1c}
 .progress{height:9px;background:#e9edf5;border-radius:10px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:10px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:10px;transition:width .4s}
 .loader{text-align:center;padding:40px;color:#94a3b8}
-.ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px}
+
+/* AD SLOTS */
+.ad-slot{margin:15px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:8px;text-align:center;overflow:hidden;min-height:50px;position:relative}
 .ad-slot .ad-label{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
 .ad-slot iframe{max-width:100%;border:0;display:block;margin:0 auto}
 .ad-slot.hidden{display:none}
 .ad-slot.compact{margin:8px 15px}
+
+/* REGISTER SCREENS */
 .reg-screen{max-width:420px;margin:0 auto;padding:40px 22px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#f4f7fb}
-.reg-icon{width:90px;height:90px;border-radius:26px;display:grid;place-items:center;font-size:44px;margin:0 auto 22px}
+.reg-icon{width:90px;height:90px;border-radius:26px;display:grid;place-items:center;font-size:44px;margin:0 auto 22px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .reg-icon.gradient{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff}
 .reg-icon.warn{background:linear-gradient(135deg,#fef3c7,#fcd34d)}
 .reg-icon.danger{background:linear-gradient(135deg,#fee2e2,#fca5a5)}
-.reg-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px}
+.reg-title{font-size:21px;font-weight:800;text-align:center;margin:0 0 10px;color:#172033;line-height:1.3}
 .reg-sub{text-align:center;color:#64748b;font-size:13.5px;line-height:1.7;margin:0 0 24px}
 .reg-box{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(23,32,51,.06);margin-bottom:16px}
-.reg-cta{display:block;width:100%;text-align:center;padding:15px;border-radius:13px;font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;margin-top:8px}
+.reg-box h4{margin:0 0 12px;font-size:14px;color:#172033;display:flex;align-items:center;gap:8px}
+.reg-cta{display:block;width:100%;text-align:center;padding:15px;border-radius:13px;font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.3);margin-top:8px}
+.reg-cta:active{transform:scale(.97)}
+.reg-footer{text-align:center;color:#94a3b8;font-size:11px;margin-top:22px;line-height:1.6}
+.bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600;margin-top:4px}
 .alert-strip{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 14px;border-radius:10px;font-size:12.5px;color:#92400e;line-height:1.6;margin-bottom:16px}
 .alert-strip.danger{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
-.alert-strip.info{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
 .alert-strip.success{background:#dcfce7;border-color:#16a34a;color:#166534}
-.bot-link{display:inline-block;background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:8px;font-family:monospace;font-size:11px;font-weight:600}
+.alert-strip.info{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
+
+/* Task Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.88);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
 .modal{background:#fff;border-radius:20px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;padding:20px;position:relative}
-.modal .close-btn{position:absolute;top:12px;right:12px;background:#f1f5f9;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;color:#64748b}
+.modal h3{margin:0 0 6px;font-size:18px}
+.modal .close-btn{position:absolute;top:12px;right:12px;background:#f1f5f9;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;color:#64748b;z-index:10}
 .modal .close-btn:disabled{opacity:.4;cursor:not-allowed}
 .counter-wrap{text-align:center;padding:12px 0}
 .counter-circle{width:110px;height:110px;border-radius:50%;background:conic-gradient(#2563eb var(--pct,0%),#e2e8f0 0);display:grid;place-items:center;margin:0 auto;position:relative}
@@ -97,9 +109,7 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
 
-<!-- ═══════════════════════════════════════════════════════════
-     GLOBAL BACKGROUND AD SCRIPTS (আগেরগুলো সব loading হবে)
-     ═══════════════════════════════════════════════════════════ -->
+<!-- Global Background Ad Script -->
 <script src="https://pl31353282.profitableratecpmnetwork.com/38/51/6f/38516f740af3a4533e72320049202123.js"></script>
 
 <script>
@@ -140,82 +150,33 @@ const LEVELS = [
 ];
 
 /* ═══════════════════════════════════════════════════════════
-   AD CONFIG — সব এড এখানে। কোনো slot খালি নাই।
-   প্রতিটি slot আলাদা key, আলাদা script।
+   AD CONFIG — সব slots active
    ═══════════════════════════════════════════════════════════ */
 const AD_CONFIG = {
-  // ─── HOME TOP: 320×50 Mobile Banner ───
-  home_top: {
-    key: "ad_home_top_e",
-    type: "iframe",
-    script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>`
-  },
-  // ─── HOME MID: 300×250 Medium Rectangle ───
-  home_mid: {
-    key: "ad_home_mid_f",
-    type: "iframe",
-    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>`
-  },
-  // ─── HOME VERTICAL: 160×300 ───
-  home_vertical: {
-    key: "ad_home_vertical_c",
-    type: "iframe",
-    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>`
-  },
-  // ─── HOME NATIVE ───
-  home_native: {
-    key: "ad_home_native_a",
-    type: "native",
-    script: `<script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script><div id="container-aee8e250def4f9da28614f8be36fc70d"></div>`
-  },
-  // ─── INVITE MID: 300×250 ───
-  invite_mid: {
-    key: "ad_invite_mid_f",
-    type: "iframe",
-    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>`
-  },
-  // ─── INVITE LEADERBOARD: 728×90 ───
-  invite_leaderboard: {
-    key: "ad_invite_leaderboard_d",
-    type: "iframe",
-    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>`
-  },
-  // ─── WITHDRAW FOOTER: 468×60 ───
-  withdraw_footer: {
-    key: "ad_withdraw_g",
-    type: "iframe",
-    script: `<script>atOptions={'key':'f04a5de63c2080dcb68a5e43504f146c','format':'iframe','height':60,'width':468,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>`
-  },
-  // ─── PROFILE NATIVE ───
-  profile_native: {
-    key: "ad_profile_native_a",
-    type: "native",
-    script: `<div id="container-aee8e250def4f9da28614f8be36fc70d_profile"></div>`
-  },
-  // ─── PROFILE VERTICAL: 160×300 ───
-  profile_vertical: {
-    key: "ad_profile_vertical_c",
-    type: "iframe",
-    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>`
-  },
-  // ─── TASK MODAL TOP: 728×90 ───
-  task_modal_top: {
-    key: "ad_task_modal_d",
-    type: "iframe",
-    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>`
-  },
-  // ─── TASK MODAL MID: 160×600 ───
-  task_modal_mid: {
-    key: "ad_task_modal_b",
-    type: "iframe",
-    script: `<script>atOptions={'key':'be41579cd4387c843cd4cb262bc89ccb','format':'iframe','height':600,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>`
-  },
-  // ─── TASK DIRECT LINK (new tab) ───
-  task_direct: {
-    key: "ad_task_direct_h",
-    type: "direct",
-    script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e"
-  }
+  home_top: { key: "ad_home_top_e", type: "iframe",
+    script: `<script>atOptions={'key':'ac53fb88d35997c5408c1c8f68ed5280','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ac53fb88d35997c5408c1c8f68ed5280/invoke.js"><\/script>` },
+  home_mid: { key: "ad_home_mid_f", type: "iframe",
+    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
+  home_vertical: { key: "ad_home_vertical_c", type: "iframe",
+    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
+  home_native: { key: "ad_home_native_a", type: "native",
+    script: `<script async="async" data-cfasync="false" src="https://pl31353281.profitableratecpmnetwork.com/aee8e250def4f9da28614f8be36fc70d/invoke.js"><\/script><div id="container-aee8e250def4f9da28614f8be36fc70d"></div>` },
+  invite_mid: { key: "ad_invite_mid_f", type: "iframe",
+    script: `<script>atOptions={'key':'8b70ac8221c2d5175f49c42c9248846d','format':'iframe','height':250,'width':300,'params':{}};<\/script><script src="https://www.highrevenueformat.com/8b70ac8221c2d5175f49c42c9248846d/invoke.js"><\/script>` },
+  invite_leaderboard: { key: "ad_invite_leaderboard_d", type: "iframe",
+    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
+  withdraw_footer: { key: "ad_withdraw_g", type: "iframe",
+    script: `<script>atOptions={'key':'f04a5de63c2080dcb68a5e43504f146c','format':'iframe','height':60,'width':468,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f04a5de63c2080dcb68a5e43504f146c/invoke.js"><\/script>` },
+  profile_native: { key: "ad_profile_native_a", type: "native",
+    script: `<div id="container-aee8e250def4f9da28614f8be36fc70d_profile"></div>` },
+  profile_vertical: { key: "ad_profile_vertical_c", type: "iframe",
+    script: `<script>atOptions={'key':'f6ebf092f870936aa8a8696bf83bf607','format':'iframe','height':300,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/f6ebf092f870936aa8a8696bf83bf607/invoke.js"><\/script>` },
+  task_modal_top: { key: "ad_task_modal_d", type: "iframe",
+    script: `<script>atOptions={'key':'ad8f9258ea9ea5198df793cb3c1bab4b','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highrevenueformat.com/ad8f9258ea9ea5198df793cb3c1bab4b/invoke.js"><\/script>` },
+  task_modal_mid: { key: "ad_task_modal_b", type: "iframe",
+    script: `<script>atOptions={'key':'be41579cd4387c843cd4cb262bc89ccb','format':'iframe','height':600,'width':160,'params':{}};<\/script><script src="https://www.highrevenueformat.com/be41579cd4387c843cd4cb262bc89ccb/invoke.js"><\/script>` },
+  task_direct: { key: "ad_task_direct_h", type: "direct",
+    script: "https://www.profitableratecpmnetwork.com/w73qqyjv?key=8e7041a04b9cd1c608d48f648350a81e" },
 };
 
 /* STATE */
@@ -229,6 +190,7 @@ const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
+/* UTILS */
 function todayKey(){
   const d = new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -249,87 +211,50 @@ function canWithdraw(n){ return n >= LEVELS[0].required; }
 function getWithdrawCut(n){ const lv=getCurrentLevel(n); return lv>=1 ? getLevelData(lv).cut : 3; }
 
 /* ═══════════════════════════════════════════════════════════
-   AD RENDERING ENGINE (Fixed - সব ad load হবে)
+   AD RENDERING
    ═══════════════════════════════════════════════════════════ */
 async function renderAd(slotName, containerId){
   const c = document.getElementById(containerId);
   if (!c) return;
   const cfg = AD_CONFIG[slotName];
   if (!cfg) return;
-
-  // Admin disable check
   const adminCfg = ADMIN_ADS[cfg.key] || {};
-  if (adminCfg.enabled === false) {
-    c.classList.add('hidden');
-    return;
-  }
+  if (adminCfg.enabled === false) { c.classList.add('hidden'); return; }
   c.classList.remove('hidden');
   c.innerHTML = '';
 
-  // ─── Direct Link Type ───
   if (cfg.type === 'direct') {
     c.innerHTML = `<div class="ad-label">Sponsored</div>
-      <a href="${cfg.script}" target="_blank" rel="noopener" 
-         style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">
-        🔗 Sponsored Link — Click Here
-      </a>`;
+      <a href="${cfg.script}" target="_blank" rel="noopener" style="display:block;padding:12px;background:#eff6ff;border-radius:10px;color:#2563eb;text-decoration:none;font-size:12px;font-weight:600">🔗 Sponsored Link</a>`;
     return;
   }
-
-  // ─── Native Type ───
   if (cfg.type === 'native') {
     c.innerHTML = `<div class="ad-label">Sponsored</div>` + cfg.script;
     return;
   }
-
-  // ─── Iframe Type ───
   c.innerHTML = `<div class="ad-label">Sponsored</div>`;
   const wrapper = document.createElement('div');
-  // Parse the script string properly
-  const cleanScript = cfg.script.replace(/<\\\//g, '</');
-  wrapper.innerHTML = cleanScript;
+  wrapper.innerHTML = cfg.script.replace(/<\\\//g, '</');
   c.appendChild(wrapper);
-
-  // Re-execute all scripts
   wrapper.querySelectorAll('script').forEach(oldScript => {
     const newScript = document.createElement('script');
-    Array.from(oldScript.attributes).forEach(attr => {
-      newScript.setAttribute(attr.name, attr.value);
-    });
+    Array.from(oldScript.attributes).forEach(a => newScript.setAttribute(a.name, a.value));
     if (oldScript.textContent) newScript.textContent = oldScript.textContent;
     oldScript.parentNode.replaceChild(newScript, oldScript);
   });
 }
 
-/* ─── Load all ads for current section ─── */
 function loadAdsForSection(){
   const map = {
-    home: [
-      ['home_top','ad_home_top'],
-      ['home_mid','ad_home_mid'],
-      ['home_vertical','ad_home_vertical'],
-      ['home_native','ad_home_native']
-    ],
-    invite: [
-      ['invite_mid','ad_invite_mid'],
-      ['invite_leaderboard','ad_invite_leaderboard']
-    ],
-    withdraw: [
-      ['withdraw_footer','ad_withdraw_footer']
-    ],
-    profile: [
-      ['profile_native','ad_profile_native'],
-      ['profile_vertical','ad_profile_vertical']
-    ]
+    home: [['home_top','ad_home_top'],['home_mid','ad_home_mid'],['home_vertical','ad_home_vertical'],['home_native','ad_home_native']],
+    invite: [['invite_mid','ad_invite_mid'],['invite_leaderboard','ad_invite_leaderboard']],
+    withdraw: [['withdraw_footer','ad_withdraw_footer']],
+    profile: [['profile_native','ad_profile_native'],['profile_vertical','ad_profile_vertical']]
   };
-  const slots = map[CURRENT_SECTION] || [];
   setTimeout(() => {
-    slots.forEach(([slot, id]) => {
+    (map[CURRENT_SECTION]||[]).forEach(([slot,id]) => {
       const el = document.getElementById(id);
-      if (el) {
-        delete RENDERED_ADS[id];
-        renderAd(slot, id);
-      }
+      if (el) { delete RENDERED_ADS[id]; renderAd(slot, id); }
     });
   }, 150);
 }
@@ -414,7 +339,6 @@ async function attemptRegister(){
   let code = (codeInput.value || "").trim().toUpperCase();
   if (!code) { errBox.style.display='block'; errBox.textContent='❌ Referral Code দিন।'; return; }
 
-  // Check admin code
   const adminCodeSnap = await DB.ref("settings/admin_referral_code").get();
   const adminCode = adminCodeSnap.exists() ? String(adminCodeSnap.val()).toUpperCase() : null;
 
@@ -493,7 +417,7 @@ async function boot(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MAIN RENDER
+   RENDER
    ═══════════════════════════════════════════════════════════ */
 function render(){
   if (!ME) return;
@@ -506,7 +430,6 @@ function render(){
   const doneToday = TASKS.filter(t => completedIds.has(t.id)).length;
   const progressPct = totalTasks ? Math.round(doneToday/totalTasks*100) : 0;
   const midPoint = Math.ceil(TASKS.length / 2);
-  const cutPct = 3;
 
   document.getElementById('root').innerHTML = `
   <header>
@@ -525,9 +448,8 @@ function render(){
     ${SETTINGS.ANNOUNCEMENT ? `<div style="margin-top:10px;background:rgba(255,255,255,.15);padding:10px;border-radius:12px;font-size:12px">📢 ${esc(SETTINGS.ANNOUNCEMENT)}</div>` : ''}
   </header>
 
-  <!-- ═══════════ HOME ═══════════ -->
+  <!-- HOME -->
   <div id="home" class="section ${CURRENT_SECTION==='home'?'show':''}">
-    <!-- AD 1: HOME TOP -->
     <div class="ad-slot" id="ad_home_top"><div class="ad-label">Advertisement</div></div>
 
     <div class="grid">
@@ -546,22 +468,16 @@ function render(){
       <div class="progress"><i style="width:${progressPct}%"></i></div>
     </div>
 
-    <!-- AD 2: HOME MID -->
     <div class="ad-slot" id="ad_home_mid"><div class="ad-label">Sponsored</div></div>
 
     <h2>⚡ Available Tasks</h2>
     <div id="taskListTop"></div>
-
-    <!-- AD 3: HOME VERTICAL -->
     <div class="ad-slot compact" id="ad_home_vertical"><div class="ad-label">Advertisement</div></div>
-
     <div id="taskListBottom"></div>
-
-    <!-- AD 4: HOME NATIVE -->
     <div class="ad-slot" id="ad_home_native"><div class="ad-label">Sponsored</div></div>
   </div>
 
-  <!-- ═══════════ INVITE ═══════════ -->
+  <!-- INVITE -->
   <div id="invite" class="section ${CURRENT_SECTION==='invite'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
@@ -582,7 +498,6 @@ function render(){
       <div class="row"><span>Referred By</span><b>✅ Admin</b></div>
     </div>
 
-    <!-- AD 5: INVITE MID -->
     <div class="ad-slot" id="ad_invite_mid"><div class="ad-label">Sponsored</div></div>
 
     <div class="hero">
@@ -592,17 +507,16 @@ function render(){
       <a href="${BOT_LINK}" target="_blank" class="primary" style="display:block;text-align:center;text-decoration:none;padding:12px">📱 Open Bot</a>
     </div>
 
-    <!-- AD 6: INVITE LEADERBOARD -->
     <div class="ad-slot" id="ad_invite_leaderboard"><div class="ad-label">Advertisement</div></div>
   </div>
 
-  <!-- ═══════════ WITHDRAW ═══════════ -->
+  <!-- WITHDRAW -->
   <div id="withdraw" class="section ${CURRENT_SECTION==='withdraw'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 10px">💸 Withdraw</h2>
       <div class="row"><span>Balance</span><b>$${Number(ME.balance_usd||0).toFixed(2)}</b></div>
       <div class="row"><span>Minimum</span><b>$1.00</b></div>
-      <div class="row"><span>Cut</span><b style="color:#b45309">${cutPct}%</b></div>
+      <div class="row"><span>Cut</span><b style="color:#b45309">3%</b></div>
       <div class="row"><span>Rate</span><b>1$ = ${rate}৳</b></div>
       <div style="margin-top:14px">
         <label class="small">Method</label>
@@ -617,7 +531,6 @@ function render(){
       </div>
     </div>
 
-    <!-- AD 7: WITHDRAW FOOTER -->
     <div class="ad-slot" id="ad_withdraw_footer"><div class="ad-label">Advertisement</div></div>
 
     <div class="hero">
@@ -632,7 +545,7 @@ function render(){
     </div>
   </div>
 
-  <!-- ═══════════ PROFILE ═══════════ -->
+  <!-- PROFILE -->
   <div id="profile" class="section ${CURRENT_SECTION==='profile'?'show':''}">
     <div class="hero">
       <h2 style="margin:0 0 6px">👤 Profile</h2>
@@ -647,10 +560,7 @@ function render(){
       <div class="row"><span>Joined</span><b>${new Date(ME.created_at).toLocaleDateString()}</b></div>
     </div>
 
-    <!-- AD 8: PROFILE NATIVE -->
     <div class="ad-slot" id="ad_profile_native"><div class="ad-label">Sponsored</div></div>
-
-    <!-- AD 9: PROFILE VERTICAL -->
     <div class="ad-slot" id="ad_profile_vertical"><div class="ad-label">Advertisement</div></div>
 
     <div class="notice">🔒 আপনি Telegram-verified user। একই Telegram ID দিয়ে দ্বিতীয়বার register হবে না।</div>
@@ -703,9 +613,6 @@ function nav(id, el){
   setTimeout(loadAdsForSection, 200);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TASK START — Modal with ads + direct link
-   ═══════════════════════════════════════════════════════════ */
 async function startTask(taskId){
   const day = todayKey();
   const task = TASKS.find(t => t._id === taskId);
@@ -731,16 +638,11 @@ function openTaskModal(task){
   const body = document.getElementById('taskModalBody');
   const counter = parseInt(SETTINGS.TASK_COUNTER_SECONDS || 30);
 
-  // ═══ Direct Link Ad — opens in new tab ═══
   const directCfg = AD_CONFIG.task_direct;
   const adminDirect = ADMIN_ADS[directCfg.key] || {};
   if (adminDirect.enabled !== false && directCfg.script) {
-    try {
-      window.open(directCfg.script, "_blank", "noopener");
-    } catch(e) { console.log('Direct link blocked:', e); }
+    try { window.open(directCfg.script, "_blank", "noopener"); } catch(e){}
   }
-
-  // ═══ Task Target URL ═══
   if (task.target_url) {
     if (tg && tg.openLink) tg.openLink(task.target_url);
     else window.open(task.target_url, "_blank", "noopener");
@@ -765,7 +667,6 @@ function openTaskModal(task){
 
   modal.classList.add('show');
 
-  // Render modal ads
   setTimeout(() => {
     renderAd('task_modal_top', 'ad_task_modal_top');
     renderAd('task_modal_mid', 'ad_task_modal_mid');
