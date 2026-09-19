@@ -6,7 +6,7 @@
 <title>EasyEarn — সহজআয়</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- ═══ Monetag SDK (একটাই সব কিছুর জন্য) ═══ -->
+<!-- ═══ Monetag SDK (Video + Popup + Banner একই zone থেকে) ═══ -->
 <script src='//libtl.com/sdk.js' data-zone='11832634' data-sdk='show_11832634'></script>
 
 <style>
@@ -144,8 +144,6 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 .status-pill.success{background:#dcfce7;color:#15803d}
 .spinner{width:44px;height:44px;border:4px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ═══ COOLDOWN SCREEN ═══ */
 .cooldown-screen{position:fixed;inset:0;background:linear-gradient(135deg,#7f1d1d,#dc2626);color:#fff;z-index:4000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
 .cooldown-screen.show{display:flex}
 .cooldown-icon{font-size:80px;margin-bottom:20px}
@@ -201,35 +199,29 @@ const DB = firebase.database();
 const BOT_USERNAME = "easyearn120_bot";
 const BOT_LINK = "https://t.me/" + BOT_USERNAME;
 
-/* ═══════════════════════════════════════════════════════════
-   🎯 AUTO-ROTATING DIRECT LINKS
-   এখানে আপনার সব Direct Link দিন — একাধিক থাকলে auto rotate হবে
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ DIRECT LINKS — Auto-rotate ═══ */
 const DIRECT_LINKS = [
   "https://omg10.com/4/11567406",
   "https://omg10.com/4/11836419"
-  // আরো link থাকলে এখানে যোগ করুন
 ];
-
 let currentLinkIndex = 0;
 function getNextDirectLink(){
-  // User-এর own rotation index থেকে link দেবে
   const link = DIRECT_LINKS[currentLinkIndex % DIRECT_LINKS.length];
   currentLinkIndex++;
   return link;
 }
 
-/* ═══ Monetag SDK Function ═══ */
+/* ═══ Monetag SDK ═══ */
 const MONETAG_SDK = "show_11832634";
 
-/* ═══ Cooldown Config ═══ */
+/* ═══ Cooldown ═══ */
 const TASKS_BEFORE_COOLDOWN = 3;
 const COOLDOWN_MINUTES = 5;
 
-/* ═══ Banner Config ═══ */
-const BANNER_INTERVAL = 30;      // সেকেন্ড
-const BANNER_FREQUENCY = 2;      // ২টি ad per session
-const BANNER_CAPPING = 0.1;      // ৬ মিনিট session
+/* ═══ Banner ═══ */
+const BANNER_FREQUENCY = 2;
+const BANNER_CAPPING = 0.1;
+const BANNER_INTERVAL = 30;
 
 const LEVELS = [
   { lv: 1,  required: 5,   bonus: 0.50,  minWd: 0.50, maxWd: 1.00,  name: "Beginner",     cut: 3 },
@@ -259,22 +251,22 @@ let CURRENT_CATEGORY = null;
 let CURRENT_TASK = null;
 let LISTENERS_ATTACHED = false;
 let COOLDOWN_INTERVAL = null;
+let LAST_VIDEO_TIME = 0;
 
 const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
 /* ═══════════════════════════════════════════════════════════
-   🎬 MONETAG AD FUNCTIONS
+   🎬 VIDEO AD FUNCTIONS
    ═══════════════════════════════════════════════════════════ */
 
-/* 1️⃣ Rewarded Video (Claim-এ) */
+/* Rewarded Video — main function */
 async function showRewardedVideo(){
   return new Promise(async (resolve) => {
     try {
       const fn = window[MONETAG_SDK];
       if (typeof fn !== "function") {
-        // SDK not loaded yet — wait & retry
         await new Promise(r => setTimeout(r, 1500));
         const retry = window[MONETAG_SDK];
         if (typeof retry !== "function") { resolve(false); return; }
@@ -289,21 +281,18 @@ async function showRewardedVideo(){
   });
 }
 
-/* 2️⃣ Rewarded Popup (প্রতি ৩ task-এ) */
+/* Rewarded Popup */
 async function showRewardedPopup(){
   return new Promise(async (resolve) => {
     try {
       const fn = window[MONETAG_SDK];
       if (typeof fn !== "function") { resolve(false); return; }
       fn('pop').then(() => resolve(true)).catch(() => resolve(false));
-    } catch(e) {
-      console.warn("Popup error:", e);
-      resolve(false);
-    }
+    } catch(e) { resolve(false); }
   });
 }
 
-/* 3️⃣ In-App Banner (Home-এ auto) */
+/* In-App Banner */
 function triggerInAppBanner(){
   try {
     const fn = window[MONETAG_SDK];
@@ -318,10 +307,18 @@ function triggerInAppBanner(){
         everyPage: false
       }
     });
-    console.log("✅ In-App banner triggered");
-  } catch(e) {
-    console.warn("In-app banner error:", e);
-  }
+  } catch(e) { console.warn("Banner error:", e); }
+}
+
+/* ═══ Silent Video Trigger (for non-task clicks) ═══ */
+async function fireVideoAd(reason){
+  try {
+    // Rate-limit: 30 সেকেন্ড minimum gap
+    const now = Date.now();
+    if (now - LAST_VIDEO_TIME < 30000) return;
+    LAST_VIDEO_TIME = now;
+    await showRewardedVideo();
+  } catch(e) { console.warn("fireVideoAd error:", e); }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -341,6 +338,7 @@ function toast(msg, type=""){
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function money(n){ return "$" + Number(n||0).toFixed(2); }
 
+/* ═══ Code Generation ═══ */
 function generateUserCode(){
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code = "";
@@ -356,21 +354,35 @@ async function generateUniqueCode(){
   return "U" + Date.now().toString(36).toUpperCase().slice(-7);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   ⭐ AUTO-FIX MY REFERRAL CODE
+   পুরোনো user-দের code না থাকলে auto-generate + save
+   ═══════════════════════════════════════════════════════════ */
 async function autoFixMyCode(){
-  if (!ME) return;
+  if (!ME) return null;
   try {
-    if (!ME.referral_code) {
+    // Case 1: No code at all → generate new
+    if (!ME.referral_code || ME.referral_code === null || ME.referral_code === "") {
       const newCode = await generateUniqueCode();
       await DB.ref("users/" + MY_ID + "/referral_code").set(newCode);
       await DB.ref("referral_codes/" + newCode).set(MY_ID);
+      ME.referral_code = newCode;
+      console.log("✅ Generated new code for old user:", newCode);
+      toast("🎁 আপনার নিজস্ব code তৈরি হয়েছে: " + newCode, "success");
       return newCode;
     }
+
+    // Case 2: Code exists, check referral_codes node
     const check = await DB.ref("referral_codes/" + ME.referral_code).get();
     if (!check.exists()) {
       await DB.ref("referral_codes/" + ME.referral_code).set(MY_ID);
+      console.log("✅ Fixed referral_codes entry:", ME.referral_code);
     }
     return ME.referral_code;
-  } catch(e) { console.error(e); }
+  } catch(e) {
+    console.error("Auto-fix error:", e);
+    return null;
+  }
 }
 
 function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
@@ -502,7 +514,7 @@ async function attemptRegister(){
 
   if (!referrerId) {
     errBox.style.display='block';
-    errBox.textContent='❌ এই Referral Code সঠিক নয়। Admin বা member-এর কাছ থেকে নিন।';
+    errBox.textContent='❌ এই Referral Code সঠিক নয়।';
     return;
   }
 
@@ -545,24 +557,8 @@ async function attemptRegister(){
         cur.level = newLevel;
         cur.balance_usd = Number(cur.balance_usd || 0) + L.bonus;
         cur.total_earned_usd = Number(cur.total_earned_usd || 0) + L.bonus;
-        DB.ref("ledger").push({
-          uid: referrerId, kind: "level_bonus", amount_usd: L.bonus,
-          ref_id: "level:" + newLevel, meta: L.name, created_at: Date.now()
-        });
       }
       return cur;
-    });
-
-    const baseBonus = 0.10;
-    await DB.ref("users/" + referrerId).transaction(cur => {
-      if (!cur) return cur;
-      cur.balance_usd = Number(cur.balance_usd || 0) + baseBonus;
-      cur.total_earned_usd = Number(cur.total_earned_usd || 0) + baseBonus;
-      return cur;
-    });
-    DB.ref("ledger").push({
-      uid: referrerId, kind: "referral_bonus", amount_usd: baseBonus,
-      ref_id: "ref:" + MY_ID, meta: "New referral", created_at: Date.now()
     });
   }
 
@@ -585,9 +581,13 @@ async function boot(){
 
   DB.ref("users/" + MY_ID).on("value", async snap => {
     if (!snap.exists()) { LISTENERS_ATTACHED = false; renderRegister(); return; }
+    const wasNull = !ME || !ME.referral_code;
     ME = snap.val();
     if (ME.is_blocked) { renderBlocked(); return; }
+
+    // ⭐ Auto-fix code on first load
     await autoFixMyCode();
+
     await checkCooldown();
     render();
   });
@@ -617,7 +617,7 @@ async function boot(){
     render();
   });
 
-  // ═══ In-App Banner — Home-এ auto trigger ═══
+  // In-app banner trigger
   setTimeout(() => triggerInAppBanner(), 3000);
 }
 
@@ -894,6 +894,8 @@ function openCategory(catId){
   CURRENT_SECTION = "category";
   window.scrollTo({ top: 0 });
   render();
+  // Silent video ad on category open (rate-limited)
+  fireVideoAd("category_open");
 }
 function closeCategory(){
   CURRENT_CATEGORY = null;
@@ -931,7 +933,7 @@ function openTaskModal(task){
   const body = document.getElementById('taskModalBody');
   const counter = parseInt(task.verify_seconds || SETTINGS.TASK_COUNTER_SECONDS || 30);
 
-  // ═══ AUTO-ROTATE: পরের link ═══
+  // ═══ Auto-rotate direct link ═══
   const directLink = getNextDirectLink();
   try {
     if (tg && tg.openLink) tg.openLink(directLink);
@@ -944,11 +946,9 @@ function openTaskModal(task){
     <p class="small" style="color:#667085;margin:0 0 10px">
       Reward: <b style="color:#16a34a">${money(task.reward_usd)}</b>
     </p>
-
     <div style="background:#dbeafe;padding:10px;border-radius:10px;font-size:12px;color:#1e40af;text-align:center;margin-bottom:12px">
-      🔗 Sponsor link #${currentLinkIndex} — new tab-এ খোলা হয়েছে
+      🔗 Sponsor link new tab-এ খোলা হয়েছে
     </div>
-
     <div class="counter-wrap">
       <div class="counter-circle" id="counterCircle" style="--pct:0%">
         <div style="position:relative;text-align:center">
@@ -958,7 +958,6 @@ function openTaskModal(task){
       </div>
       <div class="counter-hint" id="counterHint">⏳ অপেক্ষা করুন...</div>
     </div>
-
     <button class="verify-btn" id="claimBtn" disabled>⏳ Wait (<span id="waitNum">${counter}</span>s)</button>`;
 
   modal.classList.add('show');
@@ -977,7 +976,6 @@ function openTaskModal(task){
     circle.style.setProperty('--pct', pct + '%');
     num.textContent = Math.max(0, remaining);
     waitNum.textContent = Math.max(0, remaining);
-
     if (remaining <= 0) {
       clearInterval(interval);
       hint.textContent = '🎉 টাইমার শেষ! Claim করুন';
@@ -1001,7 +999,6 @@ function openTaskModal(task){
 
 async function showVideoStep(task){
   const body = document.getElementById('taskModalBody');
-
   body.innerHTML = `
     <button class="close-btn" disabled>✕</button>
     <h3>🎬 ${esc(task.title || "Task")}</h3>
@@ -1010,7 +1007,6 @@ async function showVideoStep(task){
       <div class="status-pill info">🎬 Video Ad লোড হচ্ছে...</div>
     </div>`;
 
-  // ═══ Rewarded Video (11832634) ═══
   const videoSuccess = await showRewardedVideo();
 
   body.innerHTML = `
@@ -1025,10 +1021,10 @@ async function showVideoStep(task){
       <div class="spinner" style="margin-top:14px"></div>
     </div>`;
 
-  setTimeout(() => finalizeTask(task), 1200);
+  setTimeout(() => finalizeTask(task, videoSuccess), 1200);
 }
 
-async function finalizeTask(task){
+async function finalizeTask(task, videoSuccess){
   const day = todayKey();
   await DB.ref("users/" + MY_ID).transaction(cur => {
     if (!cur) return cur;
@@ -1046,8 +1042,7 @@ async function finalizeTask(task){
   await DB.ref("completions").push({
     uid: MY_ID, task_id: task._id, category: task.category || "",
     reward_usd: task.reward_usd, status: "verified",
-    direct_link_opened: true, video_watched: true,
-    link_index: currentLinkIndex,
+    video_watched: videoSuccess === true,
     day_key: day, created_at: Date.now()
   });
   await DB.ref("ad_revenue/" + day).transaction(cur => {
@@ -1060,7 +1055,7 @@ async function finalizeTask(task){
     ref_id: "task:" + task._id, created_at: Date.now()
   });
 
-  // ═══ Increment task count & check cooldown ═══
+  // ═══ Cooldown check ═══
   let cooldownTriggered = false;
   let recentCount = 0;
   await DB.ref("users/" + MY_ID).transaction(cur => {
@@ -1075,7 +1070,6 @@ async function finalizeTask(task){
     return cur;
   });
 
-  // ═══ Show success screen ═══
   const body = document.getElementById('taskModalBody');
   body.innerHTML = `
     <button class="close-btn" id="doneClose">✕</button>
@@ -1084,9 +1078,6 @@ async function finalizeTask(task){
       <div style="font-size:80px;margin-bottom:12px">💰</div>
       <div style="font-size:32px;font-weight:900;color:#16a34a">+${money(task.reward_usd)}</div>
       <p style="color:#667085;font-size:13px;margin-top:10px">Reward claimed!</p>
-      <div style="margin-top:14px;padding:10px;background:#f1f5f9;border-radius:10px;font-size:12px;color:#475569">
-        Task ${recentCount}/${TASKS_BEFORE_COOLDOWN} (before cooldown)
-      </div>
       ${cooldownTriggered ? `<div style="margin-top:12px;padding:12px;background:#fee2e2;border-radius:10px;font-size:12.5px;color:#7f1d1d">
         ⛔ ${TASKS_BEFORE_COOLDOWN}টি task করেছেন। ${COOLDOWN_MINUTES} মিনিটের cooldown শুরু।
       </div>` : ''}
@@ -1098,16 +1089,15 @@ async function finalizeTask(task){
     render();
   };
 
-  // ═══ After success — Rewarded Popup (প্রতি ৩ task-এ) ═══
   setTimeout(async () => {
     document.getElementById('taskModal').classList.remove('show');
     CURRENT_TASK = null;
     if (cooldownTriggered) {
       showCooldown(COOLDOWN_MINUTES * 60 * 1000);
     } else {
-      // ═══ প্রতি ৩ task-এ Popup ═══
+      // প্রতি ৩ task-এ popup
       const totalTasksToday = COMPLETIONS.filter(c => c.day_key === day).length;
-      if (totalTasksToday % 3 === 0) {
+      if (totalTasksToday > 0 && totalTasksToday % 3 === 0) {
         setTimeout(() => showRewardedPopup(), 500);
       }
     }
@@ -1116,7 +1106,7 @@ async function finalizeTask(task){
   }, cooldownTriggered ? 2500 : 2000);
 }
 
-/* ═══ NAV ═══ */
+/* ═══ NAV with Silent Video ═══ */
 function nav(id, el){
   CURRENT_CATEGORY = null;
   CURRENT_SECTION = id;
@@ -1127,6 +1117,8 @@ function nav(id, el){
   if (el) el.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   render();
+  // Silent video on tab change
+  fireVideoAd("tab_" + id);
 }
 
 function previewWdCut(){
@@ -1160,6 +1152,9 @@ async function requestWd(){
   if (amt > range.max) { msg.textContent = "❌ Max $" + range.max.toFixed(2); msg.style.color = "#b91c1c"; return; }
   if (amt > Number(ME.balance_usd||0)) { msg.textContent = "❌ Balance নেই"; msg.style.color = "#b91c1c"; return; }
 
+  // Silent video before submit
+  await fireVideoAd("withdraw");
+
   const cutAmount = amt * range.cut / 100;
   const finalUsd = amt - cutAmount;
   const finalBdt = finalUsd * rate;
@@ -1189,17 +1184,28 @@ async function requestWd(){
   toast("✅ Withdrawal requested", "success");
 }
 
-function copyMyCode(){
+/* ═══ COPY WITH VIDEO TRIGGER ═══ */
+async function copyMyCode(){
   const code = ME.referral_code;
   if (!code) { toast("Code নেই", "error"); return; }
-  if (navigator.clipboard) navigator.clipboard.writeText(code).then(()=>toast("📋 Copied: " + code, "success"));
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(async () => {
+      toast("📋 Copied: " + code, "success");
+      await fireVideoAd("copy_code");
+    });
+  }
 }
 
-function copyRef(){
+async function copyRef(){
   const el = document.getElementById('refLink');
   if (!el) return;
   const text = el.textContent.trim();
-  if (navigator.clipboard) navigator.clipboard.writeText(text).then(()=>toast("📋 Link Copied!", "success"));
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(async () => {
+      toast("📋 Link Copied!", "success");
+      await fireVideoAd("copy_link");
+    });
+  }
 }
 
 (async () => { await startApp(); })();
