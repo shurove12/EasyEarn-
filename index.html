@@ -6,14 +6,8 @@
 <title>EasyEarn — সহজআয়</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- ═══ Monetag Video Ad SDK ═══ -->
+<!-- ═══ Monetag SDK (একটাই সব কিছুর জন্য) ═══ -->
 <script src='//libtl.com/sdk.js' data-zone='11832634' data-sdk='show_11832634'></script>
-
-<!-- ═══ Monetag Push (Notification) — যোগ করুন পরে ═══ -->
-<!-- <script src='//libtl.com/sdk.js' data-zone='YOUR_PUSH_ZONE' data-sdk='show_YOUR_PUSH_ZONE'></script> -->
-
-<!-- ═══ Monetag Banner — যোগ করুন পরে ═══ -->
-<!-- <script src='//libtl.com/sdk.js' data-zone='YOUR_BANNER_ZONE' data-sdk='show_YOUR_BANNER_ZONE'></script> -->
 
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -151,7 +145,7 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
 .spinner{width:44px;height:44px;border:4px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ═══ COOLDOWN BLOCK SCREEN ═══ */
+/* ═══ COOLDOWN SCREEN ═══ */
 .cooldown-screen{position:fixed;inset:0;background:linear-gradient(135deg,#7f1d1d,#dc2626);color:#fff;z-index:4000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
 .cooldown-screen.show{display:flex}
 .cooldown-icon{font-size:80px;margin-bottom:20px}
@@ -176,7 +170,7 @@ input,select{padding:12px;width:100%;border-radius:10px;border:1px solid #d9dee8
   <p class="cooldown-sub">আপনি টানা অনেকগুলো task সম্পন্ন করেছেন। অ্যাড নেটওয়ার্ক আপনাকে সাময়িকভাবে block করেছে।</p>
   <div class="cooldown-timer" id="cooldownTimer" style="--pct:0%">
     <div style="position:relative;text-align:center">
-      <div class="cooldown-minutes" id="cooldownMinutes">5</div>
+      <div class="cooldown-minutes" id="cooldownMinutes">5:00</div>
       <div class="cooldown-mins-lbl">MINUTES</div>
     </div>
   </div>
@@ -206,12 +200,36 @@ const DB = firebase.database();
 
 const BOT_USERNAME = "easyearn120_bot";
 const BOT_LINK = "https://t.me/" + BOT_USERNAME;
-const DIRECT_LINK = "https://omg10.com/4/11567406";
+
+/* ═══════════════════════════════════════════════════════════
+   🎯 AUTO-ROTATING DIRECT LINKS
+   এখানে আপনার সব Direct Link দিন — একাধিক থাকলে auto rotate হবে
+   ═══════════════════════════════════════════════════════════ */
+const DIRECT_LINKS = [
+  "https://omg10.com/4/11567406",
+  "https://omg10.com/4/11836419"
+  // আরো link থাকলে এখানে যোগ করুন
+];
+
+let currentLinkIndex = 0;
+function getNextDirectLink(){
+  // User-এর own rotation index থেকে link দেবে
+  const link = DIRECT_LINKS[currentLinkIndex % DIRECT_LINKS.length];
+  currentLinkIndex++;
+  return link;
+}
+
+/* ═══ Monetag SDK Function ═══ */
 const MONETAG_SDK = "show_11832634";
 
-/* ═══ COOLDOWN CONFIG ═══ */
-const TASKS_BEFORE_COOLDOWN = 3;      // ৩টি task পরপর করলে cooldown
-const COOLDOWN_MINUTES = 5;            // ৫ মিনিট block
+/* ═══ Cooldown Config ═══ */
+const TASKS_BEFORE_COOLDOWN = 3;
+const COOLDOWN_MINUTES = 5;
+
+/* ═══ Banner Config ═══ */
+const BANNER_INTERVAL = 30;      // সেকেন্ড
+const BANNER_FREQUENCY = 2;      // ২টি ad per session
+const BANNER_CAPPING = 0.1;      // ৬ মিনিট session
 
 const LEVELS = [
   { lv: 1,  required: 5,   bonus: 0.50,  minWd: 0.50, maxWd: 1.00,  name: "Beginner",     cut: 3 },
@@ -246,6 +264,69 @@ const tg = window.Telegram?.WebApp;
 tg?.ready();
 tg?.expand();
 
+/* ═══════════════════════════════════════════════════════════
+   🎬 MONETAG AD FUNCTIONS
+   ═══════════════════════════════════════════════════════════ */
+
+/* 1️⃣ Rewarded Video (Claim-এ) */
+async function showRewardedVideo(){
+  return new Promise(async (resolve) => {
+    try {
+      const fn = window[MONETAG_SDK];
+      if (typeof fn !== "function") {
+        // SDK not loaded yet — wait & retry
+        await new Promise(r => setTimeout(r, 1500));
+        const retry = window[MONETAG_SDK];
+        if (typeof retry !== "function") { resolve(false); return; }
+        retry().then(() => resolve(true)).catch(() => resolve(false));
+        return;
+      }
+      fn().then(() => resolve(true)).catch(() => resolve(false));
+    } catch(e) {
+      console.warn("Video error:", e);
+      resolve(false);
+    }
+  });
+}
+
+/* 2️⃣ Rewarded Popup (প্রতি ৩ task-এ) */
+async function showRewardedPopup(){
+  return new Promise(async (resolve) => {
+    try {
+      const fn = window[MONETAG_SDK];
+      if (typeof fn !== "function") { resolve(false); return; }
+      fn('pop').then(() => resolve(true)).catch(() => resolve(false));
+    } catch(e) {
+      console.warn("Popup error:", e);
+      resolve(false);
+    }
+  });
+}
+
+/* 3️⃣ In-App Banner (Home-এ auto) */
+function triggerInAppBanner(){
+  try {
+    const fn = window[MONETAG_SDK];
+    if (typeof fn !== "function") return;
+    fn({
+      type: 'inApp',
+      inAppSettings: {
+        frequency: BANNER_FREQUENCY,
+        capping: BANNER_CAPPING,
+        interval: BANNER_INTERVAL,
+        timeout: 5,
+        everyPage: false
+      }
+    });
+    console.log("✅ In-App banner triggered");
+  } catch(e) {
+    console.warn("In-app banner error:", e);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILS
+   ═══════════════════════════════════════════════════════════ */
 function todayKey(){
   const d = new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -260,7 +341,6 @@ function toast(msg, type=""){
 function esc(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function money(n){ return "$" + Number(n||0).toFixed(2); }
 
-/* ═══ Generate Unique Code ═══ */
 function generateUserCode(){
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code = "";
@@ -276,29 +356,21 @@ async function generateUniqueCode(){
   return "U" + Date.now().toString(36).toUpperCase().slice(-7);
 }
 
-/* ═══ Auto-Fix My Referral Code ═══ */
 async function autoFixMyCode(){
   if (!ME) return;
   try {
-    // Case 1: No code at all → generate
     if (!ME.referral_code) {
       const newCode = await generateUniqueCode();
       await DB.ref("users/" + MY_ID + "/referral_code").set(newCode);
       await DB.ref("referral_codes/" + newCode).set(MY_ID);
-      console.log("✅ Generated code:", newCode);
       return newCode;
     }
-
-    // Case 2: Code exists but not in referral_codes node → save it
     const check = await DB.ref("referral_codes/" + ME.referral_code).get();
     if (!check.exists()) {
       await DB.ref("referral_codes/" + ME.referral_code).set(MY_ID);
-      console.log("✅ Fixed referral_codes entry for:", ME.referral_code);
     }
     return ME.referral_code;
-  } catch(e) {
-    console.error("Auto-fix error:", e);
-  }
+  } catch(e) { console.error(e); }
 }
 
 function getCurrentLevel(n){ let lv=0; for(const L of LEVELS){ if(n>=L.required) lv=L.lv; else break; } return lv; }
@@ -312,7 +384,7 @@ function getWithdrawRange(n){
   return { min: L.minWd, max: L.maxWd, cut: L.cut, level: lv };
 }
 
-/* ═══ COOLDOWN CHECK ═══ */
+/* ═══ COOLDOWN ═══ */
 async function checkCooldown(){
   if (!ME) return false;
   const now = Date.now();
@@ -329,19 +401,14 @@ function showCooldown(ms){
   const timer = document.getElementById('cooldownTimer');
   const mins = document.getElementById('cooldownMinutes');
   const secs = document.getElementById('cooldownSecs');
-  const msg = document.getElementById('cooldownMsg');
-
   screen.classList.add('show');
-
   if (COOLDOWN_INTERVAL) clearInterval(COOLDOWN_INTERVAL);
-
   COOLDOWN_INTERVAL = setInterval(() => {
     ms -= 1000;
     if (ms <= 0) {
       clearInterval(COOLDOWN_INTERVAL);
       screen.classList.remove('show');
       toast("✅ Cooldown শেষ! এখন task করতে পারবেন", "success");
-      // Clear cooldown_until in DB
       DB.ref("users/" + MY_ID + "/cooldown_until").set(0);
       DB.ref("users/" + MY_ID + "/recent_task_count").set(0);
       return;
@@ -417,7 +484,6 @@ async function attemptRegister(){
   const code = (document.getElementById('regRefCode').value || "").trim().toUpperCase();
   if (!code) { errBox.style.display='block'; errBox.textContent='❌ Referral Code দিন।'; return; }
 
-  // Check referral_codes OR admin code
   let referrerId = null;
   let referrerType = "unknown";
 
@@ -436,7 +502,7 @@ async function attemptRegister(){
 
   if (!referrerId) {
     errBox.style.display='block';
-    errBox.textContent='❌ এই Referral Code সঠিক নয়। Admin বা কোনো member-এর কাছ থেকে নিন।';
+    errBox.textContent='❌ এই Referral Code সঠিক নয়। Admin বা member-এর কাছ থেকে নিন।';
     return;
   }
 
@@ -521,13 +587,8 @@ async function boot(){
     if (!snap.exists()) { LISTENERS_ATTACHED = false; renderRegister(); return; }
     ME = snap.val();
     if (ME.is_blocked) { renderBlocked(); return; }
-
-    // ═══ Auto-fix code on every load ═══
     await autoFixMyCode();
-
-    // ═══ Check cooldown ═══
     await checkCooldown();
-
     render();
   });
   DB.ref("categories").on("value", snap => {
@@ -555,6 +616,9 @@ async function boot(){
     WITHDRAWALS = Object.entries(v).map(([k,val]) => ({...val,_id:k})).sort((a,b) => (b.created_at||0) - (a.created_at||0));
     render();
   });
+
+  // ═══ In-App Banner — Home-এ auto trigger ═══
+  setTimeout(() => triggerInAppBanner(), 3000);
 }
 
 function tasksInCategory(catId){
@@ -662,13 +726,11 @@ function render(){
       <h2 style="margin:0 0 8px">👥 Invite Friends</h2>
       <p class="small" style="color:#667085">আপনার নিজস্ব code শেয়ার করুন</p>
     </div>
-
     <div class="my-ref-box">
       <div class="lbl">🔑 YOUR REFERRAL CODE</div>
       <div class="code" id="myRefCode">${esc(myCode)}</div>
       <button class="copy-btn" onclick="copyMyCode()">📋 Copy My Code</button>
     </div>
-
     <div class="hero">
       <h2 style="margin:0 0 6px">🔗 Your Referral Link</h2>
       <div style="background:#f1f5f9;padding:12px;border-radius:10px;word-break:break-all;font-size:11px;margin-top:10px;font-family:monospace" id="refLink">
@@ -677,20 +739,9 @@ function render(){
       <br>
       <button class="primary" style="width:100%" onclick="copyRef()">📋 Copy Referral Link</button>
     </div>
-
     <div class="grid">
       <div class="card"><div class="small">Total Referrals</div><div class="value">${refCount}</div></div>
       <div class="card"><div class="small">Current Level</div><div class="value">${curLevel > 0 ? 'Lv ' + curLevel : 'Locked'}</div></div>
-    </div>
-
-    <div class="hero" style="background:#f0fdf4;border:2px solid #16a34a">
-      <h2 style="margin:0 0 6px;color:#15803d">💡 কিভাবে কাজ করে</h2>
-      <p style="font-size:12.5px;color:#166534;line-height:1.7;margin:0">
-        ১. আপনি আপনার code <b>${esc(myCode)}</b> শেয়ার করবেন<br>
-        ২. বন্ধু আপনার code দিয়ে register করবে<br>
-        ৩. তার নিজের code <b>আলাদা</b> হবে<br>
-        ৪. প্রতিটি referral-এ আপনি <b>$0.10 + level bonus</b> পাবেন
-      </p>
     </div>
   </div>
 
@@ -746,7 +797,6 @@ function render(){
       <div class="row"><span>Referrals</span><b>${refCount}</b></div>
       <div class="row"><span>Total Earned</span><b>${money(ME.total_earned_usd)}</b></div>
       <div class="row"><span>Tasks Completed</span><b>${COMPLETIONS.length}</b></div>
-      <div class="row"><span>Joined</span><b>${new Date(ME.created_at).toLocaleDateString()}</b></div>
     </div>
   </div>
 
@@ -854,8 +904,6 @@ function closeCategory(){
 /* ═══ TASK FLOW ═══ */
 async function startTask(taskId){
   const day = todayKey();
-
-  // ═══ Check cooldown first ═══
   const inCooldown = await checkCooldown();
   if (inCooldown) { toast("⛔ Cooldown চলছে, অপেক্ষা করুন", "error"); return; }
 
@@ -883,9 +931,11 @@ function openTaskModal(task){
   const body = document.getElementById('taskModalBody');
   const counter = parseInt(task.verify_seconds || SETTINGS.TASK_COUNTER_SECONDS || 30);
 
+  // ═══ AUTO-ROTATE: পরের link ═══
+  const directLink = getNextDirectLink();
   try {
-    if (tg && tg.openLink) tg.openLink(DIRECT_LINK);
-    else window.open(DIRECT_LINK, "_blank", "noopener");
+    if (tg && tg.openLink) tg.openLink(directLink);
+    else window.open(directLink, "_blank", "noopener");
   } catch(e) { console.warn(e); }
 
   body.innerHTML = `
@@ -896,7 +946,7 @@ function openTaskModal(task){
     </p>
 
     <div style="background:#dbeafe;padding:10px;border-radius:10px;font-size:12px;color:#1e40af;text-align:center;margin-bottom:12px">
-      🔗 Sponsor link new tab-এ খোলা হয়েছে
+      🔗 Sponsor link #${currentLinkIndex} — new tab-এ খোলা হয়েছে
     </div>
 
     <div class="counter-wrap">
@@ -960,27 +1010,17 @@ async function showVideoStep(task){
       <div class="status-pill info">🎬 Video Ad লোড হচ্ছে...</div>
     </div>`;
 
-  try {
-    const fn = window[MONETAG_SDK];
-    if (typeof fn === "function") {
-      const r = fn();
-      if (r && typeof r.then === "function") await r.catch(() => {});
-    } else {
-      await new Promise(res => setTimeout(res, 1500));
-      const retry = window[MONETAG_SDK];
-      if (typeof retry === "function") {
-        const r2 = retry();
-        if (r2 && typeof r2.then === "function") await r2.catch(() => {});
-      }
-    }
-  } catch(e) { console.warn("Video error:", e); }
+  // ═══ Rewarded Video (11832634) ═══
+  const videoSuccess = await showRewardedVideo();
 
   body.innerHTML = `
     <button class="close-btn" disabled>✕</button>
     <h3>🎬 ${esc(task.title || "Task")}</h3>
     <div style="text-align:center;padding:20px 0">
-      <div style="font-size:64px;margin-bottom:10px">✅</div>
-      <div class="status-pill success" style="font-size:15px">Video দেখা হয়েছে!</div>
+      <div style="font-size:64px;margin-bottom:10px">${videoSuccess ? '✅' : '⚠️'}</div>
+      <div class="status-pill ${videoSuccess ? 'success' : 'info'}" style="font-size:15px">
+        ${videoSuccess ? 'Video দেখা হয়েছে!' : 'Video skip হয়েছে'}
+      </div>
       <p style="color:#667085;font-size:13px;margin-top:14px">Reward claim হচ্ছে...</p>
       <div class="spinner" style="margin-top:14px"></div>
     </div>`;
@@ -988,7 +1028,6 @@ async function showVideoStep(task){
   setTimeout(() => finalizeTask(task), 1200);
 }
 
-/* ═══ FINALIZE TASK + COOLDOWN CHECK ═══ */
 async function finalizeTask(task){
   const day = todayKey();
   await DB.ref("users/" + MY_ID).transaction(cur => {
@@ -1008,6 +1047,7 @@ async function finalizeTask(task){
     uid: MY_ID, task_id: task._id, category: task.category || "",
     reward_usd: task.reward_usd, status: "verified",
     direct_link_opened: true, video_watched: true,
+    link_index: currentLinkIndex,
     day_key: day, created_at: Date.now()
   });
   await DB.ref("ad_revenue/" + day).transaction(cur => {
@@ -1020,11 +1060,13 @@ async function finalizeTask(task){
     ref_id: "task:" + task._id, created_at: Date.now()
   });
 
-  // ═══ Increment recent task count & check for cooldown ═══
+  // ═══ Increment task count & check cooldown ═══
   let cooldownTriggered = false;
+  let recentCount = 0;
   await DB.ref("users/" + MY_ID).transaction(cur => {
     if (!cur) return cur;
     cur.recent_task_count = Number(cur.recent_task_count || 0) + 1;
+    recentCount = cur.recent_task_count;
     if (cur.recent_task_count >= TASKS_BEFORE_COOLDOWN) {
       cur.cooldown_until = Date.now() + (COOLDOWN_MINUTES * 60 * 1000);
       cur.recent_task_count = 0;
@@ -1033,6 +1075,7 @@ async function finalizeTask(task){
     return cur;
   });
 
+  // ═══ Show success screen ═══
   const body = document.getElementById('taskModalBody');
   body.innerHTML = `
     <button class="close-btn" id="doneClose">✕</button>
@@ -1040,9 +1083,12 @@ async function finalizeTask(task){
     <div style="text-align:center;padding:20px 0">
       <div style="font-size:80px;margin-bottom:12px">💰</div>
       <div style="font-size:32px;font-weight:900;color:#16a34a">+${money(task.reward_usd)}</div>
-      <p style="color:#667085;font-size:13px;margin-top:10px">Reward claimed successfully!</p>
-      ${cooldownTriggered ? `<div style="margin-top:16px;padding:12px;background:#fee2e2;border-radius:10px;font-size:12.5px;color:#7f1d1d">
-        ⛔ আপনি ${TASKS_BEFORE_COOLDOWN}টি task করেছেন। ${COOLDOWN_MINUTES} মিনিটের cooldown শুরু হয়েছে।
+      <p style="color:#667085;font-size:13px;margin-top:10px">Reward claimed!</p>
+      <div style="margin-top:14px;padding:10px;background:#f1f5f9;border-radius:10px;font-size:12px;color:#475569">
+        Task ${recentCount}/${TASKS_BEFORE_COOLDOWN} (before cooldown)
+      </div>
+      ${cooldownTriggered ? `<div style="margin-top:12px;padding:12px;background:#fee2e2;border-radius:10px;font-size:12.5px;color:#7f1d1d">
+        ⛔ ${TASKS_BEFORE_COOLDOWN}টি task করেছেন। ${COOLDOWN_MINUTES} মিনিটের cooldown শুরু।
       </div>` : ''}
     </div>`;
 
@@ -1052,18 +1098,25 @@ async function finalizeTask(task){
     render();
   };
 
-  setTimeout(() => {
+  // ═══ After success — Rewarded Popup (প্রতি ৩ task-এ) ═══
+  setTimeout(async () => {
     document.getElementById('taskModal').classList.remove('show');
     CURRENT_TASK = null;
     if (cooldownTriggered) {
       showCooldown(COOLDOWN_MINUTES * 60 * 1000);
+    } else {
+      // ═══ প্রতি ৩ task-এ Popup ═══
+      const totalTasksToday = COMPLETIONS.filter(c => c.day_key === day).length;
+      if (totalTasksToday % 3 === 0) {
+        setTimeout(() => showRewardedPopup(), 500);
+      }
     }
     render();
     toast("✅ +" + money(task.reward_usd) + " earned!", "success");
-  }, cooldownTriggered ? 2500 : 2200);
+  }, cooldownTriggered ? 2500 : 2000);
 }
 
-/* NAV */
+/* ═══ NAV ═══ */
 function nav(id, el){
   CURRENT_CATEGORY = null;
   CURRENT_SECTION = id;
@@ -1139,9 +1192,7 @@ async function requestWd(){
 function copyMyCode(){
   const code = ME.referral_code;
   if (!code) { toast("Code নেই", "error"); return; }
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(code).then(()=>toast("📋 Code Copied: " + code, "success"));
-  }
+  if (navigator.clipboard) navigator.clipboard.writeText(code).then(()=>toast("📋 Copied: " + code, "success"));
 }
 
 function copyRef(){
